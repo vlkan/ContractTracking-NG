@@ -1,3 +1,18 @@
-<app-navi></app-navi>
-<app-customer></app-customer>
-<router-outlet></router-outlet>
+<div class="container">
+  <app-navi></app-navi>
+  <div class="row">
+    <div class="col-md-3">
+      <app-customer></app-customer>
+    </div>
+    <div class="col-md-9">
+      <app-project></app-project>
+    </div>
+  </div>
+
+  <!-- <app-employee></app-employee>
+  <app-notification></app-notification>
+  <app-payment></app-payment>
+  <app-worklist></app-worklist> -->
+
+  <router-outlet></router-outlet>
+</div>
