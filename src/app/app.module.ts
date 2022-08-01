@@ -11,6 +11,8 @@ import { NotificationComponent } from './components/notification/notification.co
 import { PaymentComponent } from './components/payment/payment.component';
 import { NaviComponent } from './components/navi/navi.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,8 @@ import { NaviComponent } from './components/navi/navi.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
