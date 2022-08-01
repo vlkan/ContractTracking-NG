@@ -8,10 +8,15 @@ import { Project } from '../models/project';
   providedIn: 'root',
 })
 export class ProjectService {
-  apiUrl = 'https://localhost:7032/api/projects/getall';
+  apiUrl = 'https://localhost:7032/api/';
   constructor(private httpClient: HttpClient) {}
 
   getProjects(): Observable<ListResponseModel<Project>> {
-    return this.httpClient.get<ListResponseModel<Project>>(this.apiUrl);
+    let newPath = this.apiUrl + "projects/getall"
+    return this.httpClient.get<ListResponseModel<Project>>(newPath);
+  }
+  getProjectsByCustomer(customerId:number): Observable<ListResponseModel<Project>> {
+    let newPath = this.apiUrl + "products/getbycustomer?customerId=" + customerId
+    return this.httpClient.get<ListResponseModel<Project>>(newPath);
   }
 }

@@ -4,7 +4,8 @@ import { ProjectComponent } from './components/project/project.component';
 
 const routes: Routes = [
   {path:"", pathMatch:"full", component:ProjectComponent},
-  {path:"projects", component:ProjectComponent}
+  {path:"projects", component:ProjectComponent},
+  {path:"projects/customer/:customerId", component:ProjectComponent}
 ];
 
 @NgModule({
