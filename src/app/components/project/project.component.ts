@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project';
-import { ProjectResponseModel } from 'src/app/models/projectResponseModel';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -15,10 +14,10 @@ export class ProjectComponent implements OnInit {
   constructor(private projectService:ProjectService) {}
 
   ngOnInit(): void {
-    this.getProducts()
+    this.getProjects()
   }
 
-  getProducts() {
+  getProjects() {
     this.projectService.getProjects().subscribe(response =>{
       this.projects = response.data
       this.dataLoaded = true

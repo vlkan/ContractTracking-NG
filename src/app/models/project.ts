@@ -1,20 +1,20 @@
 export interface Project{
-  Id:number,
-  Name:string,
-  Type:ProjectType,
-  SubType:string,
-  EmployeeOwnerId:number,
-  CustomerOwnerId:number,
-  Description:string,
-  ContractBudget:number,
-  CurrencyType:CurrencyTypeE,
-  ContractTerm:number,
-  ContractStartDate:Date,
-  WorkerDay:number,
-  WorkerHour:number,
-  IsDeleted:EnumIsDeleted,
-  CreatedAt:Date,
-  ModifiedAt:Date
+  id:number,
+  name:string,
+  type:ProjectType,
+  subType:string,
+  employeeOwnerId:number,
+  customerOwnerId:number,
+  description:string,
+  contractBudget:number,
+  currencyType:CurrencyTypeE,
+  contractTerm:number,
+  contractStartDate:Date,
+  workerDay:number,
+  workerHour:number,
+  isDeleted:EnumIsDeleted,
+  createdAt:Date,
+  modifiedAt:Date
 }
 
 enum ProjectType

@@ -1,14 +1,13 @@
 export interface Customer{
-  Id:number,
-  Name:string,
-  Email:string,
-  Description:string,
-  Type:CustomerType,
-  Phone:string,
-  IsDeleted:EnumIsDeleted,
-  CreatedAt:Date,
-  ModifiedAt:Date,
-
+  id:number,
+  name:string,
+  email:string,
+  description:string,
+  type:CustomerType,
+  phone:string,
+  isDeleted:EnumIsDeleted,
+  createdAt:Date,
+  modifiedAt:Date,
 }
 
 enum CustomerType{
