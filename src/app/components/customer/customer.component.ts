@@ -1,3 +1,4 @@
+import { getLocaleDateFormat, getLocaleDateTimeFormat } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -9,6 +10,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 })
 export class CustomerComponent implements OnInit {
   customers: Customer[] = [];
+  currentCustomer: Customer;
   constructor(private customerService: CustomerService) {}
 
   ngOnInit(): void {
@@ -18,7 +20,17 @@ export class CustomerComponent implements OnInit {
   getCustomers() {
     this.customerService.getCustomers().subscribe((response) => {
       this.customers = response.data;
-      console.log(this.customers)
+      console.log(this.customers);
     });
+  }
+  setCurrentCustomer(customer: Customer) {
+    this.currentCustomer = customer;
+  }
+  getCurrentCustomerClass(customer: Customer) {
+    if(customer == this.currentCustomer){
+      return "list-group-item active"
+    }else{
+      return "list-group-item"
+    }
   }
 }

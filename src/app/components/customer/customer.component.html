@@ -1,3 +1,5 @@
 <ul class="list-group">
-  <li *ngFor="let customer of customers" class="list-group-item">{{ customer.name }}</li>
+  <li (click)="setCurrentCustomer(customer)" *ngFor="let customer of customers" [class]="getCurrentCustomerClass(customer)">{{ customer.name }}</li>
 </ul>
+
+<h5 *ngIf="currentCustomer">Selected Customer is {{currentCustomer.name}}</h5>
