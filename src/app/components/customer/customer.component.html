@@ -1,9 +1,43 @@
 <ul class="list-group">
   <li routerLink="/projects" [class]="getAllCustomerClass()">All Projects</li>
-  <li (click)="setCurrentCustomer(customer)"
-  routerLink="/projects/customer/{{customer.id}}"
-  *ngFor="let customer of customers"
-  [class]="getCurrentCustomerClass(customer)">{{ customer.name }}</li>
+  <li (click)="setCurrentCustomer(customer)" routerLink="/projects/customer/{{customer.id}}"
+    *ngFor="let customer of customers" [class]="getCurrentCustomerClass(customer)">{{ customer.name }}
+    <button type="button" class="btn btn-light btn-sm float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Details
+    </button>
+  </li>
+
 </ul>
 
+
+
 <h5 *ngIf="currentCustomer">Selected Customer is {{currentCustomer.name}}</h5>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="currentCustomer" id="exampleModalLabel">About {{currentCustomer.name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title" *ngIf="currentCustomer">{{currentCustomer.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentCustomer">{{currentCustomer.email}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentCustomer">{{currentCustomer.phone}}</h6>
+            <p class="card-text" *ngIf="currentCustomer">{{currentCustomer.description}}</p>
+            <p class="card-text" *ngIf="currentCustomer">{{currentCustomer.createdAt | date}}</p>
+            <p class="card-text" *ngIf="currentCustomer" [class]="getEnum(currentCustomer.type)">{{customerType}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success">Update</button>
+        <button type="button" class="btn btn-danger" (click)="deleteCustomer(currentCustomer)">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

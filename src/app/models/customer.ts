@@ -11,12 +11,12 @@ export interface Customer{
 }
 
 enum CustomerType{
-  Individual = 1,
-  Corporate = 2,
+  "Individual" = 1,
+  "Corporate" = 2,
 }
 
 enum EnumIsDeleted {
-  No = 0,
-  Yes = 1,
+  "No" = 0,
+  "Yes" = 1,
 }
 
