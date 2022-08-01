@@ -1,4 +1,19 @@
+<div *ngIf="dataLoaded==false" class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
 <table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Sub Type</th>
+      <th>Employee Owner</th>
+      <th>Customer Owner</th>
+      <th>Description</th>
+    </tr>
+  </thead>
   <tr *ngFor="let project of projects">
     <td>{{project.Id}}</td>
     <td>{{project.Name}}</td>
@@ -7,6 +22,5 @@
     <td>{{project.EmployeeOwnerId}}</td>
     <td>{{project.CustomerOwnerId}}</td>
     <td>{{project.Description}}</td>
-    <td>{{project.CustomerOwnerId}}</td>
   </tr>
 </table>

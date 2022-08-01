@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project';
 import { ProjectResponseModel } from 'src/app/models/projectResponseModel';
-import { HttpClient } from '@angular/common/http';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-project',
@@ -10,19 +10,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProjectComponent implements OnInit {
   projects: Project[] = [];
-  apiUrl = 'https://localhost:7032/api/projects/getall';
+  dataLoaded = false
 
-  constructor(private httpClient: HttpClient) {
-    this.getProjects()
+  constructor(private projectService:ProjectService) {}
+
+  ngOnInit(): void {
+    this.getProducts()
   }
 
-  ngOnInit(): void { }
-
-  getProjects() {
-    this.httpClient
-      .get<ProjectResponseModel>(this.apiUrl)
-      .subscribe((response) => {
-        this.projects = response.data;
-      });
+  getProducts() {
+    this.projectService.getProjects().subscribe(response =>{
+      this.projects = response.data
+      this.dataLoaded = true
+    })
   }
 }
