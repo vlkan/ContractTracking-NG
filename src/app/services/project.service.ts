@@ -16,7 +16,7 @@ export class ProjectService {
     return this.httpClient.get<ListResponseModel<Project>>(newPath);
   }
   getProjectsByCustomer(customerId:number): Observable<ListResponseModel<Project>> {
-    let newPath = this.apiUrl + "products/getbycustomer?customerId=" + customerId
+    let newPath = this.apiUrl + "projects/getbycustomer?customerId=" + customerId
     return this.httpClient.get<ListResponseModel<Project>>(newPath);
   }
 }

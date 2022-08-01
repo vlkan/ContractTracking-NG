@@ -33,4 +33,11 @@ export class CustomerComponent implements OnInit {
       return "list-group-item"
     }
   }
+  getAllCustomerClass(){
+    if(!this.currentCustomer){
+      return "list-group-item active"
+    }else{
+      return "list-group-item"
+    }
+  }
 }

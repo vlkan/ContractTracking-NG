@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
 
@@ -11,14 +12,28 @@ export class ProjectComponent implements OnInit {
   projects: Project[] = [];
   dataLoaded = false
 
-  constructor(private projectService:ProjectService) {}
+  constructor(private projectService:ProjectService,
+     private activatedRoute:ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getProjects()
+    this.activatedRoute.params.subscribe(params=>{
+      if(params["customerId"]){
+        this.getProjectsByCustomer(params["customerId"])
+      }else{
+        this.getProjects()
+      }
+    })
   }
 
   getProjects() {
     this.projectService.getProjects().subscribe(response =>{
+      this.projects = response.data
+      this.dataLoaded = true
+    })
+  }
+
+  getProjectsByCustomer(customerId:number) {
+    this.projectService.getProjectsByCustomer(customerId).subscribe(response =>{
       this.projects = response.data
       this.dataLoaded = true
     })
