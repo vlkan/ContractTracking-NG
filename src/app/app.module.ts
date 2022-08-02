@@ -12,6 +12,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { NaviComponent } from './components/navi/navi.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { VatAddedPipe } from './pipes/vat-added.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     WorklistComponent,
     NotificationComponent,
     PaymentComponent,
-    NaviComponent
+    NaviComponent,
+    VatAddedPipe
   ],
   imports: [
     BrowserModule,
