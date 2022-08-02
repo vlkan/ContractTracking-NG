@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
+import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -16,12 +18,18 @@ export class ProjectComponent implements OnInit {
   currencyType: string;
   currentProject: Project;
 
+  customers: Customer[] = [];
+  currentCustomer: Customer;
+  customerType: string;
+
   constructor(
     private projectService: ProjectService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private customerService: CustomerService
   ) { }
 
   ngOnInit(): void {
+    this.getCustomers();
     this.activatedRoute.params.subscribe((params) => {
       if (params['customerId']) {
         this.getProjectsByCustomer(params['customerId']);
@@ -57,6 +65,40 @@ export class ProjectComponent implements OnInit {
   getCurrencyTypeEnum(type: number) {
     this.currencyType = CurrencyTypeE[type];
   }
+  getCustomers() {
+    this.customerService.getCustomers().subscribe((response) => {
+      this.customers = response.data;
+      console.log(response);
+    });
+  }
+  addCustomer(customer: Customer) {
+    this.customerService.addCustomer(customer).subscribe()
+  }
+  deleteCustomer(customer: Customer) {
+    this.customerService.deleteCustomer(customer).subscribe(response => {
+      console.log(response.message)
+    })
+  }
+  setCurrentCustomer(customer: Customer) {
+    this.currentCustomer = customer;
+  }
+  getCurrentCustomerClass(customer: Customer) {
+    if (customer == this.currentCustomer) {
+      return 'list-group-item active';
+    } else {
+      return 'list-group-item';
+    }
+  }
+  getAllCustomerClass() {
+    if (!this.currentCustomer) {
+      return 'list-group-item active';
+    } else {
+      return 'list-group-item';
+    }
+  }
+  getCustomerTypeEnum(type: number) {
+    this.customerType = CustomerType[type];
+  }
 }
 
 enum ProjectType {
@@ -75,4 +117,8 @@ enum CurrencyTypeE {
 enum EnumIsDeleted {
   No = 0,
   Yes = 1,
+}
+enum CustomerType {
+  'Individual' = 1,
+  'Corporate' = 2,
 }
