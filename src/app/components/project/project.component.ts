@@ -4,6 +4,8 @@ import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-project',
@@ -22,10 +24,13 @@ export class ProjectComponent implements OnInit {
   currentCustomer: Customer;
   customerType: string;
 
+  addCustomerForm:FormGroup
+
   constructor(
     private projectService: ProjectService,
     private activatedRoute: ActivatedRoute,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +81,7 @@ export class ProjectComponent implements OnInit {
   }
   deleteCustomer(customer: Customer) {
     this.customerService.deleteCustomer(customer).subscribe(response => {
-      console.log(response.message)
+      this.toastrService.success(response.message, customer.name)
     })
   }
   setCurrentCustomer(customer: Customer) {
