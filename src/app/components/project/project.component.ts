@@ -11,6 +11,7 @@ import { ProjectService } from 'src/app/services/project.service';
 export class ProjectComponent implements OnInit {
   projects: Project[] = [];
   dataLoaded = false
+  filterText = ""
 
   constructor(private projectService:ProjectService,
      private activatedRoute:ActivatedRoute) {}

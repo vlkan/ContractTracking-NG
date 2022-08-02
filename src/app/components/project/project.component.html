@@ -2,6 +2,14 @@
   <span class="visually-hidden">Loading...</span>
 </div>
 
+<div class="mb-3">
+  <label for="filterText" class="form-label">Search</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search">
+</div>
+<div *ngIf="filterText" class="alert alert-primary">
+  Your search is {{filterText}}.
+</div>
+
 <table class="table">
   <thead>
     <tr class="table-dark">
