@@ -49,7 +49,7 @@ export class CustomerComponent implements OnInit {
       return 'list-group-item';
     }
   }
-  getEnum(type: number) {
+  getCustomerTypeEnum(type: number) {
     this.customerType = CustomerType[type];
   }
 }

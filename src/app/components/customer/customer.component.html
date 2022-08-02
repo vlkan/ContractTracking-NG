@@ -29,7 +29,7 @@
             <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentCustomer">{{currentCustomer.phone}}</h6>
             <p class="card-text" *ngIf="currentCustomer">{{currentCustomer.description}}</p>
             <p class="card-text" *ngIf="currentCustomer">{{currentCustomer.createdAt | date}}</p>
-            <p class="card-text" *ngIf="currentCustomer" [class]="getEnum(currentCustomer.type)">{{customerType}}</p>
+            <p class="card-text" *ngIf="currentCustomer" [class]="getCustomerTypeEnum(currentCustomer.type)">{{customerType}}</p>
           </div>
         </div>
       </div>

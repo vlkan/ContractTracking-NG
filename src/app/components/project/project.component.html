@@ -15,20 +15,47 @@
     <tr class="table-dark">
       <th>Id</th>
       <th>Name</th>
-      <th>Type</th>
-      <th>Sub Type</th>
       <th>Employee Owner</th>
       <th>Customer Owner</th>
       <th>Description</th>
+      <th>Constract Start Date</th>
+      <th></th>
     </tr>
   </thead>
-  <tr *ngFor="let project of projects">
+  <tr *ngFor="let project of projects  | filterPipe:filterText" (click)="setCurrentProject(project)">
     <td>{{project.id}}</td>
     <td>{{project.name}}</td>
-    <td>{{project.type}}</td>
-    <td>{{project.subType}}</td>
     <td>{{project.employeeOwnerId}}</td>
     <td>{{project.customerOwnerId}}</td>
     <td>{{project.description}}</td>
+    <td>{{project.contractStartDate | date}}</td>
+    <td><button class="btn btn-light btn-sm" data-bs-toggle="modal"
+        data-bs-target="#projectDetailModal">Details</button></td>
   </tr>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="projectDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"  *ngIf="currentProject" id="exampleModalLabel">Details of {{currentProject.name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title" *ngIf="currentProject">{{currentProject.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject" [class]="getProjectTypeEnum(currentProject.type)">{{projectType}} Project</h6>
+            <p class="card-text" *ngIf="currentProject">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
