@@ -17,6 +17,9 @@ import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       positionClass: "toast-bottom-right"
     }),
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
