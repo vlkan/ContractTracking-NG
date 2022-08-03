@@ -7,10 +7,12 @@
       <span class="visually-hidden">Loading...</span>
     </div>
 
-    <div class="mb-3">
+    <div class="d-flex" role="search">
       <label for="filterText" class="form-label"></label>
       <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+      <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"data-bs-target="#addProjectModal">Add Project</button>
     </div>
+
     <div *ngIf="filterText" class="alert alert-primary">
       Your search is {{ filterText }}.
     </div>
@@ -82,12 +84,198 @@
             </div>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+              data-bs-target="#updateProjectModal">Update</button>
+            <button type="button" class="btn btn-danger" (click)="deleteProject(currentProject)">
+              Delete
+            </button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Project Modal -->
+<div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModalLabel">Add New Project</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="projectAddForm">
+          <div class="form-group">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Project Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name" />
+            </div>
+            <div class="mb-3"> Project Type
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="type">
+                <option selected [ngValue]=1>System</option>
+                <option [ngValue]=2>Software</option>
+                <option [ngValue]=3>System and Software</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Sub Type</label>
+              <input type="email" class="form-control" id="email" formControlName="subType" placeholder="name@example.com" />
+            </div>
+            <div class="mb-3"> Employee Owner
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="employeeOwnerId">
+                <option selected [ngValue]=1>System</option>
+                <option [ngValue]=2>Software</option>
+                <option [ngValue]=3>System and Software</option>
+              </select>
+            </div>
+            <div class="mb-3"> Customer Owner
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="customerOwnerId">
+                <option selected [ngValue]=1>System</option>
+                <option [ngValue]=2>Software</option>
+                <option [ngValue]=3>System and Software</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+              <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Contract Budget</label>
+              <input type="text" class="form-control" id="name" formControlName="contractBudget" placeholder="Budget" />
+            </div>
+            <div class="mb-3"> Currency Type
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="currencyType">
+                <option selected [ngValue]=1>Turkish Lira</option>
+                <option [ngValue]=2>Dollar</option>
+                <option [ngValue]=3>Eura</option>
+                <option [ngValue]=4>Pound</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Contract Term</label>
+              <input type="text" class="form-control" id="name" formControlName="contractTerm" placeholder="Budget" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Constract Start Date:</label>
+              <input type="date" id="birthday" name="birthday" formControlName="contractStartDate">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Worker Day</label>
+              <input type="text" class="form-control" id="name" formControlName="workerDay" placeholder="Budget" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Worker Hour</label>
+              <input type="text" class="form-control" id="name" formControlName="workerHour" placeholder="Budget" />
+            </div>
+
+            <div class="d-grid gap-2">
+              <button class="btn btn-success btn-sm" type="button" (click)="addProject()">
+                Add Project
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Update Project Modal -->
+<div class="modal fade" id="updateProjectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModalLabel">Update Project</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="projectUpdateForm" *ngIf="projectUpdateForm">
+          <div class="form-group">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Project Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name" />
+            </div>
+            <div class="mb-3"> Project Type
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="type">
+                <option selected [ngValue]=1>System</option>
+                <option [ngValue]=2>Software</option>
+                <option [ngValue]=3>System and Software</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Sub Type</label>
+              <input type="email" class="form-control" id="email" formControlName="subType" placeholder="name@example.com" />
+            </div>
+            <div class="mb-3"> Employee Owner
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="employeeOwnerId">
+                <option selected [ngValue]=1>System</option>
+                <option [ngValue]=2>Software</option>
+                <option [ngValue]=3>System and Software</option>
+              </select>
+            </div>
+            <div class="mb-3"> Customer Owner
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="customerOwnerId">
+                <option selected [ngValue]=1>System</option>
+                <option [ngValue]=2>Software</option>
+                <option [ngValue]=3>System and Software</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+              <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Contract Budget</label>
+              <input type="text" class="form-control" id="name" formControlName="contractBudget" placeholder="Budget" />
+            </div>
+            <div class="mb-3"> Currency Type
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="currencyType">
+                <option selected [ngValue]=1>Turkish Lira</option>
+                <option [ngValue]=2>Dollar</option>
+                <option [ngValue]=3>Eura</option>
+                <option [ngValue]=4>Pound</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Contract Term</label>
+              <input type="text" class="form-control" id="name" formControlName="contractTerm" placeholder="Budget" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Constract Start Date:</label>
+              <input type="date" id="birthday" name="birthday" formControlName="contractStartDate">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Worker Day</label>
+              <input type="text" class="form-control" id="name" formControlName="workerDay" placeholder="Budget" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Worker Hour</label>
+              <input type="text" class="form-control" id="name" formControlName="workerHour" placeholder="Budget" />
+            </div>
+
+            <div class="d-grid gap-2">
+              <button class="btn btn-success btn-sm" type="button" (click)="updateProject()">
+                Update Project
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
       </div>
     </div>
   </div>
