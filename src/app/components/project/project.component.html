@@ -63,9 +63,20 @@
                   [class]="getProjectTypeEnum(currentProject.type)">
                   {{ projectType }} Project
                 </h6>
+                <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
+                  {{ currentProject.subType }}
+                </h6>
                 <p class="card-text" *ngIf="currentProject">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
+                  {{currentProject.description}}
+                </p>
+                <p class="card-text" *ngIf="currentProject" [class]="getCurrencyTypeEnum(currentProject.type)">
+                  {{currentProject.contractBudget}} {{currencyType}}
+                </p>
+                <p class="card-text" *ngIf="currentProject">
+                  {{currentProject.workerDay}} Worker Day
+                </p>
+                <p class="card-text" *ngIf="currentProject">
+                  {{currentProject.workerHour}} Worker Hour
                 </p>
               </div>
             </div>

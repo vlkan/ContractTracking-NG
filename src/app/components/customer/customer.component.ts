@@ -4,6 +4,8 @@ import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 
+declare var $ : any;
+
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
@@ -37,6 +39,7 @@ export class CustomerComponent implements OnInit {
       this.customerService.addCustomer(customerModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
       })
+      $('#addCustomerModal').modal('hide');
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -48,6 +51,7 @@ export class CustomerComponent implements OnInit {
       this.customerService.updateCustomer(customerModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
       })
+      $('#updateCustomerModal').modal('hide');
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -56,6 +60,7 @@ export class CustomerComponent implements OnInit {
     this.customerService.deleteCustomer(customer).subscribe(response => {
       this.toastrService.success(response.message, customer.name)
     })
+    $('#customerDetailModal').modal('hide');
   }
   setCurrentCustomer(customer: Customer) {
     this.currentCustomer = customer;
