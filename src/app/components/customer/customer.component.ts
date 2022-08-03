@@ -11,12 +11,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CustomerComponent implements OnInit {
   customers: Customer[] = [];
-  currentCustomer: Customer;
+  currentCustomer: Customer
   customerType: string;
 
   customerAddForm: FormGroup
+  customerUpdateForm: FormGroup
 
-  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder) { }
+  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder) {}
 
   ngOnInit(): void {
     this.getCustomers();
@@ -29,8 +30,27 @@ export class CustomerComponent implements OnInit {
       console.log(response);
     });
   }
-  addCustomer(customer: Customer) {
-    this.customerService.addCustomer(customer).subscribe()
+  addCustomer() {
+    console.log(this.customerAddForm.value)
+    if(this.customerAddForm.valid){
+      let customerModel = Object.assign({}, this.customerAddForm.value)
+      this.customerService.addCustomer(customerModel).subscribe(response => {
+        this.toastrService.success(response.message, "Success")
+      })
+    }else{
+      this.toastrService.error("Form Missing", "Warning")
+    }
+  }
+  updateCustomer(){
+    console.log(this.customerUpdateForm.value)
+    if(this.customerUpdateForm.valid){
+      let customerModel = Object.assign({}, this.customerUpdateForm.value)
+      this.customerService.updateCustomer(customerModel).subscribe(response => {
+        this.toastrService.success(response.message, "Success")
+      })
+    }else{
+      this.toastrService.error("Form Missing", "Warning")
+    }
   }
   deleteCustomer(customer: Customer) {
     this.customerService.deleteCustomer(customer).subscribe(response => {
@@ -39,6 +59,7 @@ export class CustomerComponent implements OnInit {
   }
   setCurrentCustomer(customer: Customer) {
     this.currentCustomer = customer;
+    this.createCustomerUpdateForm()
   }
   getCurrentCustomerClass(customer: Customer) {
     if (customer == this.currentCustomer) {
@@ -59,14 +80,27 @@ export class CustomerComponent implements OnInit {
   }
   createCustomerAddForm(){
     this.customerAddForm = this.formBuilder.group({
-      id:["0"],
+      id:[0],
       name:["", Validators.required],
       email:["", Validators.required],
       description:["", Validators.required],
-      type:["", Validators.required],
+      type:[, Validators.required],
       phone:["", Validators.required],
-      isDeleted:["0"],
-      createdAt:[""],
+      isDeleted:[0],
+      createdAt:[new Date,],
+      modifiedAt:[new Date,]
+    })
+  }
+  createCustomerUpdateForm(){
+    this.customerUpdateForm = this.formBuilder.group({
+      id:[this.currentCustomer.id],
+      name:["", Validators.required],
+      email:["", Validators.required],
+      description:["", Validators.required],
+      type:[, Validators.required],
+      phone:["", Validators.required],
+      isDeleted:[0],
+      createdAt:[this.currentCustomer.createdAt,],
       modifiedAt:[new Date,]
     })
   }

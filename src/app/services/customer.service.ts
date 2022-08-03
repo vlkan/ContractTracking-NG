@@ -17,7 +17,7 @@ export class CustomerService {
     return this.httpClient.get<ListResponseModel<Customer>>(newApi);
   }
   deleteCustomer(customer: Customer):Observable<ResponseModel>{
-    let newApi = this.apiUrl + "/customers/delete/"
+    let newApi = this.apiUrl + "/customers/delete"
     return this.httpClient.post<ResponseModel>(newApi, customer)
   }
   addCustomer(customer: Customer):Observable<ResponseModel>{

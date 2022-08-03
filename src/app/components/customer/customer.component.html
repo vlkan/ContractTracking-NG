@@ -14,19 +14,16 @@
 <p></p>
 <div class="d-grid gap-2">
   <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
-    Add New Customer
+    Add Customer
   </button>
 </div>
-<h5 *ngIf="currentCustomer">
-  Selected Customer is {{ currentCustomer.name }}
-</h5>
 
 <!-- Customer Details Modal -->
 <div class="modal fade" id="customerDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" *ngIf="currentCustomer" id="exampleModalLabel">
+        <h5 class="modal-title" *ngIf="currentCustomer" id="detailModalLabel">
           About {{ currentCustomer.name }}
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -56,7 +53,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success">Update</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCustomerModal">Update</button>
         <button type="button" class="btn btn-danger" (click)="deleteCustomer(currentCustomer)">
           Delete
         </button>
@@ -72,7 +69,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Customer</h5>
+        <h5 class="modal-title" id="addModalLabel">Add New Customer</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -83,11 +80,11 @@
               <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name" />
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Customer Email address</label>
+              <label for="exampleFormControlInput1" class="form-label">Customer Email Address</label>
               <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com" />
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Customer Phone No</label>
+              <label for="exampleFormControlInput1" class="form-label">Customer Phone Number</label>
               <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="0312" />
             </div>
             <div class="mb-3">
@@ -96,9 +93,14 @@
             </div>
             <div class="mb-3"> Customer Type
               <select class="form-select" aria-label="Default select example" id="type" formControlName="type">
-                <option selected value="1">Individual</option>
-                <option value="2">Corporate</option>
+                <option selected [ngValue]=1>Individual</option>
+                <option [ngValue]=2>Corporate</option>
               </select>
+            </div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-success btn-sm" type="button" (click)="addCustomer()">
+                Add Customer
+              </button>
             </div>
           </div>
         </form>
@@ -107,7 +109,57 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Update Customer Modal -->
+<div class="modal fade" id="updateCustomerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Update Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="customerUpdateForm" *ngIf="customerUpdateForm">
+          <div class="form-group">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+              <input type="text" class="form-control" id="nameu" formControlName="name" placeholder="Name" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Customer Email Address</label>
+              <input type="email" class="form-control" id="emailu" formControlName="email" placeholder="name@example.com" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Customer Phone Number</label>
+              <input type="text" class="form-control" id="phoneu" formControlName="phone" placeholder="0312 000 00 00" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+              <textarea class="form-control" id="descriptionu" rows="3" formControlName="description"></textarea>
+            </div>
+            <div class="mb-3"> Customer Type
+              <select class="form-select" aria-label="Default select example" id="typeu" formControlName="type">
+                <option selected [ngValue]=1>Individual</option>
+                <option [ngValue]=2>Corporate</option>
+              </select>
+            </div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-success btn-sm" type="button" (click)="updateCustomer()">
+                Update Customer
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
       </div>
     </div>
   </div>
