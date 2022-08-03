@@ -1,7 +1,8 @@
-import { getLocaleDateFormat, getLocaleDateTimeFormat } from '@angular/common';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer',
@@ -12,7 +13,7 @@ export class CustomerComponent implements OnInit {
   customers: Customer[] = [];
   currentCustomer: Customer;
   customerType: string;
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getCustomers();
@@ -29,7 +30,7 @@ export class CustomerComponent implements OnInit {
   }
   deleteCustomer(customer: Customer) {
     this.customerService.deleteCustomer(customer).subscribe(response => {
-      console.log(response.message)
+      this.toastrService.success(response.message, customer.name)
     })
   }
   setCurrentCustomer(customer: Customer) {
