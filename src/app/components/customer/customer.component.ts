@@ -13,10 +13,14 @@ export class CustomerComponent implements OnInit {
   customers: Customer[] = [];
   currentCustomer: Customer;
   customerType: string;
-  constructor(private customerService: CustomerService, private toastrService: ToastrService) { }
+
+  customerAddForm: FormGroup
+
+  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
     this.getCustomers();
+    this.createCustomerAddForm();
   }
 
   getCustomers() {
@@ -52,6 +56,19 @@ export class CustomerComponent implements OnInit {
   }
   getCustomerTypeEnum(type: number) {
     this.customerType = CustomerType[type];
+  }
+  createCustomerAddForm(){
+    this.customerAddForm = this.formBuilder.group({
+      id:["0"],
+      name:["", Validators.required],
+      email:["", Validators.required],
+      description:["", Validators.required],
+      type:["", Validators.required],
+      phone:["", Validators.required],
+      isDeleted:["0"],
+      createdAt:[""],
+      modifiedAt:[new Date,]
+    })
   }
 }
 enum CustomerType {

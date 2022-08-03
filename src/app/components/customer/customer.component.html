@@ -76,30 +76,32 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Name" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Customer Email address</label>
-          <input type="email" class="form-control" id="email" placeholder="name@example.com" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Customer Phone No</label>
-          <input type="text" class="form-control" id="phone" placeholder="0312" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-          <textarea class="form-control" id="description" rows="3"></textarea>
-        </div>
-        <div class="mb-3"> Customer Type
-          <select class="form-select" aria-label="Default select example" id="type">
-            <option selected>Type...</option>
-            <option value="1">Individual</option>
-            <option value="2">Corporate</option>
-          </select>
-        </div>
-
+        <form [formGroup]="customerAddForm">
+          <div class="form-group">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Customer Email address</label>
+              <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Customer Phone No</label>
+              <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="0312" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+              <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+            </div>
+            <div class="mb-3"> Customer Type
+              <select class="form-select" aria-label="Default select example" id="type" formControlName="type">
+                <option selected value="1">Individual</option>
+                <option value="2">Corporate</option>
+              </select>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
