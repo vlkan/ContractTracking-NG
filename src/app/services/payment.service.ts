@@ -16,6 +16,10 @@ export class PaymentService {
     let newApi = this.apiUrl + "/payments/getall"
     return this.httpClient.get<ListResponseModel<Payment>>(newApi);
   }
+  getPaymentsByEmployee(employeeId:number): Observable<ListResponseModel<Payment>> {
+    let newPath = this.apiUrl + "/payments/getbyemployee?employeeId=" + employeeId
+    return this.httpClient.get<ListResponseModel<Payment>>(newPath);
+  }
   deletePayment(payment: Payment):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/payments/delete"
     return this.httpClient.post<ResponseModel>(newApi, payment)

@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FilterPaymentPipe } from './pipes/filter-payment.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     PaymentComponent,
     NaviComponent,
     VatAddedPipe,
-    FilterPipePipe
+    FilterPipePipe,
+    FilterPaymentPipe
   ],
   imports: [
     BrowserModule,

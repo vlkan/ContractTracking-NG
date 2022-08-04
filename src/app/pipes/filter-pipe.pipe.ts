@@ -3,7 +3,7 @@ import { filter } from 'rxjs';
 import { Project } from '../models/project';
 
 @Pipe({
-  name: 'filterPipe'
+  name: 'filterPipe',
 })
 export class FilterPipePipe implements PipeTransform {
 
