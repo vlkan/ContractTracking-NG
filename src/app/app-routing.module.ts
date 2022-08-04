@@ -12,7 +12,7 @@ const routes: Routes = [
   {path:"projects", component:ProjectComponent},
   {path:"projects/customer/:customerId", component:ProjectComponent},
   {path: 'payments', component: PaymentComponent },
-  {path:"payments/employee/:employeeId", component:EmployeeComponent},
+  {path:"payments/employee/:employeeId", component:PaymentComponent},
   { path: 'worklists', component: WorklistComponent },
   //{path: 'employees', component: EmployeeComponent },
   {path: 'notifications', component: NotificationComponent },
