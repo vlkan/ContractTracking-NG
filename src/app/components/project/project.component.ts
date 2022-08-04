@@ -9,6 +9,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ProjectDTO } from 'src/app/models/projectDto';
 
 declare var $ : any;
 
@@ -19,6 +20,7 @@ declare var $ : any;
 })
 export class ProjectComponent implements OnInit {
   projects: Project[] = [];
+  projectDetailed: ProjectDTO[] = [];
   dataLoaded = false;
   filterText = '';
   projectType: string;
@@ -40,7 +42,7 @@ export class ProjectComponent implements OnInit {
       if (params['customerId']) {
         this.getProjectsByCustomer(params['customerId']);
       } else {
-        this.getProjects();
+        this.getProjects()
       }
     });
     this.createProjectAddForm();
@@ -48,6 +50,12 @@ export class ProjectComponent implements OnInit {
   getProjects() {
     this.projectService.getProjects().subscribe((response) => {
       this.projects = response.data;
+      this.dataLoaded = true;
+    });
+  }
+  getProjectDetails() {
+    this.projectService.getProjectDetails().subscribe((response) => {
+      this.projectDetailed = response.data;
       this.dataLoaded = true;
     });
   }

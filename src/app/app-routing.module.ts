@@ -11,10 +11,11 @@ const routes: Routes = [
   {path:"", pathMatch:"full", component:ProjectComponent},
   {path:"projects", component:ProjectComponent},
   {path:"projects/customer/:customerId", component:ProjectComponent},
-  { path: 'payments', component: PaymentComponent },
+  {path: 'payments', component: PaymentComponent },
+  {path:"payments/employee/:employeeId", component:EmployeeComponent},
   { path: 'worklists', component: WorklistComponent },
-  { path: 'employees', component: EmployeeComponent },
-  { path: 'notifications', component: NotificationComponent },
+  //{path: 'employees', component: EmployeeComponent },
+  {path: 'notifications', component: NotificationComponent },
 ];
 
 @NgModule({

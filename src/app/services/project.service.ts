@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Project } from '../models/project';
+import { ProjectDTO } from '../models/projectDto';
 import { ResponseModel } from '../models/responseModel';
 
 @Injectable({
@@ -15,6 +16,10 @@ export class ProjectService {
   getProjects(): Observable<ListResponseModel<Project>> {
     let newPath = this.apiUrl + "/projects/getall"
     return this.httpClient.get<ListResponseModel<Project>>(newPath);
+  }
+  getProjectDetails(): Observable<ListResponseModel<ProjectDTO>> {
+    let newPath = this.apiUrl + "/projects/getdetails"
+    return this.httpClient.get<ListResponseModel<ProjectDTO>>(newPath);
   }
   getProjectsByCustomer(customerId:number): Observable<ListResponseModel<Project>> {
     let newPath = this.apiUrl + "/projects/getbycustomer?customerId=" + customerId

@@ -3,6 +3,7 @@ export interface Payment{
   name:string,
   surname:string,
   projectId:number,
+  employeeId:number,
   feePaid:number,
   remainingBudget:number,
   description:string,

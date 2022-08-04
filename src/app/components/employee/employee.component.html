@@ -1,1 +1,19 @@
-<p>employee works!</p>
+<ul class="list-group">
+  <li routerLink="/payments" [class]="getAllEmployeeClass()">
+    All Projects
+  </li>
+  <li (click)="setCurrentEmployee(employee)" routerLink="/payments/employee/{{ employee.id }}"
+    *ngFor="let employee of employees" [class]="getCurrentEmployeeClass(employee)">
+    {{ employee.name }}
+    <button type="button" class="btn btn-light btn-sm float-end" data-bs-toggle="modal"
+      data-bs-target="#employeeDetailModal">
+      Details
+    </button>
+  </li>
+</ul>
+<p></p>
+<div class="d-grid gap-2">
+  <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
+    Add Employee
+  </button>
+</div>
