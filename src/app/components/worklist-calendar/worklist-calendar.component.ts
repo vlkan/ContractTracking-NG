@@ -10,7 +10,7 @@ import { WorkList } from 'src/app/models/worklist';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { WorklistService } from 'src/app/services/worklist.service';
-import { createEventId, DateUtil, INITIAL_EVENTS } from './worklist-utils';
+import { createEventId,  INITIAL_EVENTS } from './worklist-utils';
 
 declare var $ : any;
 
@@ -23,8 +23,8 @@ export class WorklistCalendarComponent implements OnInit {
   worklists: WorkList[] = []
   employees: Employee[] = []
   projects: Project[] = []
+  dateList: EventInput[] = []
 
-  convList: EventInput[] = []
 
   workAddForm: FormGroup
   workUpdateForm: FormGroup
@@ -34,13 +34,22 @@ export class WorklistCalendarComponent implements OnInit {
        private formBuilder:FormBuilder,) { }
 
   ngOnInit(): void {
-    this.getWorkLists()
     this.createWorkAddForm()
     this.getEmployees()
     this.getProjects()
-    console.log(this.convList)
+    this.getWorkLists()
+    // console.log(typeof(INITIAL_EVENTS)==typeof(convList))
+    // console.log(INITIAL_EVENTS === convList)
+    console.log(this.Events)
+    setTimeout(() => {
+      this.calendarOptions = {
+        initialView: 'dayGridMonth',
+        events: this.Events,
+      };
+    }, 200);
   }
   calendarVisible = true;
+  Events: any[] = [];
   calendarOptions: CalendarOptions = {
     headerToolbar: {
       left: 'prev,next today',
@@ -48,16 +57,15 @@ export class WorklistCalendarComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    initialEvents: this.convList, // alternatively, use the `events` setting to fetch from a feed
+    events: this.dateList, // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
-    events: this.convList,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    eventsSet: this.handleEvents.bind(this)
+    eventsSet: this.handleEvents.bind(this),
     /* you can update a remote database when these fire:
     eventAdd:
     eventChange:
@@ -82,15 +90,15 @@ export class WorklistCalendarComponent implements OnInit {
 
     calendarApi.unselect(); // clear date selection
 
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      });
-    }
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   });
+    // }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
@@ -107,15 +115,13 @@ export class WorklistCalendarComponent implements OnInit {
       this.worklists = response.data;
       console.log(response);
       this.worklists.forEach(element => {
-        this.convList.push({
+        this.Events.push({
           id: String(element.id),
           title: element.name,
           start: new Date().toISOString().replace(/T.*$/, '')
         })
       })
     });
-    console.log(this.convList)
-
   }
   getEmployees() {
     this.employeeService.getEmployees().subscribe((response) => {

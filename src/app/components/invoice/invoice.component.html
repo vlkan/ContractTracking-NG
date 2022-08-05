@@ -30,15 +30,15 @@
           <th></th>
         </tr>
       </thead>
-      <tr *ngFor="let payment of payments | filterPayment: filterText" (click)="setCurrentPayment(payment)">
-        <td>{{ payment.id }}</td>
-        <td>{{ payment.name }} {{ payment.surname }}</td>
-        <td>{{ payment.projectId }}</td>
-        <td>{{ payment.feePaid }}</td>
-        <td>{{ payment.description }}</td>
-        <td>{{ payment.createdAt | date }}</td>
+      <tr *ngFor="let invoice of invoices | filterPayment: filterText" (click)="setCurrentInvoice(invoice)">
+        <td>{{ invoice.id }}</td>
+        <td>{{ invoice.name }} {{ invoice.surname }}</td>
+        <td>{{ invoice.projectId }}</td>
+        <td>{{ invoice.feePaid }}</td>
+        <td>{{ invoice.description }}</td>
+        <td>{{ invoice.createdAt | date }}</td>
         <td>
-          <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#paymentDetailModal">
+          <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#invoiceDetailModal">
             Details
           </button>
         </td>

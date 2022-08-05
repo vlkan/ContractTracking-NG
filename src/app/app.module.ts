@@ -34,6 +34,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import { CommonModule } from '@angular/common';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -56,6 +57,7 @@ FullCalendarModule.registerPlugins([
     FilterPaymentPipe,
     WorklistCalendarComponent,
     WorklistListComponent,
+    InvoiceComponent,
   ],
   imports: [
     BrowserModule,

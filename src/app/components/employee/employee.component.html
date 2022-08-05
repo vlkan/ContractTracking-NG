@@ -1,8 +1,8 @@
 <ul class="list-group">
-  <li routerLink="/payments" [class]="getAllEmployeeClass()">
+  <li routerLink="/invoices" [class]="getAllEmployeeClass()">
     All Employees
   </li>
-  <li (click)="setCurrentEmployee(employee)" routerLink="/payments/employee/{{ employee.id }}"
+  <li (click)="setCurrentEmployee(employee)" routerLink="/invoices/employee/{{ employee.id }}"
     *ngFor="let employee of employees" [class]="getCurrentEmployeeClass(employee)">
     {{ employee.name }}
     <button type="button" class="btn btn-light btn-sm float-end" data-bs-toggle="modal"

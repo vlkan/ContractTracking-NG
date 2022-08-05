@@ -1,4 +1,4 @@
-export interface Payment{
+export interface Invoice{
   id:number,
   name:string,
   surname:string,
