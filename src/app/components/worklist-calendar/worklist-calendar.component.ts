@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-worklist-calendar',
@@ -11,5 +12,8 @@ export class WorklistCalendarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth'
+  };
 
 }

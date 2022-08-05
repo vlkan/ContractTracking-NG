@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomerComponent } from './components/customer/customer.component';
@@ -9,6 +10,8 @@ import { ProjectComponent } from './components/project/project.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { NaviComponent } from './components/navi/navi.component';
+import { WorklistCalendarComponent } from './components/worklist-calendar/worklist-calendar.component';
+import { WorklistListComponent } from './components/worklist-list/worklist-list.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { VatAddedPipe } from './pipes/vat-added.pipe';
@@ -20,7 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FilterPaymentPipe } from './pipes/filter-payment.pipe';
 
-import {FullCalendarModule} from '@fullcalendar/angular';
+import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -31,14 +34,13 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import { CommonModule } from '@angular/common';
-import { WorklistCalendarComponent } from './components/worklist-calendar/worklist-calendar.component';
-import { WorklistListComponent } from './components/worklist-list/worklist-list.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
   interactionPlugin
 ]);
+
 
 @NgModule({
   declarations: [
@@ -65,18 +67,17 @@ FullCalendarModule.registerPlugins([
     }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
-  ],
-  providers: [FullCalendarModule,
     CommonModule,
     FormsModule,
-    FullCalendarModule,
     DialogModule,
     InputTextModule,
     CalendarModule,
     CheckboxModule,
     ButtonModule,
     TabViewModule,
+    FullCalendarModule
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

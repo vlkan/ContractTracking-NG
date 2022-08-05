@@ -5,7 +5,8 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { ProjectComponent } from './components/project/project.component';
-import { WorklistComponent } from './components/worklist/worklist.component';
+import { WorklistCalendarComponent } from './components/worklist-calendar/worklist-calendar.component';
+
 
 const routes: Routes = [
   {path: "", pathMatch:"full", component:ProjectComponent},
@@ -13,7 +14,7 @@ const routes: Routes = [
   {path: "projects/customer/:customerId", component:ProjectComponent},
   {path: "payments", component: PaymentComponent },
   {path: "payments/employee/:employeeId", component:PaymentComponent},
-  {path: "worklists", component: WorklistComponent },
+  {path: "worklists", component: WorklistCalendarComponent },
   //{path: "employees", component: EmployeeComponent },
   {path: "notifications", component: NotificationComponent },
 ];
