@@ -4,7 +4,7 @@ export interface WorkList{
   surname: string,
   projectId:number,
   workingHours:number,
-  workingDate: Date,
+  start: Date,
   isDeleted:EnumIsDeleted,
   createdAt:Date,
   modifiedAt:Date,
