@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorklistComponent } from './worklist.component';
+import { WorklistListComponent } from './worklist-list.component';
 
-describe('WorklistComponent', () => {
-  let component: WorklistComponent;
-  let fixture: ComponentFixture<WorklistComponent>;
+describe('WorklistListComponent', () => {
+  let component: WorklistListComponent;
+  let fixture: ComponentFixture<WorklistListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WorklistComponent ]
+      declarations: [ WorklistListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WorklistComponent);
+    fixture = TestBed.createComponent(WorklistListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

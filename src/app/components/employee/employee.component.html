@@ -1,6 +1,6 @@
 <ul class="list-group">
   <li routerLink="/payments" [class]="getAllEmployeeClass()">
-    All Projects
+    All Employees
   </li>
   <li (click)="setCurrentEmployee(employee)" routerLink="/payments/employee/{{ employee.id }}"
     *ngFor="let employee of employees" [class]="getCurrentEmployeeClass(employee)">

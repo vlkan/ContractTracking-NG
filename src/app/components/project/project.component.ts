@@ -10,6 +10,10 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectDTO } from 'src/app/models/projectDto';
+import { Employee } from 'src/app/models/employee';
+import { Customer } from 'src/app/models/customer';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { CustomerService } from 'src/app/services/customer.service';
 
 declare var $ : any;
 
@@ -20,6 +24,8 @@ declare var $ : any;
 })
 export class ProjectComponent implements OnInit {
   projects: Project[] = [];
+  employees: Employee[] = [];
+  customers: Customer[]=[];
   projectDetailed: ProjectDTO[] = [];
   dataLoaded = false;
   filterText = '';
@@ -32,6 +38,8 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
+    private employeeService: EmployeeService,
+    private customerService: CustomerService,
     private activatedRoute: ActivatedRoute,
     private formBuilder:FormBuilder,
     private toastrService:ToastrService
@@ -46,10 +54,24 @@ export class ProjectComponent implements OnInit {
       }
     });
     this.createProjectAddForm();
+    this.getCustomers();
+    this.getEmployees()
   }
   getProjects() {
     this.projectService.getProjects().subscribe((response) => {
       this.projects = response.data;
+      this.dataLoaded = true;
+    });
+  }
+  getEmployees() {
+    this.employeeService.getEmployees().subscribe((response) => {
+      this.employees = response.data;
+      this.dataLoaded = true;
+    });
+  }
+  getCustomers() {
+    this.customerService.getCustomers().subscribe((response) => {
+      this.customers = response.data;
       this.dataLoaded = true;
     });
   }
@@ -114,15 +136,15 @@ export class ProjectComponent implements OnInit {
       name:["", Validators.required],
       type:[, Validators.required],
       subType:["", Validators.required],
-      employeeOwnerId:[1, Validators.required],
-      customerOwnerId:[1, Validators.required],
+      employeeOwnerId:[, Validators.required],
+      customerOwnerId:[, Validators.required],
       description:["", Validators.required],
-      contractBudget:[0, Validators.required],
+      contractBudget:[, Validators.required],
       currencyType:[1, Validators.required],
-      contractTerm:[0, Validators.required],
+      contractTerm:[, Validators.required],
       contractStartDate:["", Validators.required],
-      workerDay:[0, Validators.required],
-      workerHour:[0, Validators.required],
+      workerDay:[, Validators.required],
+      workerHour:[, Validators.required],
       isDeleted:[0],
       createdAt:[new Date,],
       modifiedAt:[new Date,]

@@ -8,14 +8,14 @@ import { ProjectComponent } from './components/project/project.component';
 import { WorklistComponent } from './components/worklist/worklist.component';
 
 const routes: Routes = [
-  {path:"", pathMatch:"full", component:ProjectComponent},
-  {path:"projects", component:ProjectComponent},
-  {path:"projects/customer/:customerId", component:ProjectComponent},
-  {path: 'payments', component: PaymentComponent },
-  {path:"payments/employee/:employeeId", component:PaymentComponent},
-  { path: 'worklists', component: WorklistComponent },
-  //{path: 'employees', component: EmployeeComponent },
-  {path: 'notifications', component: NotificationComponent },
+  {path: "", pathMatch:"full", component:ProjectComponent},
+  {path: "projects", component:ProjectComponent},
+  {path: "projects/customer/:customerId", component:ProjectComponent},
+  {path: "payments", component: PaymentComponent },
+  {path: "payments/employee/:employeeId", component:PaymentComponent},
+  {path: "worklists", component: WorklistComponent },
+  //{path: "employees", component: EmployeeComponent },
+  {path: "notifications", component: NotificationComponent },
 ];
 
 @NgModule({

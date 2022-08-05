@@ -22,7 +22,7 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      if (params['customerId']) {
+      if (params['employeeId']) {
         this.getPaymentsByEmployee(params['employeeId']);
       } else {
         this.getPayments()

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { ProjectComponent } from './components/project/project.component';
-import { WorklistComponent } from './components/worklist/worklist.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { NaviComponent } from './components/navi/navi.component';
@@ -17,9 +16,29 @@ import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+// import { CalendarModule, DateAdapter } from 'angular-calendar';
+// import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FilterPaymentPipe } from './pipes/filter-payment.pipe';
+
+import {FullCalendarModule} from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextModule} from 'primeng/inputtext';
+import {CalendarModule} from 'primeng/calendar';
+import {CheckboxModule} from 'primeng/checkbox';
+import {ButtonModule} from 'primeng/button';
+import {TabViewModule} from 'primeng/tabview';
+import { CommonModule } from '@angular/common';
+import { WorklistCalendarComponent } from './components/worklist-calendar/worklist-calendar.component';
+import { WorklistListComponent } from './components/worklist-list/worklist-list.component';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -27,13 +46,14 @@ import { FilterPaymentPipe } from './pipes/filter-payment.pipe';
     CustomerComponent,
     EmployeeComponent,
     ProjectComponent,
-    WorklistComponent,
     NotificationComponent,
     PaymentComponent,
     NaviComponent,
     VatAddedPipe,
     FilterPipePipe,
-    FilterPaymentPipe
+    FilterPaymentPipe,
+    WorklistCalendarComponent,
+    WorklistListComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,12 +65,18 @@ import { FilterPaymentPipe } from './pipes/filter-payment.pipe';
     }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
   ],
-  providers: [],
+  providers: [FullCalendarModule,
+    CommonModule,
+    FormsModule,
+    FullCalendarModule,
+    DialogModule,
+    InputTextModule,
+    CalendarModule,
+    CheckboxModule,
+    ButtonModule,
+    TabViewModule,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

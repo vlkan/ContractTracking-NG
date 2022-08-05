@@ -176,20 +176,16 @@ aria-hidden="true">
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Sub Type</label>
-              <input type="email" class="form-control" id="email" formControlName="subType" placeholder="name@example.com" />
+              <input type="email" class="form-control" id="email" formControlName="subType" placeholder="Sub Type" />
             </div>
             <div class="mb-3"> Employee Owner
               <select class="form-select" aria-label="Default select example" id="type" formControlName="employeeOwnerId">
-                <option selected [ngValue]=1>System</option>
-                <option [ngValue]=2>Software</option>
-                <option [ngValue]=3>System and Software</option>
+                <option selected *ngFor="let employee of employees" [ngValue]=employee.id>{{employee.name}}</option>
               </select>
             </div>
             <div class="mb-3"> Customer Owner
               <select class="form-select" aria-label="Default select example" id="type" formControlName="customerOwnerId">
-                <option selected [ngValue]=1>System</option>
-                <option [ngValue]=2>Software</option>
-                <option [ngValue]=3>System and Software</option>
+                <option selected *ngFor="let customer of customers" [ngValue]=customer.id>{{customer.name}}</option>
               </select>
             </div>
             <div class="mb-3">
@@ -210,7 +206,7 @@ aria-hidden="true">
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Contract Term</label>
-              <input type="text" class="form-control" id="name" formControlName="contractTerm" placeholder="Budget" />
+              <input type="text" class="form-control" id="name" formControlName="contractTerm" placeholder="" />
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Constract Start Date:</label>
@@ -218,11 +214,11 @@ aria-hidden="true">
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Worker Day</label>
-              <input type="text" class="form-control" id="name" formControlName="workerDay" placeholder="Budget" />
+              <input type="text" class="form-control" id="name" formControlName="workerDay" placeholder="" />
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Worker Hour</label>
-              <input type="text" class="form-control" id="name" formControlName="workerHour" placeholder="Budget" />
+              <input type="text" class="form-control" id="name" formControlName="workerHour" placeholder="" />
             </div>
 
             <div class="d-grid gap-2">
@@ -295,7 +291,7 @@ aria-hidden="true">
               <select class="form-select" aria-label="Default select example" id="type" formControlName="currencyType">
                 <option selected [ngValue]=1>Turkish Lira</option>
                 <option [ngValue]=2>Dollar</option>
-                <option [ngValue]=3>Eura</option>
+                <option [ngValue]=3>Euro</option>
                 <option [ngValue]=4>Pound</option>
               </select>
             </div>
