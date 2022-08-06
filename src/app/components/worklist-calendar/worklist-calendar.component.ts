@@ -32,6 +32,8 @@ export class WorklistCalendarComponent implements OnInit {
   worklistsDetailed: WorkListDTO[] = []
   employees: Employee[] = []
   projects: Project[] = []
+  updateprojects: Project[] = []
+  tempprojects: Project[] = []
   dateList: EventInput[] = []
 
   selectedDate: Date
@@ -49,6 +51,7 @@ export class WorklistCalendarComponent implements OnInit {
     this.getProjects()
     this.getWorkLists()
     this.getWorkListDetails()
+    this.getUpdateProjects()
     // console.log(typeof(INITIAL_EVENTS)==typeof(convList))
     // console.log(INITIAL_EVENTS === convList)
     console.log(this.Events)
@@ -136,25 +139,47 @@ export class WorklistCalendarComponent implements OnInit {
       console.log(response);
     });
   }
-  addWorkList(){
-    if(this.workAddForm.valid){
+  addWorkList() {
+    if (this.workAddForm.valid) {
       let workListModel = Object.assign({}, this.workAddForm.value)
       this.workListService.addWorkList(workListModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
+        console.log(workListModel.projectId)
+        this.updateRemainingHours(workListModel.projectId, workListModel.workingHours)
       })
       $('#addWork').modal('hide');
-      this.ngOnInit()
-    }else{
+
+    } else {
       this.toastrService.error("Form Missing", "Warning")
     }
   }
-  deleteWorkList(workList: WorkList){
+  getUpdateProjects() {
+    this.projectService.getProjects().subscribe((response) => {
+      this.updateprojects = response.data;
+      console.log(response);
+    });
+  }
+  updateRemainingHours(projectId: number, workinghours: number) {
+    for (let i = 0; i < this.updateprojects.length; i++) {
+      if (this.updateprojects[i]["id"] == projectId) {
+        console.log(this.updateprojects[i]["remainingWorkerHour"])
+        this.tempprojects.push(this.updateprojects[i])
+      }
+    }
+
+    this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingWorkerHour) - workinghours
+    this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
+      this.toastrService.success(response.message)
+    })
+    this.tempprojects.pop()
+  }
+  deleteWorkList(workList: WorkList) {
     console.log(workList.isDeleted)
     this.workListService.deleteWorkList(workList).subscribe(response => {
       this.toastrService.success(response.message)
     })
   }
-  createWorkAddForm(date:Date) {
+  createWorkAddForm(date: Date) {
     this.workAddForm = this.formBuilder.group({
       id: [0],
       employeeId: [, Validators.required],

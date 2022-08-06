@@ -12,6 +12,8 @@ export interface Project{
   contractStartDate:Date,
   workerDay:number,
   workerHour:number,
+  remainingContractBudget:number,
+  remainingWorkerHour:number,
   isDeleted:EnumIsDeleted,
   createdAt:Date,
   modifiedAt:Date
