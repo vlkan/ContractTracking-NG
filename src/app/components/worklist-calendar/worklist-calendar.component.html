@@ -12,23 +12,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="workAddForm" *ngIf="workAddForm">
+        <form [formGroup]="workAddForm"  *ngIf="workAddForm">
           <div class="form-group">
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">For Which Employee</label>
-              <select class="form-select" formControlName="employee" aria-label="Default select example">
-                <option *ngFor="let employee of employees">{{ employee.name }} {{ employee.surname }}</option>
+              <select class="form-select" formControlName="name" aria-label="Default select example">
+                <option *ngFor="let employee of employees" [ngValue]=employee.name [ngValue]=employee.surname>{{ employee.name }} {{ employee.surname }}</option>
               </select>
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">For Which Project</label>
-              <select class="form-select" formControlName="project" aria-label="Default select example">
-                <option *ngFor="let project of projects">{{ project.name }}</option>
+              <select class="form-select" formControlName="projectId" aria-label="Default select example">
+                <option *ngFor="let project of projects" [ngValue]=project.id>{{ project.name }}</option>
               </select>
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Working Hours</label>
-              <input type="text" class="form-control" id="hour" formControlName="hour" placeholder="8 Hours" />
+              <input type="text" class="form-control" id="hour" formControlName="workingHours" placeholder="8 Hours" />
             </div>
           </div>
         </form>

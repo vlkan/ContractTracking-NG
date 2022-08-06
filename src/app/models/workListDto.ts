@@ -1,7 +1,8 @@
-export interface WorkList{
+export interface WorkListDTO{
   id: number,
-  employeeId:number
-  projectId:number,
+  employeeName:string
+  employeeSurName:string
+  projectName:string,
   workingHours:number,
   workingDate: Date,
   isDeleted:EnumIsDeleted,

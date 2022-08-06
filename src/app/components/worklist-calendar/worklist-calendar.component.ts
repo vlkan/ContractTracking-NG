@@ -4,11 +4,13 @@ import {
   FormControl,
   Validators,
   FormBuilder,
+  NgForm
 } from '@angular/forms';
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventInput } from '@fullcalendar/angular';
 import { Employee } from 'src/app/models/employee';
 import { Project } from 'src/app/models/project';
 import { WorkList } from 'src/app/models/worklist';
+import { WorkListDTO } from 'src/app/models/workListDto';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { WorklistService } from 'src/app/services/worklist.service';
@@ -23,9 +25,14 @@ declare var $: any;
 })
 export class WorklistCalendarComponent implements OnInit {
   worklists: WorkList[] = []
+  worklistsDetailed: WorkListDTO[] = []
   employees: Employee[] = []
   projects: Project[] = []
   dateList: EventInput[] = []
+
+  name: string;
+  surname:string;
+
 
 
   workAddForm: FormGroup
@@ -39,7 +46,8 @@ export class WorklistCalendarComponent implements OnInit {
     this.createWorkAddForm()
     this.getEmployees()
     this.getProjects()
-    this.getWorkLists()
+    //this.getWorkLists()
+    this.getWorkListDetails()
     // console.log(typeof(INITIAL_EVENTS)==typeof(convList))
     // console.log(INITIAL_EVENTS === convList)
     console.log(this.Events)
@@ -96,7 +104,20 @@ export class WorklistCalendarComponent implements OnInit {
       this.worklists.forEach(element => {
         this.Events.push({
           id: String(element.id),
-          title: element.name + " " + element.surname,
+          title: element.employeeId,
+          start: new Date(element.workingDate)
+        })
+      })
+    });
+  }
+  getWorkListDetails() {
+    this.workListService.getWorkListDetails().subscribe((response) => {
+      this.worklistsDetailed = response.data;
+      console.log(response);
+      this.worklistsDetailed.forEach(element => {
+        this.Events.push({
+          id: String(element.id),
+          title: element.employeeName + " " + element.employeeSurName,
           start: new Date(element.workingDate)
         })
       })
@@ -116,21 +137,21 @@ export class WorklistCalendarComponent implements OnInit {
   }
   createWorkAddForm() {
     this.workAddForm = this.formBuilder.group({
-      id: [0],
-      employee: ["", Validators.required],
-      project: [, Validators.required],
-      hour: [8, Validators.required],
-      isDeleted: [0],
-      createdAt: [new Date,],
-      modifiedAt: [new Date,]
+      name: ["", Validators.required],
+      surname: ["", Validators.required],
+      projectId: [, Validators.required],
+      workingHours: [8, Validators.required],
+      workingDate: [8, Validators.required],
     })
   }
   createWorkUpdateForm() {
     this.workUpdateForm = this.formBuilder.group({
       id: [0],
-      employee: ["", Validators.required],
-      project: [, Validators.required],
-      hour: [8, Validators.required],
+      name: ["", Validators.required],
+      surname: ["", Validators.required],
+      projectId: [, Validators.required],
+      workingHours: [8, Validators.required],
+      workingDate: [8, Validators.required],
       isDeleted: [0],
       createdAt: [new Date,],
       modifiedAt: [new Date,]
@@ -149,6 +170,17 @@ export class WorklistCalendarComponent implements OnInit {
     $('#addWork').modal('show');
     const title = "";
     const calendarApi = selectInfo.view.calendar;
+    console.log(selectInfo.view.activeEnd)
+    this.selectedEvent.push({
+      id: 0,
+      employeeId:0,
+      projectId:1,
+      workingHours:8,
+      workingDate: selectInfo.view.activeEnd,
+      isDeleted:0,
+      createdAt:new Date,
+      modifiedAt:new Date,
+    })
 
     calendarApi.unselect(); // clear date selection
     // if (title) {
@@ -165,9 +197,8 @@ export class WorklistCalendarComponent implements OnInit {
     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.id}'`)) {
       var id = clickInfo.event.id
       var newId = +id
-      this.selectedEvent.push()
-      for(let i=0; i<this.worklists.length;i++){
-        if(this.worklists[i]["id"] == newId){
+      for (let i = 0; i < this.worklists.length; i++) {
+        if (this.worklists[i]["id"] == newId) {
           console.log(this.worklists[i]["id"])
           this.selectedEvent.push(this.worklists[i])
         }
@@ -183,4 +214,3 @@ export class WorklistCalendarComponent implements OnInit {
     this.currentEvents = events;
   }
 }
-
