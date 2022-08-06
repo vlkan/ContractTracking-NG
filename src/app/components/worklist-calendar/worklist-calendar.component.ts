@@ -7,6 +7,7 @@ import {
   NgForm
 } from '@angular/forms';
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventInput } from '@fullcalendar/angular';
+import { start } from '@popperjs/core';
 import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/models/employee';
 import { Project } from 'src/app/models/project';
@@ -100,14 +101,14 @@ export class WorklistCalendarComponent implements OnInit {
   getWorkLists() {
     this.workListService.getWorkLists().subscribe((response) => {
       this.worklists = response.data;
-      console.log(response);
-      this.worklists.forEach(element => {
-        this.Events.push({
-          id: String(element.id),
-          title: element.employeeId,
-          start: new Date(element.workingDate).getDate()
-        })
-      })
+      //console.log(response);
+      // this.worklists.forEach(element => {
+      //   this.Events.push({
+      //     id: String(element.id),
+      //     title: element.employeeId,
+      //     start: new Date(element.workingDate)
+      //   })
+      // })
     });
   }
   getWorkListDetails() {
@@ -188,12 +189,12 @@ export class WorklistCalendarComponent implements OnInit {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     $('#addWork').modal('show');
-    const date:Date = selectInfo.view.activeEnd;
-    var newDate = new Date(date)
+    const date = new Date(selectInfo.start);
+    date.setDate(date.getDate() + 1);
     const calendarApi = selectInfo.view.calendar;
-    console.log(selectInfo.view.activeEnd)
+    console.log(selectInfo.start)
 
-    this.createWorkAddForm(newDate)
+    this.createWorkAddForm(date)
 
 
     calendarApi.unselect(); // clear date selection
