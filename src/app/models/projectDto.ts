@@ -4,7 +4,7 @@ export interface ProjectDTO{
   type:ProjectType,
   subType:string,
   employeeOwnerName:string,
-  employeeOwnerSurname:string,
+  employeeOwnerSurName:string,
   customerOwnerName:string,
   description:string,
   contractBudget:number,

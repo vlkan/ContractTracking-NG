@@ -20,22 +20,22 @@
     <table class="table">
       <thead>
         <tr class="table-dark">
-          <th>Id</th>
           <th>Name</th>
           <th>Employee Owner</th>
           <th>Customer Owner</th>
-          <th>Description</th>
           <th>Constract Start Date</th>
+          <th>Constract End Date</th>
+          <th>Remaining Days</th>
           <th></th>
         </tr>
       </thead>
-      <tr *ngFor="let project of projects | filterPipe: filterText" (click)="setCurrentProject(project)">
-        <td>{{ project.id }}</td>
+      <tr *ngFor="let project of projectDetailed | filterPipe: filterText" (click)="setCurrentProject(project)">
         <td>{{ project.name }}</td>
-        <td>{{ project.employeeOwnerId }}</td>
-        <td>{{ project.customerOwnerId }}</td>
-        <td>{{ project.description }}</td>
+        <td>{{ project.employeeOwnerName }} {{ project.employeeOwnerSurName }}</td>
+        <td>{{ project.customerOwnerName }}</td>
         <td>{{ project.contractStartDate | date }}</td>
+        <td [class]="calculateRemainingDaysEnd(project.contractStartDate, project.contractTerm)">{{ endDate | date }}</td>
+        <td [class]="calculateRemainingDays(project.contractStartDate, project.contractTerm)">{{ remainingDays }} days</td>
         <td>
           <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#projectDetailModal">
             Details
@@ -61,18 +61,24 @@
                 <h5 class="card-title" *ngIf="currentProject">
                   {{ currentProject.name }}
                 </h5>
+                <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
+                  Project Id:{{ currentProject.id }}
+                </h6>
                 <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject"
                   [class]="getProjectTypeEnum(currentProject.type)">
                   {{ projectType }} Project
                 </h6>
                 <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
-                  {{ currentProject.subType }}
+                  Sub Type:{{ currentProject.subType }}
                 </h6>
                 <p class="card-text" *ngIf="currentProject">
                   {{currentProject.description}}
                 </p>
                 <p class="card-text" *ngIf="currentProject" [class]="getCurrencyTypeEnum(currentProject.type)">
                   {{currentProject.contractBudget}} {{currencyType}}
+                </p>
+                <p class="card-text" *ngIf="currentProject">
+                  Contract Term: {{currentProject.contractTerm}} Days
                 </p>
                 <p class="card-text" *ngIf="currentProject">
                   {{currentProject.workerDay}} Worker Day
@@ -96,59 +102,6 @@
         </div>
       </div>
     </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="projectDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" *ngIf="currentProject" id="exampleModalLabel">
-        Details of {{ currentProject.name }}
-      </h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      <div class="card" style="width: 18rem">
-        <div class="card-body">
-          <h5 class="card-title" *ngIf="currentProject">
-            {{ currentProject.name }}
-          </h5>
-          <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject"
-            [class]="getProjectTypeEnum(currentProject.type)">
-            {{ projectType }} Project
-          </h6>
-          <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
-            {{ currentProject.subType }}
-          </h6>
-          <p class="card-text" *ngIf="currentProject">
-            {{currentProject.description}}
-          </p>
-          <p class="card-text" *ngIf="currentProject" [class]="getCurrencyTypeEnum(currentProject.type)">
-            {{currentProject.contractBudget}} {{currencyType}}
-          </p>
-          <p class="card-text" *ngIf="currentProject">
-            {{currentProject.workerDay}} Worker Day
-          </p>
-          <p class="card-text" *ngIf="currentProject">
-            {{currentProject.workerHour}} Worker Hour
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-success" data-bs-toggle="modal"
-        data-bs-target="#updateProjectModal">Update</button>
-      <button type="button" class="btn btn-danger" (click)="deleteProject(currentProject)">
-        Delete
-      </button>
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-        Close
-      </button>
-    </div>
-  </div>
-</div>
 </div>
 
 
@@ -180,7 +133,7 @@ aria-hidden="true">
             </div>
             <div class="mb-3"> Employee Owner
               <select class="form-select" aria-label="Default select example" id="type" formControlName="employeeOwnerId">
-                <option selected *ngFor="let employee of employees" [ngValue]=employee.id>{{employee.name}}</option>
+                <option selected *ngFor="let employee of employees" [ngValue]=employee.id>{{employee.name}} {{employee.surname}}</option>
               </select>
             </div>
             <div class="mb-3"> Customer Owner

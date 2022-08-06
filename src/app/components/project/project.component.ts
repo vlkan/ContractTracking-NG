@@ -31,10 +31,13 @@ export class ProjectComponent implements OnInit {
   filterText = '';
   projectType: string;
   currencyType: string;
-  currentProject: Project;
+  currentProject: ProjectDTO;
+  remainingDays:number;
+  endDate:number
 
   projectAddForm: FormGroup
   projectUpdateForm: FormGroup
+  projectDeleteForm:FormGroup
 
   constructor(
     private projectService: ProjectService,
@@ -50,7 +53,7 @@ export class ProjectComponent implements OnInit {
       if (params['customerId']) {
         this.getProjectsByCustomer(params['customerId']);
       } else {
-        this.getProjects()
+        this.getProjectDetails()
       }
     });
     this.createProjectAddForm();
@@ -58,8 +61,8 @@ export class ProjectComponent implements OnInit {
     this.getEmployees()
   }
   getProjects() {
-    this.projectService.getProjects().subscribe((response) => {
-      this.projects = response.data;
+    this.projectService.getProjectDetails().subscribe((response) => {
+      this.projectDetailed = response.data;
       this.dataLoaded = true;
     });
   }
@@ -89,6 +92,7 @@ export class ProjectComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
       })
       $('#addProjectModal').modal('hide');
+      this.ngOnInit()
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -105,16 +109,28 @@ export class ProjectComponent implements OnInit {
       this.toastrService.error("Form Missing", "Warning")
     }
   }
-  deleteProject(project: Project) {
-    this.projectService.deleteProject(project).subscribe(response => {
+  deleteProject(project: ProjectDTO) {
+    let projectModel = Object.assign({}, this.projectDeleteForm.value)
+    this.projectService.deleteProject(projectModel).subscribe(response => {
       this.toastrService.success(response.message, project.name)
     })
     $('#projectDetailModal').modal('hide');
   }
-  setCurrentProject(project: Project) {
+  setCurrentProject(project: ProjectDTO) {
     this.currentProject = project;
     console.log(project);
     this.createProjectUpdateForm();
+    this.createProjectDeleteForm();
+  }
+  calculateRemainingDays(start:Date, term:number){
+    let todayDate = new Date().getDate()
+    let startDate = new Date(start).getDate()
+    this.remainingDays = startDate+term-todayDate
+  }
+  calculateRemainingDaysEnd(start:Date, term:number){
+    let todayDate = new Date().getDate()
+    let startDate = new Date(start)
+    this.endDate = (startDate.setDate((startDate.getDate()+term)) - todayDate)
   }
   getProjectsByCustomer(customerId: number) {
     this.projectService
@@ -151,6 +167,26 @@ export class ProjectComponent implements OnInit {
     })
   }
   createProjectUpdateForm(){
+    this.projectUpdateForm = this.formBuilder.group({
+      id:[this.currentProject.id],
+      name:["", Validators.required],
+      type:[, Validators.required],
+      subType:["", Validators.required],
+      employeeOwnerId:[1, Validators.required],
+      customerOwnerId:[1, Validators.required],
+      description:["", Validators.required],
+      contractBudget:[0, Validators.required],
+      currencyType:[1, Validators.required],
+      contractTerm:[0, Validators.required],
+      contractStartDate:["", Validators.required],
+      workerDay:[0, Validators.required],
+      workerHour:[0, Validators.required],
+      isDeleted:[0],
+      createdAt:[this.currentProject.createdAt,],
+      modifiedAt:[new Date,]
+    })
+  }
+  createProjectDeleteForm(){
     this.projectUpdateForm = this.formBuilder.group({
       id:[this.currentProject.id],
       name:["", Validators.required],

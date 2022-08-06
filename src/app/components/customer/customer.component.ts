@@ -40,6 +40,7 @@ export class CustomerComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
       })
       $('#addCustomerModal').modal('hide');
+      this.ngOnInit()
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
