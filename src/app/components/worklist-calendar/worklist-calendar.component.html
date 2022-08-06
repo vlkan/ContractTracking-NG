@@ -3,7 +3,7 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Add Modal -->
 <div class="modal fade" id="addWork" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -16,8 +16,8 @@
           <div class="form-group">
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">For Which Employee</label>
-              <select class="form-select" formControlName="name" aria-label="Default select example">
-                <option *ngFor="let employee of employees" [ngValue]=employee.name [ngValue]=employee.surname>{{ employee.name }} {{ employee.surname }}</option>
+              <select class="form-select" formControlName="employeeId" aria-label="Default select example">
+                <option *ngFor="let employee of employees" [ngValue]=employee.id>{{ employee.name }} {{ employee.surname }}</option>
               </select>
             </div>
             <div class="mb-3">
@@ -28,7 +28,7 @@
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Working Hours</label>
-              <input type="text" class="form-control" id="hour" formControlName="workingHours" placeholder="8 Hours" />
+              <input type="text" class="form-control" id="workingHours" formControlName="workingHours" placeholder="8 Hours" />
             </div>
           </div>
         </form>
@@ -36,6 +36,25 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-success">Add</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailsWork" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
@@ -6,11 +6,14 @@ import { ResponseModel } from '../models/responseModel';
 import { WorkList } from '../models/worklist';
 import { WorkListDTO } from '../models/workListDto';
 
+
+let headers = new Headers({ 'Content-Type': 'application/json' });
 @Injectable({
   providedIn: 'root'
 })
 export class WorklistService {
   apiUrl = 'https://localhost:7032/api';
+
   constructor(private httpClient: HttpClient) { }
 
   getWorkLists(): Observable<ListResponseModel<WorkList>> {
