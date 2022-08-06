@@ -44,7 +44,6 @@ export class WorklistCalendarComponent implements OnInit {
     private toastrService: ToastrService) { }
 
   ngOnInit(): void {
-    this.createWorkAddForm()
     this.getEmployees()
     this.getProjects()
     this.getWorkLists()
@@ -137,10 +136,9 @@ export class WorklistCalendarComponent implements OnInit {
     });
   }
   addWorkList(){
-    this.createWorkUpdateForm()
     if(this.workAddForm.valid){
-      let projectModel = Object.assign({}, this.workAddForm.value)
-      this.projectService.addProject(projectModel).subscribe(response => {
+      let workListModel = Object.assign({}, this.workAddForm.value)
+      this.workListService.addWorkList(workListModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
       })
       $('#addWork').modal('hide');
@@ -150,18 +148,18 @@ export class WorklistCalendarComponent implements OnInit {
     }
   }
   deleteWorkList(workList: WorkList){
-    console.log(workList)
+    console.log(workList.isDeleted)
     this.workListService.deleteWorkList(workList).subscribe(response => {
       this.toastrService.success(response.message)
     })
   }
-  createWorkAddForm() {
+  createWorkAddForm(date:Date) {
     this.workAddForm = this.formBuilder.group({
       id: [0],
       employeeId: [, Validators.required],
       projectId: [, Validators.required],
       workingHours: [8, Validators.required],
-      workingDate: [8, Validators.required],
+      workingDate: [date, Validators.required],
       isDeleted: [0],
       createdAt: [new Date,],
       modifiedAt: [new Date,]
@@ -190,9 +188,12 @@ export class WorklistCalendarComponent implements OnInit {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     $('#addWork').modal('show');
-    const title = "";
+    const date:Date = selectInfo.view.activeEnd;
+    var newDate = new Date(date)
     const calendarApi = selectInfo.view.calendar;
     console.log(selectInfo.view.activeEnd)
+
+    this.createWorkAddForm(newDate)
 
 
     calendarApi.unselect(); // clear date selection
