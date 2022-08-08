@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Invoice } from '../models/invoice';
+import { InvoiceDTO } from '../models/invoiceDTO';
 import { ListResponseModel } from '../models/listResponseModel';
 import { ResponseModel } from '../models/responseModel';
 
@@ -19,6 +20,10 @@ export class InvoiceService {
   getInvoicesByEmployee(employeeId:number): Observable<ListResponseModel<Invoice>> {
     let newPath = this.apiUrl + "/invoicing/getbyemployee?employeeId=" + employeeId
     return this.httpClient.get<ListResponseModel<Invoice>>(newPath);
+  }
+  getInvoiceDetails(): Observable<ListResponseModel<InvoiceDTO>>{
+    let newPath = this.apiUrl + "/invoicing/getdetails"
+    return this.httpClient.get<ListResponseModel<InvoiceDTO>>(newPath);
   }
   deleteInvoice(invoice: Invoice):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/invoicing/delete"

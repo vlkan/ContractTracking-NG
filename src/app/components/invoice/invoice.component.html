@@ -11,7 +11,7 @@
       <label for="filterText" class="form-label"></label>
       <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
       <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add
-        Payment</button>
+        Invoice</button>
     </div>
 
     <div *ngIf="filterText" class="alert alert-primary">
@@ -22,7 +22,6 @@
       <thead>
         <tr class="table-dark">
           <th>Id</th>
-          <th>Name Surname</th>
           <th>Project</th>
           <th>Fee Paid</th>
           <th>Description</th>
@@ -30,10 +29,9 @@
           <th></th>
         </tr>
       </thead>
-      <tr *ngFor="let invoice of invoices | filterPayment: filterText" (click)="setCurrentInvoice(invoice)">
+      <tr *ngFor="let invoice of invoicedetails | filterInvoice: filterText" (click)="setCurrentInvoice(invoicedetails)">
         <td>{{ invoice.id }}</td>
-        <td>{{ invoice.name }} {{ invoice.surname }}</td>
-        <td>{{ invoice.projectId }}</td>
+        <td>{{ invoice.projectName }}</td>
         <td>{{ invoice.feePaid }}</td>
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.createdAt | date }}</td>
@@ -46,3 +44,23 @@
     </table>
   </div>
 </div>
+
+<!-- Add Invoice Modal -->
+<div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Invoice</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+

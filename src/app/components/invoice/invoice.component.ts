@@ -3,7 +3,10 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Invoice } from 'src/app/models/invoice';
+import { InvoiceDTO } from 'src/app/models/invoiceDTO';
+import { Project } from 'src/app/models/project';
 import { InvoiceService } from 'src/app/services/invoice.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-invoice',
@@ -12,10 +15,13 @@ import { InvoiceService } from 'src/app/services/invoice.service';
 })
 export class InvoiceComponent implements OnInit {
   invoices: Invoice[] = []
+  invoicedetails: InvoiceDTO[] = []
+  projects: Project[] = []
   currentInvoice: Invoice;
   dataLoaded = false;
   filterText = '';
   constructor(private invoiceService: InvoiceService,
+    private projectService: ProjectService,
     private activatedRoute: ActivatedRoute,
     private formBuilder:FormBuilder,
     private toastrService:ToastrService) { }
@@ -31,8 +37,8 @@ export class InvoiceComponent implements OnInit {
     });
   }
   getInvoices() {
-    this.invoiceService.getInvoices().subscribe((response) => {
-      this.invoices = response.data;
+    this.invoiceService.getInvoiceDetails().subscribe((response) => {
+      this.invoicedetails = response.data;
       this.dataLoaded = true;
     });
   }
@@ -44,9 +50,18 @@ export class InvoiceComponent implements OnInit {
         this.dataLoaded = true;
       });
   }
+  getProjects(){
+    this.projectService.getProjects().subscribe((response) => {
+      this.projects = response.data;
+      this.dataLoaded = true;
+    });
+  }
   setCurrentInvoice(invoice: Invoice) {
     this.currentInvoice = invoice;
     console.log(invoice);
     //this.createProjectUpdateForm();
+  }
+  addInvoice(){
+
   }
 }

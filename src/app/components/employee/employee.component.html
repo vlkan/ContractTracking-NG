@@ -4,7 +4,7 @@
   </li>
   <li (click)="setCurrentEmployee(employee)" routerLink="/invoices/employee/{{ employee.id }}"
     *ngFor="let employee of employees" [class]="getCurrentEmployeeClass(employee)">
-    {{ employee.name }}
+    {{ employee.name }} {{employee.surname}}
     <button type="button" class="btn btn-light btn-sm float-end" data-bs-toggle="modal"
       data-bs-target="#employeeDetailModal">
       Details
