@@ -21,6 +21,10 @@ export class ProjectService {
     let newPath = this.apiUrl + "/projects/getdetails"
     return this.httpClient.get<ListResponseModel<ProjectDTO>>(newPath);
   }
+  getProjectDetailsByCustomerId(customerId:number): Observable<ListResponseModel<ProjectDTO>> {
+    let newPath = this.apiUrl + "/projects/getdetailsbycustomerid?customerId=" + customerId
+    return this.httpClient.get<ListResponseModel<ProjectDTO>>(newPath);
+  }
   getProjectsByCustomer(customerId:number): Observable<ListResponseModel<Project>> {
     let newPath = this.apiUrl + "/projects/getbycustomer?customerId=" + customerId
     return this.httpClient.get<ListResponseModel<Project>>(newPath);

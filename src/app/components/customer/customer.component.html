@@ -2,7 +2,7 @@
   <li routerLink="/projects" [class]="getAllCustomerClass()">
     All Projects
   </li>
-  <li (click)="setCurrentCustomer(customer)" routerLink="/projects/customer/{{ customer.id }}"
+  <li (click)="setCurrentCustomer(customer)" routerLink="/projects/customer/{{ customer.id}}"
     *ngFor="let customer of customers" [class]="getCurrentCustomerClass(customer)">
     {{ customer.name }}
     <button type="button" class="btn btn-light btn-sm float-end" data-bs-toggle="modal"

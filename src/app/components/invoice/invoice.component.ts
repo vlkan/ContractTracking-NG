@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Invoice } from 'src/app/models/invoice';
@@ -7,6 +7,8 @@ import { InvoiceDTO } from 'src/app/models/invoiceDTO';
 import { Project } from 'src/app/models/project';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { ProjectService } from 'src/app/services/project.service';
+
+declare var $ : any;
 
 @Component({
   selector: 'app-invoice',
@@ -17,17 +19,22 @@ export class InvoiceComponent implements OnInit {
   invoices: Invoice[] = []
   invoicedetails: InvoiceDTO[] = []
   projects: Project[] = []
-  currentInvoice: Invoice;
+  currentInvoice: InvoiceDTO;
   dataLoaded = false;
   filterText = '';
+
+  invoiceAddForm: FormGroup
   constructor(private invoiceService: InvoiceService,
     private projectService: ProjectService,
     private activatedRoute: ActivatedRoute,
     private formBuilder:FormBuilder,
-    private toastrService:ToastrService) { }
+    private toastrService:ToastrService,) { }
 
 
   ngOnInit(): void {
+    this.getInvoices()
+    this.getProjects()
+    this.createInvoiceAddForm()
     this.activatedRoute.params.subscribe((params) => {
       if (params['employeeId']) {
         this.getInvoicesByEmployee(params['employeeId']);
@@ -40,6 +47,7 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.getInvoiceDetails().subscribe((response) => {
       this.invoicedetails = response.data;
       this.dataLoaded = true;
+      console.log(response)
     });
   }
   getInvoicesByEmployee(employeeId: number) {
@@ -56,12 +64,33 @@ export class InvoiceComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
-  setCurrentInvoice(invoice: Invoice) {
+  setCurrentInvoice(invoice: InvoiceDTO) {
     this.currentInvoice = invoice;
     console.log(invoice);
     //this.createProjectUpdateForm();
   }
   addInvoice(){
-
+    console.log(this.invoiceAddForm.value)
+    if(this.invoiceAddForm.valid){
+      let invoiceModel = Object.assign({}, this.invoiceAddForm.value)
+      this.invoiceService.addInvoice(invoiceModel).subscribe(response => {
+        this.toastrService.success(response.message, "Success")
+      })
+      $('#addInvoiceModal').modal('hide');
+      this.ngOnInit()
+    }else{
+      this.toastrService.error("Form Missing", "Warning")
+    }
+  }
+  createInvoiceAddForm(){
+    this.invoiceAddForm = this.formBuilder.group({
+      id:[0],
+      projectId:[,Validators.required],
+      feePaid:[,Validators.required],
+      description:[,Validators.required],
+      isDeleted:[0],
+      createdAt:[new Date,],
+      modifiedAt:[new Date,]
+    })
   }
 }

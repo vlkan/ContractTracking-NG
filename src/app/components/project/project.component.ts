@@ -51,7 +51,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['customerId']) {
-        this.getProjectsByCustomer(params['customerId']);
+        this.getProjectDetailsByCustomerId(params['customerId']);
       } else {
         this.getProjectDetails()
       }
@@ -82,6 +82,15 @@ export class ProjectComponent implements OnInit {
     this.projectService.getProjectDetails().subscribe((response) => {
       this.projectDetailed = response.data;
       this.dataLoaded = true;
+    });
+  }
+  getProjectDetailsByCustomerId(customerId: number){
+    this.projectService
+    .getProjectDetailsByCustomerId(customerId)
+    .subscribe((response) => {
+      this.projectDetailed = response.data;
+      this.dataLoaded = true;
+      console.log(response)
     });
   }
   addProject() {
@@ -134,9 +143,9 @@ export class ProjectComponent implements OnInit {
   }
   getProjectsByCustomer(customerId: number) {
     this.projectService
-      .getProjectsByCustomer(customerId)
+      .getProjectDetailsByCustomerId(customerId)
       .subscribe((response) => {
-        this.projects = response.data;
+        this.projectDetailed = response.data;
         this.dataLoaded = true;
       });
   }

@@ -10,7 +10,7 @@
     <div class="d-flex" role="search">
       <label for="filterText" class="form-label"></label>
       <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
-      <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addPaymentModal">Add
+      <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addInvoiceModal">Add
         Invoice</button>
     </div>
 
@@ -29,15 +29,15 @@
           <th></th>
         </tr>
       </thead>
-      <tr *ngFor="let invoice of invoicedetails | filterInvoice: filterText" (click)="setCurrentInvoice(invoicedetails)">
+      <tr *ngFor="let invoice of invoicedetails | filterInvoice: filterText" (click)="setCurrentInvoice(invoice)">
         <td>{{ invoice.id }}</td>
         <td>{{ invoice.projectName }}</td>
         <td>{{ invoice.feePaid }}</td>
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.createdAt | date }}</td>
         <td>
-          <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#invoiceDetailModal">
-            Details
+          <button class="btn btn-light btn-sm">
+            Delete
           </button>
         </td>
       </tr>
@@ -54,13 +54,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form [formGroup]="invoiceAddForm">
+          <div class="mb-3"> Project
+            <select class="form-select" aria-label="Default select example" id="projectId" formControlName="projectId">
+              <option selected *ngFor="let project of projects" [ngValue]=project.id>{{project.name}}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Fee Paid</label>
+            <input type="text" class="form-control" id="feePaid" formControlName="feePaid" placeholder="" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Add</button>
+        <button type="button" class="btn btn-success" (click)="addInvoice()">Add</button>
       </div>
     </div>
   </div>
 </div>
-

@@ -1,7 +1,5 @@
 export interface Invoice{
   id:number,
-  name:string,
-  surname:string,
   projectId:number,
   feePaid:number,
   description:string,
