@@ -1,19 +1,67 @@
-<ul class="list-group">
-  <li routerLink="/invoices" [class]="getAllEmployeeClass()">
-    All Employees
-  </li>
-  <li (click)="setCurrentEmployee(employee)" routerLink="/invoices/employee/{{ employee.id }}"
-    *ngFor="let employee of employees" [class]="getCurrentEmployeeClass(employee)">
-    {{ employee.name }} {{employee.surname}}
-    <button type="button" class="btn btn-light btn-sm float-end" data-bs-toggle="modal"
-      data-bs-target="#employeeDetailModal">
-      Details
-    </button>
-  </li>
-</ul>
-<p></p>
+<table class="table">
+  <thead>
+    <tr class="table-dark">
+      <th>Name Surname</th>
+      <th>Email</th>
+      <th>Job Title</th>
+      <th>Start Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tr *ngFor="let employee of employees" (click)="setCurrentEmployee(employee)">
+    <td>{{employee.name}} {{employee.surname}}</td>
+    <td>{{employee.email}}</td>
+    <td>{{employee.jobTitle}}</td>
+    <td>{{employee.startDate}}</td>
+    <td>
+      <button type="button" class="btn btn-outline-danger" (click)="setCurrentEmployee(employee)" (click)="deleteEmployee(employee)">
+        Delete
+      </button>
+    </td>
+  </tr>
+</table>
 <div class="d-grid gap-2">
   <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
     Add Employee
   </button>
+</div>
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="employeeAddForm">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" formControlName="name" placeholder="" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Surname</label>
+          <input type="text" class="form-control" id="name" formControlName="surname" placeholder="" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email</label>
+          <input type="text" class="form-control" id="name" formControlName="email" placeholder="" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Job Title</label>
+          <input type="text" class="form-control" id="name" formControlName="jobTitle" placeholder="" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Start Date</label>
+          <input type="date" id="birthday" name="birthday" formControlName="startDate">
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="addEmployee()">Add</button>
+      </div>
+    </div>
+  </div>
 </div>

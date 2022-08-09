@@ -35,6 +35,9 @@ export class ProjectComponent implements OnInit {
   remainingDays:number;
   endDate:number
 
+  remainingContractBudgetval: number = 0;
+  remainingWorkerHourval: number = 0;
+
   projectAddForm: FormGroup
   projectUpdateForm: FormGroup
   projectDeleteForm:FormGroup
@@ -171,6 +174,8 @@ export class ProjectComponent implements OnInit {
       contractStartDate:[new Date, Validators.required],
       workerDay:[, Validators.required],
       workerHour:[, Validators.required],
+      remainingContractBudget: [0,],
+      remainingWorkerHour: [0,],
       isDeleted:[0],
       createdAt:[new Date,],
       modifiedAt:[new Date,]
@@ -179,20 +184,20 @@ export class ProjectComponent implements OnInit {
   createProjectUpdateForm(){
     this.projectUpdateForm = this.formBuilder.group({
       id:[this.currentProject.id],
-      name:["", Validators.required],
-      type:[, Validators.required],
-      subType:["", Validators.required],
-      employeeOwnerId:[1, Validators.required],
-      customerOwnerId:[1, Validators.required],
-      description:["", Validators.required],
-      contractBudget:[0, Validators.required],
-      currencyType:[1, Validators.required],
-      contractTerm:[0, Validators.required],
-      contractStartDate:[new Date, Validators.required],
-      workerDay:[0, Validators.required],
-      workerHour:[0, Validators.required],
-      remainingContractBudget: [0,],
-      remainingWorkerHour: [0,],
+      name:[this.currentProject.name, Validators.required],
+      type:[this.currentProject.type, Validators.required],
+      subType:[this.currentProject.subType, Validators.required],
+      employeeOwnerId:[,Validators.required],
+      customerOwnerId:[, Validators.required],
+      description:[this.currentProject.description, Validators.required],
+      contractBudget:[this.currentProject.contractBudget, Validators.required],
+      currencyType:[this.currentProject.currencyType, Validators.required],
+      contractTerm:[this.currentProject.contractTerm, Validators.required],
+      contractStartDate:[this.currentProject.contractStartDate, Validators.required],
+      workerDay:[this.currentProject.workerDay, Validators.required],
+      workerHour:[this.currentProject.workerHour, Validators.required],
+      remainingContractBudget: [this.currentProject.remainingContractBudget,],
+      remainingWorkerHour: [this.currentProject.remainingWorkerHour,],
       isDeleted:[0],
       createdAt:[this.currentProject.createdAt,],
       modifiedAt:[new Date,]

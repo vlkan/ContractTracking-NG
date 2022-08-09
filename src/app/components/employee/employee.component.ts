@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
+
+declare var $ : any;
 
 @Component({
   selector: 'app-employee',
@@ -10,10 +14,13 @@ import { EmployeeService } from 'src/app/services/employee.service';
 export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
   currentEmployee: Employee
-  constructor(private employeeService: EmployeeService) { }
+
+  employeeAddForm: FormGroup
+  constructor(private employeeService: EmployeeService, private toastrService: ToastrService, private formBuilder:FormBuilder,) { }
 
   ngOnInit(): void {
     this.getEmployees()
+    this.createEmployeeAddForm()
   }
 
   getEmployees() {
@@ -21,6 +28,23 @@ export class EmployeeComponent implements OnInit {
       this.employees = response.data;
       console.log(response);
     });
+  }
+  addEmployee(){
+    if(this.employeeAddForm.valid){
+      let employeeModel = Object.assign({}, this.employeeAddForm.value)
+      this.employeeService.addEmployee(employeeModel).subscribe(response => {
+        this.toastrService.success(response.message, "Success")
+      })
+      $('#addEmployeeModal').modal('hide');
+      this.ngOnInit()
+    }else{
+      this.toastrService.error("Form Missing", "Warning")
+    }
+  }
+  deleteEmployee(employee: Employee){
+    this.employeeService.deleteEmployee(employee).subscribe((response) => {
+      this.toastrService.success(response.message, employee.name)
+    })
   }
   setCurrentEmployee(employee: Employee) {
     this.currentEmployee = employee;
@@ -39,6 +63,19 @@ export class EmployeeComponent implements OnInit {
     } else {
       return 'list-group-item';
     }
+  }
+  createEmployeeAddForm(){
+    this.employeeAddForm = this.formBuilder.group({
+      id:[0],
+      name:["", Validators.required],
+      surname:["", Validators.required],
+      email:["", Validators.required],
+      jobTitle:["", Validators.required],
+      startDate:[new Date, Validators.required],
+      isDeleted:[0],
+      createdAt:[new Date,],
+      modifiedAt:[new Date,]
+    })
   }
 
 }
