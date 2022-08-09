@@ -118,10 +118,11 @@ export class ProjectComponent implements OnInit {
       this.toastrService.error("Form Missing", "Warning")
     }
   }
-  deleteProject(project: ProjectDTO) {
+  deleteProject() {
+    this.createProjectDeleteForm()
     let projectModel = Object.assign({}, this.projectDeleteForm.value)
     this.projectService.deleteProject(projectModel).subscribe(response => {
-      this.toastrService.success(response.message, project.name)
+      this.toastrService.success(response.message)
     })
     $('#projectDetailModal').modal('hide');
   }
@@ -167,7 +168,7 @@ export class ProjectComponent implements OnInit {
       contractBudget:[, Validators.required],
       currencyType:[1, Validators.required],
       contractTerm:[, Validators.required],
-      contractStartDate:["", Validators.required],
+      contractStartDate:[new Date, Validators.required],
       workerDay:[, Validators.required],
       workerHour:[, Validators.required],
       isDeleted:[0],
@@ -187,32 +188,36 @@ export class ProjectComponent implements OnInit {
       contractBudget:[0, Validators.required],
       currencyType:[1, Validators.required],
       contractTerm:[0, Validators.required],
-      contractStartDate:["", Validators.required],
+      contractStartDate:[new Date, Validators.required],
       workerDay:[0, Validators.required],
       workerHour:[0, Validators.required],
+      remainingContractBudget: [0,],
+      remainingWorkerHour: [0,],
       isDeleted:[0],
       createdAt:[this.currentProject.createdAt,],
       modifiedAt:[new Date,]
     })
   }
   createProjectDeleteForm(){
-    this.projectUpdateForm = this.formBuilder.group({
-      id:[this.currentProject.id],
-      name:["", Validators.required],
-      type:[, Validators.required],
-      subType:["", Validators.required],
+    this.projectDeleteForm = this.formBuilder.group({
+      id:[this.currentProject.id,Validators.required],
+      name:["test", Validators.required],
+      type:[1, Validators.required],
+      subType:["test", Validators.required],
       employeeOwnerId:[1, Validators.required],
       customerOwnerId:[1, Validators.required],
-      description:["", Validators.required],
-      contractBudget:[0, Validators.required],
+      description:["test", Validators.required],
+      contractBudget:[1, Validators.required],
       currencyType:[1, Validators.required],
-      contractTerm:[0, Validators.required],
-      contractStartDate:["", Validators.required],
-      workerDay:[0, Validators.required],
-      workerHour:[0, Validators.required],
-      isDeleted:[0],
-      createdAt:[this.currentProject.createdAt,],
-      modifiedAt:[new Date,]
+      contractTerm:[1, Validators.required],
+      contractStartDate:[new Date, Validators.required],
+      workerDay:[1, Validators.required],
+      workerHour:[1, Validators.required],
+      remainingContractBudget: [1,Validators.required],
+      remainingWorkerHour: [1,Validators.required],
+      isDeleted:[1,Validators.required],
+      createdAt:[this.currentProject.createdAt, Validators.required],
+      modifiedAt:[new Date,Validators.required]
     })
   }
 }

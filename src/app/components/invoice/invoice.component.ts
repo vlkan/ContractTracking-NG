@@ -18,6 +18,7 @@ declare var $ : any;
 export class InvoiceComponent implements OnInit {
   invoices: Invoice[] = []
   invoicedetails: InvoiceDTO[] = []
+  invoicedelete: Invoice = {id:0, projectId:0, feePaid:0, description:"", isDeleted:0, createdAt:new Date, modifiedAt:new Date}
   projects: Project[] = []
   currentInvoice: InvoiceDTO;
   dataLoaded = false;
@@ -81,6 +82,13 @@ export class InvoiceComponent implements OnInit {
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
+  }
+  deleteInvoice(invoice: number){
+    this.invoicedelete.id=invoice
+    this.invoiceService.deleteInvoice(this.invoicedelete).subscribe(response => {
+      this.toastrService.success(response.message)
+    })
+    this.ngOnInit()
   }
   createInvoiceAddForm(){
     this.invoiceAddForm = this.formBuilder.group({

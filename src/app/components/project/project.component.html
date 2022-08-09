@@ -86,13 +86,16 @@
                 <p class="card-text" *ngIf="currentProject">
                   {{currentProject.workerHour}} Worker Hour
                 </p>
+                <p class="card-text" *ngIf="currentProject">
+                  {{currentProject.remainingWorkerHour}} Worker Day Remaining
+                </p>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-success" data-bs-toggle="modal"
               data-bs-target="#updateProjectModal">Update</button>
-            <button type="button" class="btn btn-danger" (click)="deleteProject(currentProject)">
+            <button type="button" class="btn btn-danger" (click)="deleteProject()">
               Delete
             </button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -220,16 +223,12 @@
             </div>
             <div class="mb-3"> Employee Owner
               <select class="form-select" aria-label="Default select example" id="type" formControlName="employeeOwnerId">
-                <option selected [ngValue]=1>System</option>
-                <option [ngValue]=2>Software</option>
-                <option [ngValue]=3>System and Software</option>
+                <option selected *ngFor="let employee of employees" [ngValue]=employee.id>{{employee.name}} {{employee.surname}}</option>
               </select>
             </div>
             <div class="mb-3"> Customer Owner
               <select class="form-select" aria-label="Default select example" id="type" formControlName="customerOwnerId">
-                <option selected [ngValue]=1>System</option>
-                <option [ngValue]=2>Software</option>
-                <option [ngValue]=3>System and Software</option>
+                <option selected *ngFor="let customer of customers" [ngValue]=customer.id>{{customer.name}}</option>
               </select>
             </div>
             <div class="mb-3">

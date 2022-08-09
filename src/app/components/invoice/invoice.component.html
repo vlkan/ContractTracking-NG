@@ -36,7 +36,7 @@
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.createdAt | date }}</td>
         <td>
-          <button class="btn btn-light btn-sm">
+          <button class="btn btn-light btn-sm" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice.id)">
             Delete
           </button>
         </td>

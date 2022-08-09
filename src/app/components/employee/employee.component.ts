@@ -22,7 +22,6 @@ export class EmployeeComponent implements OnInit {
       console.log(response);
     });
   }
-
   setCurrentEmployee(employee: Employee) {
     this.currentEmployee = employee;
     //this.createEmployeeUpdateForm()

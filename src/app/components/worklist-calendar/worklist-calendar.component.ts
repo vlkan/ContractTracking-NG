@@ -148,6 +148,7 @@ export class WorklistCalendarComponent implements OnInit {
         this.updateRemainingHours(workListModel.projectId, workListModel.workingHours)
       })
       $('#addWork').modal('hide');
+      this.ngOnInit()
 
     } else {
       this.toastrService.error("Form Missing", "Warning")
