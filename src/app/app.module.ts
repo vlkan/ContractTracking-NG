@@ -38,6 +38,8 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
 import { FilterInvoicePipe } from './pipes/filter-invoice.pipe';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
 import { CustomerPipe } from './pipes/customer.pipe';
+import { BudgetComponent } from './components/budget/budget.component';
+import { BudgetPipe } from './pipes/budget.pipe';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -64,6 +66,8 @@ FullCalendarModule.registerPlugins([
     FilterInvoicePipe,
     CustomerDetailComponent,
     CustomerPipe,
+    BudgetComponent,
+    BudgetPipe,
   ],
   imports: [
     BrowserModule,
