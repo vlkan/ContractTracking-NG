@@ -35,8 +35,8 @@ export class ProjectComponent implements OnInit {
   remainingDays:number;
   endDate:number
 
-  remainingContractBudgetval: number = 0;
-  remainingWorkerHourval: number = 0;
+  remainingContractBudgetval: number;
+  remainingWorkerHourval: number;
 
   projectAddForm: FormGroup
   projectUpdateForm: FormGroup

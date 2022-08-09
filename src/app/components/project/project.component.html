@@ -163,7 +163,7 @@
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Contract Budget</label>
               <input type="text" class="form-control" id="name" formControlName="contractBudget" placeholder="Budget" [ngModel]="remainingContractBudgetval" (ngModelChange)="remainingContractBudgetval = $event"/>
-              <input type="text" class="form-control" id="custId" name="custId" formControlName="remainingContractBudget" [value]="remainingContractBudgetval"/>
+              <input type="text" class="form-control" id="custId" name="custId" formControlName="remainingContractBudget" [ngModel]="remainingContractBudgetval"/>
             </div>
             <div class="mb-3"> Currency Type
               <select class="form-select" aria-label="Default select example" id="type" formControlName="currencyType">
@@ -184,7 +184,7 @@
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Worker Day</label>
               <input type="text" class="form-control" id="name" formControlName="workerDay" placeholder="" [ngModel]="remainingWorkerHourval" (ngModelChange)="remainingWorkerHourval = $event" />
-              <input type="text" class="form-control" id="custId" name="custId" formControlName="remainingWorkerHour" [value]="remainingWorkerHourval"/>
+              <input type="text" class="form-control" id="custId" name="custId" formControlName="remainingWorkerHour" [ngModel]="remainingWorkerHourval"/>
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Worker Hour</label>
