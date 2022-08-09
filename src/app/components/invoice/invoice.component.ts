@@ -23,6 +23,7 @@ export class InvoiceComponent implements OnInit {
   currentInvoice: InvoiceDTO;
   dataLoaded = false;
   filterText = '';
+  tempprojects: Project[] = []
 
   invoiceAddForm: FormGroup
   constructor(private invoiceService: InvoiceService,
@@ -76,6 +77,7 @@ export class InvoiceComponent implements OnInit {
       let invoiceModel = Object.assign({}, this.invoiceAddForm.value)
       this.invoiceService.addInvoice(invoiceModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
+        this.updateRemainingBudget(invoiceModel.projectId, invoiceModel.feePaid)
       })
       $('#addInvoiceModal').modal('hide');
       setTimeout(()=>{
@@ -84,6 +86,20 @@ export class InvoiceComponent implements OnInit {
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
+  }
+  updateRemainingBudget(projectId: number, feePaid: number){
+    for (let i = 0; i < this.projects.length; i++) {
+      if (this.projects[i]["id"] == projectId) {
+        console.log(this.projects[i]["remainingWorkerHour"])
+        this.tempprojects.push(this.projects[i])
+      }
+    }
+
+    this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingContractBudget) - feePaid
+    this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
+      this.toastrService.success(response.message)
+    })
+    this.tempprojects.pop()
   }
   deleteInvoice(invoice: number){
     this.invoicedelete.id=invoice
