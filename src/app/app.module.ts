@@ -37,6 +37,7 @@ import { CommonModule } from '@angular/common';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { FilterInvoicePipe } from './pipes/filter-invoice.pipe';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
+import { CustomerPipe } from './pipes/customer.pipe';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -62,6 +63,7 @@ FullCalendarModule.registerPlugins([
     InvoiceComponent,
     FilterInvoicePipe,
     CustomerDetailComponent,
+    CustomerPipe,
   ],
   imports: [
     BrowserModule,

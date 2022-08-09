@@ -1,5 +1,15 @@
 <h1 class="display-5"> Customers </h1>
 
+<div class="d-flex" role="search">
+  <label for="filterText" class="form-label"></label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+  <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add
+    Customer</button>
+</div>
+
+<div *ngIf="filterText" class="alert alert-primary">
+  Your search is {{ filterText }}.
+</div>
 
 <table class="table">
   <thead>
@@ -12,7 +22,7 @@
       <th></th>
     </tr>
   </thead>
-  <tr *ngFor="let customer of customers" (click)="setCurrentCustomer(customer)">
+  <tr *ngFor="let customer of customers | filterCustomer: filterText" (click)="setCurrentCustomer(customer)">
     <td>{{ customer.name }}</td>
     <td>{{ customer.email }}</td>
     <td>{{ customer.description }}</td>

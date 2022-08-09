@@ -15,6 +15,7 @@ export class CustomerDetailComponent implements OnInit {
   customers: Customer[] = [];
   currentCustomer: Customer
   customerType: string;
+  filterText = '';
 
   customerAddForm: FormGroup
   customerUpdateForm: FormGroup
