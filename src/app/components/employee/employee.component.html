@@ -1,3 +1,4 @@
+<h1 class="display-5"> Employees </h1>
 <table class="table">
   <thead>
     <tr class="table-dark">
@@ -12,7 +13,7 @@
     <td>{{employee.name}} {{employee.surname}}</td>
     <td>{{employee.email}}</td>
     <td>{{employee.jobTitle}}</td>
-    <td>{{employee.startDate}}</td>
+    <td>{{employee.startDate | date}}</td>
     <td>
       <button type="button" class="btn btn-outline-danger" (click)="setCurrentEmployee(employee)" (click)="deleteEmployee(employee)">
         Delete

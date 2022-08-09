@@ -1,17 +1,17 @@
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
-import { ToastrService } from 'ngx-toastr';
 
 declare var $ : any;
 
 @Component({
-  selector: 'app-customer',
-  templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.css'],
+  selector: 'app-customer-detail',
+  templateUrl: './customer-detail.component.html',
+  styleUrls: ['./customer-detail.component.css']
 })
-export class CustomerComponent implements OnInit {
+export class CustomerDetailComponent implements OnInit {
   customers: Customer[] = [];
   currentCustomer: Customer
   customerType: string;
@@ -19,13 +19,12 @@ export class CustomerComponent implements OnInit {
   customerAddForm: FormGroup
   customerUpdateForm: FormGroup
 
-  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder) {}
+  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
     this.getCustomers();
     this.createCustomerAddForm();
   }
-
   getCustomers() {
     this.customerService.getCustomers().subscribe((response) => {
       this.customers = response.data;
@@ -110,11 +109,11 @@ export class CustomerComponent implements OnInit {
   createCustomerUpdateForm(){
     this.customerUpdateForm = this.formBuilder.group({
       id:[this.currentCustomer.id],
-      name:["", Validators.required],
-      email:["", Validators.required],
-      description:["", Validators.required],
-      type:[, Validators.required],
-      phone:["", Validators.required],
+      name:[this.currentCustomer.name, Validators.required],
+      email:[this.currentCustomer.email, Validators.required],
+      description:[this.currentCustomer.description, Validators.required],
+      type:[this.currentCustomer.type, Validators.required],
+      phone:[this.currentCustomer.phone, Validators.required],
       isDeleted:[0],
       createdAt:[this.currentCustomer.createdAt,],
       modifiedAt:[new Date,]
@@ -125,3 +124,4 @@ enum CustomerType {
   'Individual' = 1,
   'Corporate' = 2,
 }
+

@@ -128,14 +128,16 @@ export class ProjectComponent implements OnInit {
   }
   deleteProject() {
     this.createProjectDeleteForm()
-    let projectModel = Object.assign({}, this.projectDeleteForm.value)
-    this.projectService.deleteProject(projectModel).subscribe(response => {
-      this.toastrService.success(response.message)
-    })
-    $('#projectDetailModal').modal('hide');
-    setTimeout(()=>{
-      this.ngOnInit()
-    },200)
+    if(confirm("Are you sure to delete?")) {
+      let projectModel = Object.assign({}, this.projectDeleteForm.value)
+      this.projectService.deleteProject(projectModel).subscribe(response => {
+        this.toastrService.success(response.message)
+      })
+      $('#projectDetailModal').modal('hide');
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
+    }
   }
   setCurrentProject(project: ProjectDTO) {
     this.currentProject = project;

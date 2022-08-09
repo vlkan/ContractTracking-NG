@@ -1,3 +1,4 @@
+<h1 class="display-5"> Invoices </h1>
 <div class="row">
   <!-- <div class="col-md-3">
     <app-employee></app-employee>
@@ -36,7 +37,7 @@
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.createdAt | date }}</td>
         <td>
-          <button class="btn btn-light btn-sm" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice.id)">
+          <button class="btn btn-outline-danger" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice.id)">
             Delete
           </button>
         </td>
@@ -54,25 +55,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="invoiceAddForm">
-          <div class="mb-3"> Project
-            <select class="form-select" aria-label="Default select example" id="projectId" formControlName="projectId">
-              <option *ngFor="let project of projects" [ngValue]=project.id>{{project.name}}</option>
+        <form [formGroup]="invoiceAddForm" id="addform">
+          <div class="mb-3">
+            <label for="validationCustom01" class="form-label">Fee Paid</label>
+            <select class="form-select" aria-label="Default select example" id="validationCustom01" formControlName="projectId" required>
+              <option *ngFor="let project of projects" [ngValue]=project.id required>{{project.name}}</option>
             </select>
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Fee Paid</label>
-            <input type="text" class="form-control" id="feePaid" formControlName="feePaid" placeholder="" />
+            <label for="validationCustom02" class="form-label">Fee Paid</label>
+            <input type="text" class="form-control" id="validationCustom02" formControlName="feePaid" placeholder="" required/>
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+            <label for="validationCustom03" class="form-label">Description</label>
+            <textarea class="form-control" id="validationCustom03" rows="3" formControlName="description" required></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" (click)="addInvoice()">Add</button>
+        <button type="submit" class="btn btn-success" (click)="addInvoice()">Add</button>
       </div>
     </div>
   </div>

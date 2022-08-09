@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
+import { CustomerComponent } from './components/customer/customer.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -19,6 +21,7 @@ const routes: Routes = [
   {path: "worklists", component: WorklistCalendarComponent },
   {path: "employees", component: EmployeeComponent },
   {path: "notifications", component: NotificationComponent },
+  {path: "customers", component: CustomerDetailComponent },
 ];
 
 @NgModule({

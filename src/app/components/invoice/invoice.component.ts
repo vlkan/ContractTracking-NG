@@ -79,7 +79,7 @@ export class InvoiceComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
         this.updateRemainingBudget(invoiceModel.projectId, invoiceModel.feePaid)
       })
-      $('#addInvoiceModal').modal('hide');
+      $('addInvoiceModal').modal('hide');
       setTimeout(()=>{
         this.ngOnInit()
       },200)
@@ -102,14 +102,15 @@ export class InvoiceComponent implements OnInit {
     this.tempprojects.pop()
   }
   deleteInvoice(invoice: number){
-    this.invoicedelete.id=invoice
-    this.invoiceService.deleteInvoice(this.invoicedelete).subscribe(response => {
-      this.toastrService.success(response.message)
-    })
-    setTimeout(()=>{
-      this.ngOnInit()
-    },200)
-
+    if(confirm("Are you sure to delete?")) {
+      this.invoicedelete.id=invoice
+      this.invoiceService.deleteInvoice(this.invoicedelete).subscribe(response => {
+        this.toastrService.success(response.message)
+      })
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
+    }
   }
   createInvoiceAddForm(){
     this.invoiceAddForm = this.formBuilder.group({

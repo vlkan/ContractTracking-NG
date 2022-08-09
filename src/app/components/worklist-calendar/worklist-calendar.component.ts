@@ -148,7 +148,9 @@ export class WorklistCalendarComponent implements OnInit {
         this.updateRemainingHours(workListModel.projectId, workListModel.workingHours)
       })
       $('#addWork').modal('hide');
-      this.ngOnInit()
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
 
     } else {
       this.toastrService.error("Form Missing", "Warning")
@@ -175,10 +177,15 @@ export class WorklistCalendarComponent implements OnInit {
     this.tempprojects.pop()
   }
   deleteWorkList(workList: WorkList) {
-    console.log(workList.isDeleted)
-    this.workListService.deleteWorkList(workList).subscribe(response => {
-      this.toastrService.success(response.message)
-    })
+    if(confirm("Are you sure to delete?")) {
+      console.log(workList.isDeleted)
+      this.workListService.deleteWorkList(workList).subscribe(response => {
+        this.toastrService.success(response.message)
+      })
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
+    }
   }
   createWorkAddForm(date: Date) {
     this.workAddForm = this.formBuilder.group({

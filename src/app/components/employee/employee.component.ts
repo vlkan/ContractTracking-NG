@@ -44,12 +44,14 @@ export class EmployeeComponent implements OnInit {
     }
   }
   deleteEmployee(employee: Employee){
-    this.employeeService.deleteEmployee(employee).subscribe((response) => {
-      this.toastrService.success(response.message, employee.name)
-    })
-    setTimeout(()=>{
-      this.ngOnInit()
-    },200)
+    if(confirm("Are you sure to delete?")) {
+      this.employeeService.deleteEmployee(employee).subscribe((response) => {
+        this.toastrService.success(response.message, employee.name)
+      })
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
+    }
   }
   setCurrentEmployee(employee: Employee) {
     this.currentEmployee = employee;
