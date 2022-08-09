@@ -69,30 +69,30 @@
               <h5 class="card-title" *ngIf="currentProject">
                 {{ currentProject.name }}
               </h5>
-              <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
+              <!-- <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
                 Project Id:{{ currentProject.id }}
-              </h6>
+              </h6> -->
               <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject"
                 [class]="getProjectTypeEnum(currentProject.type)">
-                {{ projectType }} Project
+                Type: {{ projectType }}
               </h6>
               <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
-                Sub Type:{{ currentProject.subType }}
+                Sub Type: {{ currentProject.subType }}
               </h6>
               <p class="card-text" *ngIf="currentProject">
-                {{currentProject.description}}
+                Description: {{currentProject.description}}
               </p>
               <p class="card-text" *ngIf="currentProject" [class]="getCurrencyTypeEnum(currentProject.type)">
-                {{currentProject.contractBudget}} {{currencyType}}
+                Contract Budget: {{currentProject.contractBudget}} {{currencyType}}
               </p>
               <p class="card-text" *ngIf="currentProject">
                 Contract Term: {{currentProject.contractTerm}} Days
               </p>
               <p class="card-text" *ngIf="currentProject">
-                {{currentProject.workerDay}} Worker Day
+                Total {{currentProject.workerDay}} Worker/Day
               </p>
               <p class="card-text" *ngIf="currentProject">
-                {{currentProject.workerHour}} Worker Hour
+                {{currentProject.workerHour}} Worker/Hour
               </p>
               <p class="card-text" *ngIf="currentProject">
                 {{currentProject.remainingWorkerHour}} Worker Day Remaining

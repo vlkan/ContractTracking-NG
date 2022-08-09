@@ -228,19 +228,19 @@ export class ProjectComponent implements OnInit {
 }
 
 enum ProjectType {
-  System = 1,
-  Software = 2,
-  SystemAndSoftware = 3,
+  "System" = 1,
+  "Software" = 2,
+  "System And Software" = 3,
 }
 
 enum CurrencyTypeE {
-  TurkishLira = 1,
-  Dollar = 2,
-  Euro = 3,
-  Pound = 4,
+  "Turkish Lira" = 1,
+  "Dollar" = 2,
+  "Euro" = 3,
+  "Pound" = 4,
 }
 
 enum EnumIsDeleted {
-  No = 0,
-  Yes = 1,
+  "No" = 0,
+  "Yes" = 1,
 }
