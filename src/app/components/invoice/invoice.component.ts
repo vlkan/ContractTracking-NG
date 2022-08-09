@@ -78,7 +78,9 @@ export class InvoiceComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
       })
       $('#addInvoiceModal').modal('hide');
-      this.ngOnInit()
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -88,7 +90,10 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.deleteInvoice(this.invoicedelete).subscribe(response => {
       this.toastrService.success(response.message)
     })
-    this.ngOnInit()
+    setTimeout(()=>{
+      this.ngOnInit()
+    },200)
+
   }
   createInvoiceAddForm(){
     this.invoiceAddForm = this.formBuilder.group({

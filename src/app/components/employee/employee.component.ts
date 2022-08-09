@@ -36,7 +36,9 @@ export class EmployeeComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
       })
       $('#addEmployeeModal').modal('hide');
-      this.ngOnInit()
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -45,6 +47,9 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.deleteEmployee(employee).subscribe((response) => {
       this.toastrService.success(response.message, employee.name)
     })
+    setTimeout(()=>{
+      this.ngOnInit()
+    },200)
   }
   setCurrentEmployee(employee: Employee) {
     this.currentEmployee = employee;

@@ -104,7 +104,9 @@ export class ProjectComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
       })
       $('#addProjectModal').modal('hide');
-      this.ngOnInit()
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -117,6 +119,9 @@ export class ProjectComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
       })
       $('#updateProjectModal').modal('hide');
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -128,6 +133,9 @@ export class ProjectComponent implements OnInit {
       this.toastrService.success(response.message)
     })
     $('#projectDetailModal').modal('hide');
+    setTimeout(()=>{
+      this.ngOnInit()
+    },200)
   }
   setCurrentProject(project: ProjectDTO) {
     this.currentProject = project;

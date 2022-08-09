@@ -40,7 +40,9 @@ export class CustomerComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
       })
       $('#addCustomerModal').modal('hide');
-      this.ngOnInit()
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -53,6 +55,9 @@ export class CustomerComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
       })
       $('#updateCustomerModal').modal('hide');
+      setTimeout(()=>{
+        this.ngOnInit()
+      },200)
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -62,6 +67,9 @@ export class CustomerComponent implements OnInit {
       this.toastrService.success(response.message, customer.name)
     })
     $('#customerDetailModal').modal('hide');
+    setTimeout(()=>{
+      this.ngOnInit()
+    },200)
   }
   setCurrentCustomer(customer: Customer) {
     this.currentCustomer = customer;

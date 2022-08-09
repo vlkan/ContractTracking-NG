@@ -235,25 +235,26 @@ export class WorklistCalendarComponent implements OnInit {
     // }
   }
   handleEventClick(clickInfo: EventClickArg) {
-    //$('#detailsWork').modal('show');
+    $('#detailsWork').modal('show');
 
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      var id = clickInfo.event.id
-      var newId = +id
-      console.log(newId)
-      for (let i = 0; i < this.worklists.length; i++) {
-        if (this.worklists[i]["id"] == newId) {
-          console.log(this.worklists[i]["id"])
-          this.selectedEvent.push(this.worklists[i])
-        }
-      }
-      this.deleteWorkList(this.selectedEvent[0])
-      this.selectedEvent.pop()
-      clickInfo.event.remove();
-    }
 
+    // }
   }
-
+  deleteEventAsl(){
+    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    //   var id = clickInfo.event.id
+    //   var newId = +id
+    //   console.log(newId)
+    //   for (let i = 0; i < this.worklists.length; i++) {
+    //     if (this.worklists[i]["id"] == newId) {
+    //       console.log(this.worklists[i]["id"])
+    //       this.selectedEvent.push(this.worklists[i])
+    //     }
+    //   }
+    //   this.deleteWorkList(this.selectedEvent[0])
+    //   this.selectedEvent.pop()
+    //   clickInfo.event.remove();
+  }
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
   }

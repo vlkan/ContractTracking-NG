@@ -57,7 +57,7 @@
         <form [formGroup]="invoiceAddForm">
           <div class="mb-3"> Project
             <select class="form-select" aria-label="Default select example" id="projectId" formControlName="projectId">
-              <option selected *ngFor="let project of projects" [ngValue]=project.id>{{project.name}}</option>
+              <option *ngFor="let project of projects" [ngValue]=project.id>{{project.name}}</option>
             </select>
           </div>
           <div class="mb-3">
