@@ -33,7 +33,7 @@
       <tr *ngFor="let invoice of invoicedetails | filterInvoice: filterText" (click)="setCurrentInvoice(invoice)">
         <td>{{ invoice.id }}</td>
         <td>{{ invoice.projectName }}</td>
-        <td>{{ invoice.feePaid }}</td>
+        <td [class]="setCurrencyType(invoice.projectName)">{{ invoice.feePaid }} {{getCurrencyTypeEnum(currencyType)}}</td>
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.createdAt | date }}</td>
         <td>

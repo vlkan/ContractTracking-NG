@@ -15,7 +15,12 @@
     <td>{{employee.jobTitle}}</td>
     <td>{{employee.startDate | date}}</td>
     <td>
-      <button type="button" class="btn btn-outline-danger" (click)="setCurrentEmployee(employee)" (click)="deleteEmployee(employee)">
+      <button type="button" class="btn btn-outline-success" (click)="setCurrentEmployee(employee)"
+        data-bs-toggle="modal" data-bs-target="#updateEmployeeModal">
+        Edit
+      </button>
+      <button type="button" class="btn btn-outline-danger" (click)="setCurrentEmployee(employee)"
+        (click)="deleteEmployee(employee)">
         Delete
       </button>
     </td>
@@ -37,31 +42,79 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="employeeAddForm">
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" formControlName="name" placeholder="" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Surname</label>
-          <input type="text" class="form-control" id="name" formControlName="surname" placeholder="" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Email</label>
-          <input type="text" class="form-control" id="name" formControlName="email" placeholder="" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Job Title</label>
-          <input type="text" class="form-control" id="name" formControlName="jobTitle" placeholder="" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Start Date</label>
-          <input type="date" id="birthday" name="birthday" formControlName="startDate">
-        </div>
-      </form>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" placeholder="" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Surname</label>
+            <input type="text" class="form-control" id="name" formControlName="surname" placeholder="" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email</label>
+            <input type="text" class="form-control" id="name" formControlName="email" placeholder="" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="name" formControlName="jobTitle" placeholder="" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Start Date</label>
+            <input type="date" id="birthday" name="birthday" formControlName="startDate">
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-success" (click)="addEmployee()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Employee Modal -->
+<div class="modal fade" id="updateEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Update Employee</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="employeeUpdateForm" *ngIf="employeeUpdateForm">
+          <div class="form-group">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" placeholder="" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Surname</label>
+              <input type="text" class="form-control" id="name" formControlName="surname" placeholder="" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Email</label>
+              <input type="text" class="form-control" id="name" formControlName="email" placeholder="" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Job Title</label>
+              <input type="text" class="form-control" id="name" formControlName="jobTitle" placeholder="" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Start Date</label>
+              <input type="date" id="birthday" name="birthday" formControlName="startDate">
+            </div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-success btn-sm" type="button" (click)="updateEmployee()">
+                Update Customer
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
       </div>
     </div>
   </div>

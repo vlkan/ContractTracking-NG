@@ -25,6 +25,9 @@ export class InvoiceComponent implements OnInit {
   filterText = '';
   tempprojects: Project[] = []
 
+  currencyType: number
+  currencyTypeNew: string
+
   invoiceAddForm: FormGroup
   constructor(private invoiceService: InvoiceService,
     private projectService: ProjectService,
@@ -70,6 +73,17 @@ export class InvoiceComponent implements OnInit {
     this.currentInvoice = invoice;
     console.log(invoice);
     //this.createProjectUpdateForm();
+  }
+  getCurrencyTypeEnum(type: number) {
+    this.currencyTypeNew = CurrencyTypeE[type];
+    return this.currencyTypeNew
+  }
+  setCurrencyType(project: string){
+    for(let i = 0; i<this.projects.length; i++){
+      if (this.projects[i]["name"] == project){
+        this.currencyType = this.projects[i]["currencyType"]
+      }
+    }
   }
   addInvoice(){
     console.log(this.invoiceAddForm.value)
@@ -137,4 +151,11 @@ export class InvoiceComponent implements OnInit {
       modifiedAt:[new Date,]
     })
   }
+}
+
+enum CurrencyTypeE {
+  "₺" = 1,
+  "$" = 2,
+  "€" = 3,
+  "£" = 4,
 }

@@ -42,6 +42,8 @@ export class ProjectComponent implements OnInit {
   projectUpdateForm: FormGroup
   projectDeleteForm:FormGroup
 
+  whichCustomer: number
+
   constructor(
     private projectService: ProjectService,
     private employeeService: EmployeeService,
@@ -55,6 +57,7 @@ export class ProjectComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       if (params['customerId']) {
         this.getProjectDetailsByCustomerId(params['customerId']);
+        this.whichCustomer = params['customerId']
       } else {
         this.getProjectDetails()
       }
