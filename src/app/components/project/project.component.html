@@ -23,8 +23,8 @@
     <table class="table">
       <thead>
         <tr class="table-dark">
-          <th>Name</th>
           <th>Customer Owner</th>
+          <th>Name</th>
           <th>Constract Start Date</th>
           <th>Constract End Date</th>
           <th>Remaining Working Days</th>
@@ -33,8 +33,8 @@
         </tr>
       </thead>
       <tr *ngFor="let project of projectDetailed | filterPipe: filterText" (click)="setCurrentProject(project)">
-        <td>{{ project.name }}</td>
         <td>{{ project.customerOwnerName }}</td>
+        <td>{{ project.name }}</td>
         <td>{{ project.contractStartDate | date }}</td>
         <td [class]="calculateRemainingDaysEnd(project.contractStartDate, project.contractTerm)">{{ endDate | date }}
         </td>
@@ -79,14 +79,23 @@
               <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
                 Sub Type: {{ currentProject.subType }}
               </h6>
+              <h6 class="card-subtitle mb-2 text-muted" *ngIf="currentProject">
+                Owner {{ currentProject.customerOwnerName }}
+              </h6>
               <p class="card-text" *ngIf="currentProject">
                 Description: {{currentProject.description}}
               </p>
               <p class="card-text" *ngIf="currentProject" [class]="getCurrencyTypeEnum(currentProject.type)">
-                Contract Budget: {{currentProject.contractBudget}} {{currencyType}}
+                Contract Budget: {{currentProject.contractBudget | currency}} {{currencyType}}
               </p>
               <p class="card-text" *ngIf="currentProject">
                 Contract Term: {{currentProject.contractTerm}} Days
+              </p>
+              <p class="card-text" *ngIf="currentProject">
+                Contract Start Date: {{currentProject.contractStartDate | date}}
+              </p>
+              <p class="card-text" *ngIf="currentProject" [class]="calculateRemainingDaysEnd(currentProject.contractStartDate, currentProject.contractTerm)">
+                Contract End Date: {{endDate | date}}
               </p>
               <p class="card-text" *ngIf="currentProject">
                 Total {{currentProject.workerDay}} Worker/Day
@@ -98,7 +107,7 @@
                 {{currentProject.remainingWorkerHour}} Worker Day Remaining
               </p>
               <p class="card-text" *ngIf="currentProject">
-                {{currentProject.remainingContractBudget}} Remaining Budget
+                {{currentProject.remainingContractBudget | currency}} Remaining Budget
               </p>
             </div>
           </div>
@@ -169,7 +178,7 @@
               <select class="form-select" aria-label="Default select example" id="type" formControlName="currencyType">
                 <option selected [ngValue]=1>Turkish Lira</option>
                 <option [ngValue]=2>Dollar</option>
-                <option [ngValue]=3>Eura</option>
+                <option [ngValue]=3>Euro</option>
                 <option [ngValue]=4>Pound</option>
               </select>
             </div>

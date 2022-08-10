@@ -37,7 +37,7 @@
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.createdAt | date }}</td>
         <td>
-          <button class="btn btn-outline-danger" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice.id)">
+          <button class="btn btn-outline-danger" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice.id, currentInvoice.projectName, currentInvoice.feePaid)">
             Delete
           </button>
         </td>
@@ -57,7 +57,7 @@
       <div class="modal-body">
         <form [formGroup]="invoiceAddForm" id="addform">
           <div class="mb-3">
-            <label for="validationCustom01" class="form-label">Fee Paid</label>
+            <label for="validationCustom01" class="form-label">For Which Project</label>
             <select class="form-select" aria-label="Default select example" id="validationCustom01" formControlName="projectId" required>
               <option *ngFor="let project of projects" [ngValue]=project.id required>{{project.name}}</option>
             </select>

@@ -244,10 +244,10 @@ enum ProjectType {
 }
 
 enum CurrencyTypeE {
-  "Turkish Lira" = 1,
-  "Dollar" = 2,
-  "Euro" = 3,
-  "Pound" = 4,
+  "₺" = 1,
+  "$" = 2,
+  "€" = 3,
+  "£" = 4,
 }
 
 enum EnumIsDeleted {

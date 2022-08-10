@@ -1,1 +1,28 @@
-<p>budget works!</p>
+<h1 class="display-5">Budgets</h1>
+
+<div class="d-flex" role="search">
+  <label for="filterText" class="form-label"></label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+</div>
+
+<div *ngIf="filterText" class="alert alert-primary">
+  Your search is {{ filterText }}.
+</div>
+
+<table class="table">
+  <thead>
+    <tr class="table-dark">
+      <th>Customer Owner</th>
+      <th>Name</th>
+      <th>Total Budget</th>
+      <th>Remaining Budget</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let project of projectDetailed | filterPipe: filterText" (click)="setCurrentProject(project)">
+    <td>{{ project.customerOwnerName }}</td>
+    <td>{{ project.name }}</td>
+    <td [class]="getCurrencyTypeEnum(project.type)">{{ project.contractBudget | currency }} {{currencyType}}</td>
+    <td [class]="getCurrencyTypeEnum(project.type)">{{ project.remainingContractBudget | currency }} {{currencyType}}</td>
+    <!-- <td [class]="calculateRemainingDays(project.contractStartDate, project.contractTerm)">{{ remainingDays }} days</td> -->
+  </tr>
+</table>

@@ -90,22 +90,36 @@ export class InvoiceComponent implements OnInit {
   updateRemainingBudget(projectId: number, feePaid: number){
     for (let i = 0; i < this.projects.length; i++) {
       if (this.projects[i]["id"] == projectId) {
-        console.log(this.projects[i]["remainingWorkerHour"])
+        console.log(this.projects[i]["remainingContractBudget"])
         this.tempprojects.push(this.projects[i])
       }
     }
 
-    this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingContractBudget) - feePaid
+    this.tempprojects[0].remainingContractBudget = (this.tempprojects[0].remainingContractBudget) - feePaid
     this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
       this.toastrService.success(response.message)
     })
     this.tempprojects.pop()
   }
-  deleteInvoice(invoice: number){
+  updateRemainingBudgetBack(projectName: string, feePaid: number){
+    for (let i = 0; i < this.projects.length; i++) {
+      if (this.projects[i]["name"] == projectName) {
+        console.log(this.projects[i]["remainingContractBudget"])
+        this.tempprojects.push(this.projects[i])
+      }
+    }
+    this.tempprojects[0].remainingContractBudget = (this.tempprojects[0].remainingContractBudget) + feePaid
+    this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
+      this.toastrService.success(response.message)
+    })
+    this.tempprojects.pop()
+  }
+  deleteInvoice(invoice: number, project: string, feepaid: number){
     if(confirm("Are you sure to delete?")) {
       this.invoicedelete.id=invoice
       this.invoiceService.deleteInvoice(this.invoicedelete).subscribe(response => {
         this.toastrService.success(response.message)
+        this.updateRemainingBudgetBack(project, feepaid)
       })
       setTimeout(()=>{
         this.ngOnInit()
