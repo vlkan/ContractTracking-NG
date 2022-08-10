@@ -35,6 +35,15 @@ export class WorklistCalendarComponent implements OnInit {
   updateprojects: Project[] = []
   tempprojects: Project[] = []
   dateList: EventInput[] = []
+  currentWorklist: WorkListDTO
+  worklistdelete: WorkList = {id:0, projectId:0, employeeId:0, workingDate:new Date, workingHours:0, isDeleted:0, createdAt:new Date, modifiedAt:new Date}
+
+  tempworklistsDetailed: WorkListDTO[] = []
+
+  workerName: string = "";
+  workingHours: number = 0;
+  workingProject: string = "";
+  workId: number = 0;
 
   selectedDate: Date
 
@@ -73,7 +82,7 @@ export class WorklistCalendarComponent implements OnInit {
         eventClick: this.handleEventClick.bind(this),
         eventsSet: this.handleEvents.bind(this),
       };
-    }, 300);
+    }, 400);
   }
   calendarVisible = true;
   Events: any[] = [];
@@ -122,7 +131,10 @@ export class WorklistCalendarComponent implements OnInit {
         this.Events.push({
           id: String(element.id),
           title: element.employeeName + " " + element.employeeSurName + " " + element.workingHours + " Hours",
-          start: new Date(element.workingDate)
+          start: new Date(element.workingDate),
+          employeeName: element.employeeName,
+          employeeSurName: element.employeeSurName,
+          workingHours: element.workingHours
         })
       })
     });
@@ -139,6 +151,9 @@ export class WorklistCalendarComponent implements OnInit {
       console.log(response);
     });
   }
+  setCurrentWorkList(){
+
+  }
   addWorkList() {
     if (this.workAddForm.valid) {
       let workListModel = Object.assign({}, this.workAddForm.value)
@@ -150,7 +165,7 @@ export class WorklistCalendarComponent implements OnInit {
       $('#addWork').modal('hide');
       setTimeout(()=>{
         this.ngOnInit()
-      },200)
+      },400)
 
     } else {
       this.toastrService.error("Form Missing", "Warning")
@@ -162,10 +177,10 @@ export class WorklistCalendarComponent implements OnInit {
       console.log(response);
     });
   }
-  updateRemainingHours(projectId: number, workinghours: number) {
+  updateRemainingHours(project: number, workinghours: number) {
     for (let i = 0; i < this.updateprojects.length; i++) {
-      if (this.updateprojects[i]["id"] == projectId) {
-        console.log(this.updateprojects[i]["remainingWorkerHour"])
+      if (this.updateprojects[i]["id"] == project) {
+        console.log(this.updateprojects[i]["name"])
         this.tempprojects.push(this.updateprojects[i])
       }
     }
@@ -176,16 +191,33 @@ export class WorklistCalendarComponent implements OnInit {
     })
     this.tempprojects.pop()
   }
-  deleteWorkList(workList: WorkList) {
+  updateRemainingHoursBack(project: string, workinghours: number) {
+    for (let i = 0; i < this.updateprojects.length; i++) {
+      if (this.updateprojects[i]["name"] == project) {
+        console.log(this.updateprojects[i]["name"])
+        this.tempprojects.push(this.updateprojects[i])
+      }
+    }
+
+    this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingWorkerHour) + workinghours
+    this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
+      this.toastrService.success(response.message)
+    })
+    this.tempprojects.pop()
+  }
+  deleteWorkList(worklist: number, project: string, feepaid: number) {
     if(confirm("Are you sure to delete?")) {
-      console.log(workList.isDeleted)
-      this.workListService.deleteWorkList(workList).subscribe(response => {
+      this.worklistdelete.id=worklist
+      console.log(this.worklistdelete.id)
+      this.workListService.deleteWorkList(this.worklistdelete).subscribe(response => {
         this.toastrService.success(response.message)
+        this.updateRemainingHoursBack(project, feepaid)
       })
       setTimeout(()=>{
         this.ngOnInit()
-      },200)
+      },400)
     }
+    $('#detailsWork').modal('hide');
   }
   createWorkAddForm(date: Date) {
     this.workAddForm = this.formBuilder.group({
@@ -242,25 +274,21 @@ export class WorklistCalendarComponent implements OnInit {
     // }
   }
   handleEventClick(clickInfo: EventClickArg) {
+    this.tempworklistsDetailed.pop()
+    for (let i = 0; i < this.worklistsDetailed.length; i++) {
+      if (this.worklistsDetailed[i]["id"] == (clickInfo.event.id)as unknown) {
+        console.log(this.worklistsDetailed[i]["id"])
+        this.tempworklistsDetailed.push(this.worklistsDetailed[i])
+      }
+    }
+    this.workId = this.tempworklistsDetailed[0]["id"]
+    this.workerName = this.tempworklistsDetailed[0]["employeeName"] + " " + this.tempworklistsDetailed[0]["employeeSurName"]
+    this.workingHours = this.tempworklistsDetailed[0]["workingHours"]
+    this.workingProject = this.tempworklistsDetailed[0]["projectName"]
+    this.setCurrentWorkList
+    console.log(this.workerName)
     $('#detailsWork').modal('show');
 
-
-    // }
-  }
-  deleteEventAsl(){
-    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-    //   var id = clickInfo.event.id
-    //   var newId = +id
-    //   console.log(newId)
-    //   for (let i = 0; i < this.worklists.length; i++) {
-    //     if (this.worklists[i]["id"] == newId) {
-    //       console.log(this.worklists[i]["id"])
-    //       this.selectedEvent.push(this.worklists[i])
-    //     }
-    //   }
-    //   this.deleteWorkList(this.selectedEvent[0])
-    //   this.selectedEvent.pop()
-    //   clickInfo.event.remove();
   }
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;

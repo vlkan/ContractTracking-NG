@@ -79,7 +79,7 @@ export class InvoiceComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
         this.updateRemainingBudget(invoiceModel.projectId, invoiceModel.feePaid)
       })
-      $('addInvoiceModal').modal('hide');
+      $('#addInvoiceModal').modal('hide');
       setTimeout(()=>{
         this.ngOnInit()
       },200)
