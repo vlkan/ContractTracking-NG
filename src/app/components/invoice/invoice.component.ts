@@ -27,6 +27,7 @@ export class InvoiceComponent implements OnInit {
 
   currencyType: number
   currencyTypeNew: string
+  currencyTypeSelect:number
 
   invoiceAddForm: FormGroup
   constructor(private invoiceService: InvoiceService,
@@ -77,6 +78,9 @@ export class InvoiceComponent implements OnInit {
   getCurrencyTypeEnum(type: number) {
     this.currencyTypeNew = CurrencyTypeE[type];
     return this.currencyTypeNew
+  }
+  getCurrencyTypeSelect(){
+
   }
   setCurrencyType(project: string){
     for(let i = 0; i<this.projects.length; i++){

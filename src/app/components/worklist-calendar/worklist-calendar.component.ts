@@ -16,7 +16,7 @@ import { WorkListDTO } from 'src/app/models/workListDto';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { WorklistService } from 'src/app/services/worklist.service';
-import { createEventId, INITIAL_EVENTS } from './worklist-utils';
+
 
 declare var $: any;
 
@@ -73,6 +73,8 @@ export class WorklistCalendarComponent implements OnInit {
         selectable: true,
         selectMirror: true,
         dayMaxEvents: true,
+        displayEventTime: false,
+        themeSystem: 'bootstrap5',
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
@@ -97,6 +99,8 @@ export class WorklistCalendarComponent implements OnInit {
     editable: true,
     selectable: true,
     selectMirror: true,
+    displayEventTime: false,
+    themeSystem: 'bootstrap5',
     dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
@@ -161,11 +165,12 @@ export class WorklistCalendarComponent implements OnInit {
         this.toastrService.success(response.message, "Success")
         console.log(workListModel.projectId)
         this.updateRemainingHours(workListModel.projectId, workListModel.workingHours)
+        setTimeout(()=>{
+          this.ngOnInit()
+        },500)
       })
       $('#addWork').modal('hide');
-      setTimeout(()=>{
-        this.ngOnInit()
-      },400)
+
 
     } else {
       this.toastrService.error("Form Missing", "Warning")
@@ -215,7 +220,7 @@ export class WorklistCalendarComponent implements OnInit {
       })
       setTimeout(()=>{
         this.ngOnInit()
-      },400)
+      },500)
     }
     $('#detailsWork').modal('hide');
   }

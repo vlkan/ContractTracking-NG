@@ -98,16 +98,16 @@
                 Contract End Date: {{endDate | date}}
               </p>
               <p class="card-text" *ngIf="currentProject">
-                Total {{currentProject.workerDay}} Worker/Day
+                Total Worker/Day: {{currentProject.workerDay}}
               </p>
               <p class="card-text" *ngIf="currentProject">
-                {{currentProject.workerHour}} Worker/Hour
+                Worker/Hour: {{currentProject.workerHour}} {{currencyType}}
               </p>
               <p class="card-text" *ngIf="currentProject">
                 {{currentProject.remainingWorkerHour}} Worker Day Remaining
               </p>
               <p class="card-text" *ngIf="currentProject">
-                {{currentProject.remainingContractBudget | currency: ' '}} Remaining Budget
+                Remaining Budget: {{currentProject.remainingContractBudget | currency: ' '}} {{currencyType}}
               </p>
             </div>
           </div>

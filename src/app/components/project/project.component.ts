@@ -201,7 +201,7 @@ export class ProjectComponent implements OnInit {
       type:[this.currentProject.type, Validators.required],
       subType:[this.currentProject.subType, Validators.required],
       employeeOwnerId:[,Validators.required],
-      customerOwnerId:[, Validators.required],
+      customerOwnerId:[this.currentProject.customerOwnerName, Validators.required],
       description:[this.currentProject.description, Validators.required],
       contractBudget:[this.currentProject.contractBudget, Validators.required],
       currencyType:[this.currentProject.currencyType, Validators.required],
