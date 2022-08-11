@@ -18,7 +18,7 @@
       <th>Remaining Budget</th>
     </tr>
   </thead>
-  <tr *ngFor="let project of projectDetailed | filterPipe: filterText" (click)="setCurrentProject(project)">
+  <tr *ngFor="let project of projectDetailed | budget: filterText" (click)="setCurrentProject(project)">
     <td>{{ project.customerOwnerName }}</td>
     <td>{{ project.name }}</td>
     <td [class]="getCurrencyTypeEnum(project.type)">{{ project.contractBudget | currency: ' ' }} {{currencyType}}</td>

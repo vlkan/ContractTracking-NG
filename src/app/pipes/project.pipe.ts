@@ -1,11 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Project } from '../models/project';
 import { ProjectDTO } from '../models/projectDto';
 
 @Pipe({
-  name: 'budget'
+  name: 'project'
 })
-export class BudgetPipe implements PipeTransform {
+export class ProjectPipe implements PipeTransform {
 
   transform(value: ProjectDTO[], filterText:string): ProjectDTO[] {
     filterText = filterText?filterText.toLocaleLowerCase():""

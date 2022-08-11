@@ -40,6 +40,8 @@ import { CustomerDetailComponent } from './components/customer-detail/customer-d
 import { CustomerPipe } from './pipes/customer.pipe';
 import { BudgetComponent } from './components/budget/budget.component';
 import { BudgetPipe } from './pipes/budget.pipe';
+import { ProjectPipe } from './pipes/project.pipe';
+import { EmployeePipe } from './pipes/employee.pipe';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -68,6 +70,8 @@ FullCalendarModule.registerPlugins([
     CustomerPipe,
     BudgetComponent,
     BudgetPipe,
+    ProjectPipe,
+    EmployeePipe,
   ],
   imports: [
     BrowserModule,

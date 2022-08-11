@@ -1,4 +1,14 @@
 <h1 class="display-5"> Employees </h1>
+
+<div class="d-flex" role="search">
+  <label for="filterText" class="form-label"></label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+</div>
+
+<div *ngIf="filterText" class="alert alert-primary">
+  Your search is {{ filterText }}.
+</div>
+
 <table class="table">
   <thead>
     <tr class="table-dark">
@@ -9,7 +19,7 @@
       <th></th>
     </tr>
   </thead>
-  <tr *ngFor="let employee of employees" (click)="setCurrentEmployee(employee)">
+  <tr *ngFor="let employee of employees | employee: filterText " (click)="setCurrentEmployee(employee)">
     <td>{{employee.name}} {{employee.surname}}</td>
     <td>{{employee.email}}</td>
     <td>{{employee.jobTitle}}</td>

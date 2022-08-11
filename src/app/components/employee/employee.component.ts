@@ -17,8 +17,7 @@ export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
   projects: Project[] = [];
   currentEmployee: Employee
-
-
+  filterText = '';
 
   employeeAddForm: FormGroup
   employeeUpdateForm: FormGroup
