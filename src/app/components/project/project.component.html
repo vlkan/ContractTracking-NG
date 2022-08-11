@@ -86,7 +86,7 @@
                 Description: {{currentProject.description}}
               </p>
               <p class="card-text" *ngIf="currentProject" [class]="getCurrencyTypeEnum(currentProject.type)">
-                Contract Budget: {{currentProject.contractBudget | currency}} {{currencyType}}
+                Contract Budget: {{currentProject.contractBudget | currency: ' '}} {{currencyType}}
               </p>
               <p class="card-text" *ngIf="currentProject">
                 Contract Term: {{currentProject.contractTerm}} Days
@@ -107,7 +107,7 @@
                 {{currentProject.remainingWorkerHour}} Worker Day Remaining
               </p>
               <p class="card-text" *ngIf="currentProject">
-                {{currentProject.remainingContractBudget | currency}} Remaining Budget
+                {{currentProject.remainingContractBudget | currency: ' '}} Remaining Budget
               </p>
             </div>
           </div>
@@ -191,12 +191,12 @@
               <input type="date" id="birthday" name="birthday" formControlName="contractStartDate">
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Worker Day</label>
+              <label for="exampleFormControlInput1" class="form-label">Worker/Day</label>
               <input type="text" class="form-control" id="name" formControlName="workerDay" placeholder="" [ngModel]="remainingWorkerHourval" (ngModelChange)="remainingWorkerHourval = $event" />
               <input type="hidden" class="form-control" id="custId" name="custId" formControlName="remainingWorkerHour" [ngModel]="remainingWorkerHourval"/>
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Worker Hour</label>
+              <label for="exampleFormControlInput1" class="form-label">Worker/Hour</label>
               <input type="text" class="form-control" id="name" formControlName="workerHour" placeholder="" />
             </div>
 
@@ -268,10 +268,10 @@
             </div>
             <div class="mb-3"> Currency Type
               <select class="form-select" aria-label="Default select example" id="type" formControlName="currencyType">
-                <option selected [ngValue]=1>Turkish Lira</option>
-                <option [ngValue]=2>Dollar</option>
-                <option [ngValue]=3>Euro</option>
-                <option [ngValue]=4>Pound</option>
+                <option selected [ngValue]=1>₺</option>
+                <option [ngValue]=2>$</option>
+                <option [ngValue]=3>€</option>
+                <option [ngValue]=4>£</option>
               </select>
             </div>
             <div class="mb-3">
@@ -283,11 +283,11 @@
               <input type="date" id="birthday" name="birthday" formControlName="contractStartDate">
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Worker Day</label>
+              <label for="exampleFormControlInput1" class="form-label">Worker/Day</label>
               <input type="text" class="form-control" id="name" formControlName="workerDay" placeholder="Budget" />
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Worker Hour</label>
+              <label for="exampleFormControlInput1" class="form-label">Worker/Hour</label>
               <input type="text" class="form-control" id="name" formControlName="workerHour" placeholder="Budget" />
             </div>
 

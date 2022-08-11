@@ -17,6 +17,7 @@
       <th>Name</th>
       <th>Email</th>
       <th>Description</th>
+      <th>Type</th>
       <th>Phone</th>
       <th></th>
       <th></th>
@@ -26,6 +27,7 @@
     <td>{{ customer.name }}</td>
     <td>{{ customer.email }}</td>
     <td>{{ customer.description }}</td>
+    <td [class]="getCustomerTypeEnum(customer.type)">{{ customerType }}</td>
     <td>{{ customer.phone }}</td>
     <td>
       <button type="button" (click)="setCurrentCustomer(customer)" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateCustomerModal">
