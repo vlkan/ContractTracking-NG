@@ -135,11 +135,9 @@ export class ProjectComponent implements OnInit {
       let projectModel = Object.assign({}, this.projectDeleteForm.value)
       this.projectService.deleteProject(projectModel).subscribe(response => {
         this.toastrService.success(response.message)
+        $('#projectDetailModal').modal('hide');
+          this.ngOnInit()
       })
-      $('#projectDetailModal').modal('hide');
-      setTimeout(()=>{
-        this.ngOnInit()
-      },200)
     }
   }
   setCurrentProject(project: ProjectDTO) {
@@ -195,6 +193,10 @@ export class ProjectComponent implements OnInit {
     })
   }
   createProjectUpdateForm(){
+    console.log(this.currentProject);
+    console.log(this.employees);
+
+
     this.projectUpdateForm = this.formBuilder.group({
       id:[this.currentProject.id],
       name:[this.currentProject.name, Validators.required],
