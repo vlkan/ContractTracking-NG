@@ -185,7 +185,7 @@ export class WorklistCalendarComponent implements OnInit {
       }
     }
 
-    this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingWorkerHour) - workinghours
+    this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingWorkerHour) - (workinghours/8)
     this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
       this.toastrService.success(response.message)
     })
@@ -199,7 +199,7 @@ export class WorklistCalendarComponent implements OnInit {
       }
     }
 
-    this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingWorkerHour) + workinghours
+    this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingWorkerHour) + (workinghours/8)
     this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
       this.toastrService.success(response.message)
     })
