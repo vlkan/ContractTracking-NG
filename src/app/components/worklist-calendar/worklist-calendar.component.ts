@@ -84,7 +84,7 @@ export class WorklistCalendarComponent implements OnInit {
         eventClick: this.handleEventClick.bind(this),
         eventsSet: this.handleEvents.bind(this),
       };
-    }, 400);
+    }, 1);
   }
   calendarVisible = true;
   Events: any[] = [];

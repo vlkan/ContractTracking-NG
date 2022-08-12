@@ -248,14 +248,14 @@
             <div class="mb-3"> Employee Owner
               <select class="form-select" aria-label="Default select example" id="type"
                 formControlName="employeeOwnerId">
-                <option selected *ngFor="let employee of employees" [ngValue]=employee.id>{{employee.name}}
+                <option selected id="employeeOwner" *ngFor="let employee of employees" [ngValue]=employee.id>{{employee.name}}
                   {{employee.surname}}</option>
               </select>
             </div>
             <div class="mb-3"> Customer Owner
               <select class="form-select" aria-label="Default select example" id="type"
                 formControlName="customerOwnerId">
-                <option selected *ngFor="let customer of customers" [ngValue]=customer.id>{{customer.name}}</option>
+                <option selected id="customerOwner" *ngFor="let customer of customers" [ngValue]=customer.id>{{customer.name}}</option>
               </select>
             </div>
             <div class="mb-3">

@@ -42,7 +42,9 @@ export class ProjectComponent implements OnInit {
   projectUpdateForm: FormGroup
   projectDeleteForm:FormGroup
 
-  whichCustomer: number
+  whichCustomer: any
+
+  selectedEmployeeOwner: string
 
   constructor(
     private projectService: ProjectService,
@@ -56,13 +58,16 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['customerId']) {
+        this.whichCustomer = <number>params['customerId']
         this.getProjectDetailsByCustomerId(params['customerId']);
-        this.whichCustomer = params['customerId']
+        this.createProjectAddForm(this.whichCustomer);
+        console.log(this.whichCustomer)
       } else {
         this.getProjectDetails()
+        this.whichCustomer = 0
+        this.createProjectAddForm(this.whichCustomer);
       }
     });
-    this.createProjectAddForm();
     this.getCustomers();
     this.getEmployees()
   }
@@ -100,6 +105,7 @@ export class ProjectComponent implements OnInit {
     });
   }
   addProject() {
+    this.createProjectAddForm(this.whichCustomer);
     console.log(this.projectAddForm.value)
     if(this.projectAddForm.valid){
       let projectModel = Object.assign({}, this.projectAddForm.value)
@@ -166,14 +172,14 @@ export class ProjectComponent implements OnInit {
   getCurrencyTypeEnum(type: number) {
     this.currencyType = CurrencyTypeE[type];
   }
-  createProjectAddForm(){
+  createProjectAddForm(customer: number){
     this.projectAddForm = this.formBuilder.group({
       id:[0],
       name:["", Validators.required],
       type:[, Validators.required],
       subType:["", Validators.required],
       employeeOwnerId:[, Validators.required],
-      customerOwnerId:[, Validators.required],
+      customerOwnerId:[customer.toString, Validators.required],
       description:["", Validators.required],
       contractBudget:[, Validators.required],
       currencyType:[1, Validators.required],
@@ -189,22 +195,18 @@ export class ProjectComponent implements OnInit {
     })
   }
   createProjectUpdateForm(){
-    console.log(this.currentProject);
-    console.log(this.employees);
-
-
     this.projectUpdateForm = this.formBuilder.group({
       id:[this.currentProject.id],
       name:[this.currentProject.name, Validators.required],
       type:[this.currentProject.type, Validators.required],
       subType:[this.currentProject.subType, Validators.required],
-      employeeOwnerId:[,Validators.required],
-      customerOwnerId:[this.currentProject.customerOwnerName, Validators.required],
+      employeeOwnerId:[this.currentProject.employeeId,Validators.required],
+      customerOwnerId:[this.currentProject.customerId, Validators.required],
       description:[this.currentProject.description, Validators.required],
       contractBudget:[this.currentProject.contractBudget, Validators.required],
       currencyType:[this.currentProject.currencyType, Validators.required],
       contractTerm:[this.currentProject.contractTerm, Validators.required],
-      contractStartDate:[this.currentProject.contractStartDate, Validators.required],
+      contractStartDate:[this.currentProject.contractStartDate.toString().substring(0, 10), Validators.required],
       workerDay:[this.currentProject.workerDay, Validators.required],
       workerHour:[this.currentProject.workerHour, Validators.required],
       remainingContractBudget: [this.currentProject.remainingContractBudget,],

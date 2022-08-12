@@ -7,6 +7,7 @@ export interface ProjectDTO{
   employeeOwnerSurName:string,
   customerOwnerName:string,
   customerId:number,
+  employeeId:number,
   description:string,
   contractBudget:number,
   currencyType:CurrencyTypeE,

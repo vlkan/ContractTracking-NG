@@ -29,6 +29,8 @@ export class InvoiceComponent implements OnInit {
   currencyTypeNew: string
   currencyTypeSelect:number
 
+  selectedCurrencyType:number = 1
+
   invoiceAddForm: FormGroup
   constructor(private invoiceService: InvoiceService,
     private projectService: ProjectService,
@@ -102,6 +104,9 @@ export class InvoiceComponent implements OnInit {
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
+  }
+  updateCurrency(event: Event){
+
   }
   updateRemainingBudget(projectId: number, feePaid: number){
     for (let i = 0; i < this.projects.length; i++) {

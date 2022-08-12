@@ -58,12 +58,12 @@
         <form [formGroup]="invoiceAddForm" id="addform">
           <div class="mb-3">
             <label for="validationCustom01" class="form-label">For Which Project</label>
-            <select class="form-select" aria-label="Default select example" id="validationCustom01" formControlName="projectId" required>
+            <select class="form-select" aria-label="Default select example" id="validationCustom01" formControlName="projectId" (change)="updateCurrency($event)" required>
               <option *ngFor="let project of projects" [ngValue]=project.id required>{{project.name}}</option>
             </select>
           </div>
           <div class="mb-3">
-            <label for="validationCustom02" class="form-label">Fee Paid</label>
+            <label for="validationCustom02" class="form-label">Fee Paid {{selectedCurrencyType}}</label>
             <input type="text" class="form-control" id="validationCustom02" formControlName="feePaid" placeholder="" required/>
           </div>
           <div class="mb-3">
