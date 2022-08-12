@@ -105,11 +105,9 @@ export class ProjectComponent implements OnInit {
       let projectModel = Object.assign({}, this.projectAddForm.value)
       this.projectService.addProject(projectModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
-      })
-      $('#addProjectModal').modal('hide');
-      setTimeout(()=>{
         this.ngOnInit()
-      },200)
+        $('#addProjectModal').modal('hide');
+      })
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -120,11 +118,9 @@ export class ProjectComponent implements OnInit {
       let projectModel = Object.assign({}, this.projectUpdateForm.value)
       this.projectService.updateProject(projectModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
-      })
-      $('#updateProjectModal').modal('hide');
-      setTimeout(()=>{
         this.ngOnInit()
-      },200)
+        $('#updateProjectModal').modal('hide');
+      })
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }

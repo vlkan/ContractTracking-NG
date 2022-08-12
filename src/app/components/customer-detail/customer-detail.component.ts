@@ -38,11 +38,9 @@ export class CustomerDetailComponent implements OnInit {
       let customerModel = Object.assign({}, this.customerAddForm.value)
       this.customerService.addCustomer(customerModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
-      })
-      $('#addCustomerModal').modal('hide');
-      setTimeout(()=>{
         this.ngOnInit()
-      },200)
+        $('#addCustomerModal').modal('hide');
+      })
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -53,11 +51,9 @@ export class CustomerDetailComponent implements OnInit {
       let customerModel = Object.assign({}, this.customerUpdateForm.value)
       this.customerService.updateCustomer(customerModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
-      })
-      $('#updateCustomerModal').modal('hide');
-      setTimeout(()=>{
         this.ngOnInit()
-      },200)
+        $('#updateCustomerModal').modal('hide');
+      })
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -66,11 +62,9 @@ export class CustomerDetailComponent implements OnInit {
     if(confirm("Are you sure to delete?")) {
       this.customerService.deleteCustomer(customer).subscribe(response => {
         this.toastrService.success(response.message, customer.name)
-      })
-      $('#customerDetailModal').modal('hide');
-      setTimeout(()=>{
         this.ngOnInit()
-      },200)
+        $('#customerDetailModal').modal('hide');
+      })
     }
   }
   setCurrentCustomer(customer: Customer) {

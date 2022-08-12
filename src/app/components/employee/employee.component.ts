@@ -40,11 +40,9 @@ export class EmployeeComponent implements OnInit {
       let employeeModel = Object.assign({}, this.employeeAddForm.value)
       this.employeeService.addEmployee(employeeModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
-      })
-      $('#addEmployeeModal').modal('hide');
-      setTimeout(()=>{
         this.ngOnInit()
-      },200)
+        $('#addEmployeeModal').modal('hide');
+      })
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
@@ -53,10 +51,8 @@ export class EmployeeComponent implements OnInit {
     if(confirm("Are you sure to delete?")) {
       this.employeeService.deleteEmployee(employee).subscribe((response) => {
         this.toastrService.success(response.message, employee.name)
-      })
-      setTimeout(()=>{
         this.ngOnInit()
-      },200)
+      })
     }
   }
   updateEmployee(){
@@ -65,11 +61,9 @@ export class EmployeeComponent implements OnInit {
       let employeeModel = Object.assign({}, this.employeeUpdateForm.value)
       this.employeeService.updateEmployee(employeeModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
-      })
-      $('#updateEmployeeModal').modal('hide');
-      setTimeout(()=>{
         this.ngOnInit()
-      },200)
+        $('#updateEmployeeModal').modal('hide');
+      })
     }else{
       this.toastrService.error("Form Missing", "Warning")
     }
