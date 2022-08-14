@@ -34,6 +34,7 @@ export class ProjectComponent implements OnInit {
   currentProject: ProjectDTO;
   remainingDays:number;
   endDate:number
+  isDelete: string;
 
   remainingContractBudgetval: number;
   remainingWorkerHourval: number;
@@ -60,14 +61,12 @@ export class ProjectComponent implements OnInit {
       if (params['customerId']) {
         this.whichCustomer = <number>params['customerId']
         this.getProjectDetailsByCustomerId(params['customerId']);
-        this.createProjectAddForm(this.whichCustomer);
         console.log(this.whichCustomer)
       } else {
         this.getProjectDetails()
-        this.whichCustomer = 0
-        this.createProjectAddForm(this.whichCustomer);
       }
     });
+    this.createProjectAddForm();
     this.getCustomers();
     this.getEmployees()
   }
@@ -105,7 +104,6 @@ export class ProjectComponent implements OnInit {
     });
   }
   addProject() {
-    this.createProjectAddForm(this.whichCustomer);
     console.log(this.projectAddForm.value)
     if(this.projectAddForm.valid){
       let projectModel = Object.assign({}, this.projectAddForm.value)
@@ -131,11 +129,9 @@ export class ProjectComponent implements OnInit {
       this.toastrService.error("Form Missing", "Warning")
     }
   }
-  deleteProject() {
-    this.createProjectDeleteForm()
+  deleteProject(id: number) {
     if(confirm("Are you sure to delete?")) {
-      let projectModel = Object.assign({}, this.projectDeleteForm.value)
-      this.projectService.deleteProject(projectModel).subscribe(response => {
+      this.projectService.softDeleteProject(id).subscribe(response => {
         this.toastrService.success(response.message)
         $('#projectDetailModal').modal('hide');
           this.ngOnInit()
@@ -146,7 +142,6 @@ export class ProjectComponent implements OnInit {
     this.currentProject = project;
     console.log(project);
     this.createProjectUpdateForm();
-    this.createProjectDeleteForm();
   }
   calculateRemainingDays(start:Date, term:number){
     let todayDate = new Date().getDate()
@@ -169,20 +164,23 @@ export class ProjectComponent implements OnInit {
   getProjectTypeEnum(type: number) {
     this.projectType = ProjectType[type];
   }
+  getIsDeletedEnum(type: number) {
+    this.isDelete = EnumIsDeleted[type];
+  }
   getCurrencyTypeEnum(type: number) {
     this.currencyType = CurrencyTypeE[type];
   }
-  createProjectAddForm(customer: number){
+  createProjectAddForm(){
     this.projectAddForm = this.formBuilder.group({
       id:[0],
       name:["", Validators.required],
       type:[, Validators.required],
       subType:["", Validators.required],
       employeeOwnerId:[, Validators.required],
-      customerOwnerId:[customer.toString, Validators.required],
+      customerOwnerId:[, Validators.required],
       description:["", Validators.required],
       contractBudget:[, Validators.required],
-      currencyType:[1, Validators.required],
+      currencyType:[, Validators.required],
       contractTerm:[, Validators.required],
       contractStartDate:[new Date, Validators.required],
       workerDay:[, Validators.required],
@@ -216,28 +214,6 @@ export class ProjectComponent implements OnInit {
       modifiedAt:[new Date,]
     })
   }
-  createProjectDeleteForm(){
-    this.projectDeleteForm = this.formBuilder.group({
-      id:[this.currentProject.id,Validators.required],
-      name:["test", Validators.required],
-      type:[1, Validators.required],
-      subType:["test", Validators.required],
-      employeeOwnerId:[1, Validators.required],
-      customerOwnerId:[1, Validators.required],
-      description:["test", Validators.required],
-      contractBudget:[1, Validators.required],
-      currencyType:[1, Validators.required],
-      contractTerm:[1, Validators.required],
-      contractStartDate:[new Date, Validators.required],
-      workerDay:[1, Validators.required],
-      workerHour:[1, Validators.required],
-      remainingContractBudget: [1,Validators.required],
-      remainingWorkerHour: [1,Validators.required],
-      isDeleted:[1,Validators.required],
-      createdAt:[this.currentProject.createdAt, Validators.required],
-      modifiedAt:[new Date,Validators.required]
-    })
-  }
 }
 
 enum ProjectType {
@@ -254,6 +230,6 @@ enum CurrencyTypeE {
 }
 
 enum EnumIsDeleted {
-  "No" = 0,
-  "Yes" = 1,
+  'No' = 0,
+  'Yes' = 1,
 }
