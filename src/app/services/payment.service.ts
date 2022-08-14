@@ -24,6 +24,10 @@ export class PaymentService {
     let newApi = this.apiUrl + "/payments/delete"
     return this.httpClient.post<ResponseModel>(newApi, payment)
   }
+  softDeletePayment(id: number):Observable<ResponseModel>{
+    let newApi = this.apiUrl + "/payments/deletebyid"
+    return this.httpClient.post<ResponseModel>(newApi, id)
+  }
   addPayment(payment: Payment):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/payments/add"
     return this.httpClient.post<ResponseModel>(newApi, payment)

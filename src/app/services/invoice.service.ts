@@ -29,6 +29,10 @@ export class InvoiceService {
     let newApi = this.apiUrl + "/invoicing/delete"
     return this.httpClient.post<ResponseModel>(newApi, invoice)
   }
+  softDeleteInvoice(id: number):Observable<ResponseModel>{
+    let newApi = this.apiUrl + "/invoicing/deletebyid"
+    return this.httpClient.post<ResponseModel>(newApi, id)
+  }
   addInvoice(invoice: Invoice):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/invoicing/add"
     return this.httpClient.post<ResponseModel>(newApi, invoice)

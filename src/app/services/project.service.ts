@@ -33,6 +33,10 @@ export class ProjectService {
     let newApi = this.apiUrl + "/projects/delete"
     return this.httpClient.post<ResponseModel>(newApi, project)
   }
+  softDeleteProject(id: number):Observable<ResponseModel>{
+    let newApi = this.apiUrl + "/projects/deletebyid"
+    return this.httpClient.post<ResponseModel>(newApi, id)
+  }
   addProject(project: Project):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/projects/add"
     return this.httpClient.post<ResponseModel>(newApi, project)

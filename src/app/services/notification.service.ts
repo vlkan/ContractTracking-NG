@@ -19,6 +19,10 @@ export class NotificationService {
     let newApi = this.apiUrl + "/notifications/delete"
     return this.httpClient.post<ResponseModel>(newApi, notification)
   }
+  softDeleteNotification(id: number):Observable<ResponseModel>{
+    let newApi = this.apiUrl + "/notifications/deletebyid"
+    return this.httpClient.post<ResponseModel>(newApi, id)
+  }
   addNotification(notification: Notification):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/notifications/add"
     return this.httpClient.post<ResponseModel>(newApi, notification)

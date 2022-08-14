@@ -28,6 +28,10 @@ export class WorklistService {
     let newApi = this.apiUrl + "/worklists/delete"
     return this.httpClient.post<ResponseModel>(newApi, workList)
   }
+  softDeleteWorkList(id: number): Observable<ResponseModel> {
+    let newApi = this.apiUrl + "/worklists/deletebyid"
+    return this.httpClient.post<ResponseModel>(newApi, id)
+  }
   addWorkList(workList: WorkList): Observable<ResponseModel> {
     let newApi = this.apiUrl + "/worklists/add"
     return this.httpClient.post<ResponseModel>(newApi, workList)

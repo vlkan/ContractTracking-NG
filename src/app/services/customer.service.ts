@@ -20,6 +20,10 @@ export class CustomerService {
     let newApi = this.apiUrl + "/customers/delete"
     return this.httpClient.post<ResponseModel>(newApi, customer)
   }
+  softDeleteCustomer(id: number):Observable<ResponseModel>{
+    let newApi = this.apiUrl + "/customers/deletebyid"
+    return this.httpClient.post<ResponseModel>(newApi, id)
+  }
   addCustomer(customer: Customer):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/customers/add"
     return this.httpClient.post<ResponseModel>(newApi, customer)
