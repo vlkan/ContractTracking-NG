@@ -21,7 +21,7 @@ export class EmployeeService {
     return this.httpClient.post<ResponseModel>(newApi, employee)
   }
   softDeleteEmployee(id: number):Observable<ResponseModel>{
-    let newApi = this.apiUrl + "/employees/deletebyid"
+    let newApi = this.apiUrl + "/employees/deletebyid?id=" + id
     return this.httpClient.post<ResponseModel>(newApi, id)
   }
   addEmployee(employee: Employee):Observable<ResponseModel>{

@@ -16,6 +16,7 @@ export class CustomerDetailComponent implements OnInit {
   currentCustomer: Customer
   customerType: string;
   filterText = '';
+  isDelete: string;
 
   customerAddForm: FormGroup
   customerUpdateForm: FormGroup
@@ -58,9 +59,9 @@ export class CustomerDetailComponent implements OnInit {
       this.toastrService.error("Form Missing", "Warning")
     }
   }
-  deleteCustomer(customer: Customer) {
+  deleteCustomer(customer: Customer, id: number) {
     if(confirm("Are you sure to delete?")) {
-      this.customerService.deleteCustomer(customer).subscribe(response => {
+      this.customerService.softDeleteCustomer(id).subscribe(response => {
         this.toastrService.success(response.message, customer.name)
         this.ngOnInit()
         $('#customerDetailModal').modal('hide');
@@ -87,6 +88,9 @@ export class CustomerDetailComponent implements OnInit {
   }
   getCustomerTypeEnum(type: number) {
     this.customerType = CustomerType[type];
+  }
+  getIsDeletedEnum(type: number) {
+    this.isDelete = EnumIsDeleted[type];
   }
   createCustomerAddForm(){
     this.customerAddForm = this.formBuilder.group({
@@ -118,5 +122,10 @@ export class CustomerDetailComponent implements OnInit {
 enum CustomerType {
   'Individual' = 1,
   'Corporate' = 2,
+}
+
+enum EnumIsDeleted {
+  'No' = 0,
+  'Yes' = 1,
 }
 

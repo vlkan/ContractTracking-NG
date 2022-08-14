@@ -18,6 +18,7 @@ export class EmployeeComponent implements OnInit {
   projects: Project[] = [];
   currentEmployee: Employee
   filterText = '';
+  isDelete: string;
 
   employeeAddForm: FormGroup
   employeeUpdateForm: FormGroup
@@ -47,9 +48,9 @@ export class EmployeeComponent implements OnInit {
       this.toastrService.error("Form Missing", "Warning")
     }
   }
-  deleteEmployee(employee: Employee){
+  deleteEmployee(employee: Employee, id: number){
     if(confirm("Are you sure to delete?")) {
-      this.employeeService.deleteEmployee(employee).subscribe((response) => {
+      this.employeeService.softDeleteEmployee(id).subscribe((response) => {
         this.toastrService.success(response.message, employee.name)
         this.ngOnInit()
       })
@@ -69,6 +70,9 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
+  getIsDeletedEnum(type: number) {
+    this.isDelete = EnumIsDeleted[type];
+  }
 
   setCurrentEmployee(employee: Employee) {
     this.currentEmployee = employee;
@@ -122,4 +126,9 @@ enum CurrencyTypeE {
   "$" = 2,
   "€" = 3,
   "£" = 4,
+}
+
+enum EnumIsDeleted {
+  'No' = 0,
+  'Yes' = 1,
 }

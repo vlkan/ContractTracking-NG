@@ -16,6 +16,7 @@
       <th>Email</th>
       <th>Job Title</th>
       <th>Start Date</th>
+      <th>Is Deleted?</th>
       <th></th>
     </tr>
   </thead>
@@ -24,13 +25,14 @@
     <td>{{employee.email}}</td>
     <td>{{employee.jobTitle}}</td>
     <td>{{employee.startDate | date}}</td>
+    <td [ngStyle]="{'background-color': employee.isDeleted? '#E64848' : ''}"[class]="getIsDeletedEnum(employee.isDeleted)">{{ isDelete }}</td>
     <td>
       <button type="button" class="btn btn-outline-success" (click)="setCurrentEmployee(employee)"
         data-bs-toggle="modal" data-bs-target="#updateEmployeeModal">
         Edit
       </button>
       <button type="button" class="btn btn-outline-danger" (click)="setCurrentEmployee(employee)"
-        (click)="deleteEmployee(employee)">
+        (click)="deleteEmployee(employee, employee.id)">
         Delete
       </button>
     </td>

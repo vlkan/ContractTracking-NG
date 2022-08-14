@@ -51,12 +51,15 @@
             <p class="card-text" *ngIf="currentCustomer" [class]="getCustomerTypeEnum(currentCustomer.type)">
               {{ customerType }}
             </p>
+            <p class="card-text" *ngIf="currentCustomer" [class]="getIsDeletedEnum(currentCustomer.isDeleted)">
+             Is Deleted? {{ isDelete }}
+            </p>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCustomerModal">Edit</button>
-        <button type="button" class="btn btn-danger" (click)="deleteCustomer(currentCustomer)">
+        <button type="button" class="btn btn-danger" (click)="deleteCustomer(currentCustomer, currentCustomer.id)">
           Delete
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

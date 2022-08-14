@@ -24,6 +24,7 @@ export class InvoiceComponent implements OnInit {
   dataLoaded = false;
   filterText = '';
   tempprojects: Project[] = []
+  isDelete: string;
 
   currencyType: number
   currencyTypeNew: string
@@ -81,6 +82,9 @@ export class InvoiceComponent implements OnInit {
     this.currencyTypeNew = CurrencyTypeE[type];
     return this.currencyTypeNew
   }
+  getIsDeletedEnum(type: number) {
+    this.isDelete = EnumIsDeleted[type];
+  }
   getCurrencyTypeSelect(){
 
   }
@@ -135,16 +139,13 @@ export class InvoiceComponent implements OnInit {
     })
     this.tempprojects.pop()
   }
-  deleteInvoice(invoice: number, project: string, feepaid: number){
+  deleteInvoice(invoice: InvoiceDTO, id: number){
     if(confirm("Are you sure to delete?")) {
-      this.invoicedelete.id=invoice
-      this.invoiceService.deleteInvoice(this.invoicedelete).subscribe(response => {
+      this.invoiceService.softDeleteInvoice(id).subscribe(response => {
         this.toastrService.success(response.message)
-        this.updateRemainingBudgetBack(project, feepaid)
-      })
-      setTimeout(()=>{
+        this.updateRemainingBudgetBack(invoice.projectName, invoice.feePaid)
         this.ngOnInit()
-      },200)
+      })
     }
   }
   createInvoiceAddForm(){
@@ -166,3 +167,9 @@ enum CurrencyTypeE {
   "€" = 3,
   "£" = 4,
 }
+
+enum EnumIsDeleted {
+  'No' = 0,
+  'Yes' = 1,
+}
+

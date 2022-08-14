@@ -34,7 +34,7 @@ export class ProjectService {
     return this.httpClient.post<ResponseModel>(newApi, project)
   }
   softDeleteProject(id: number):Observable<ResponseModel>{
-    let newApi = this.apiUrl + "/projects/deletebyid"
+    let newApi = this.apiUrl + "/projects/deletebyid?id=" + id
     return this.httpClient.post<ResponseModel>(newApi, id)
   }
   addProject(project: Project):Observable<ResponseModel>{

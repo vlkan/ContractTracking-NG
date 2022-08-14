@@ -19,6 +19,7 @@
       <th>Description</th>
       <th>Type</th>
       <th>Phone</th>
+      <th>Is Deleted?</th>
       <th></th>
       <th></th>
     </tr>
@@ -29,13 +30,14 @@
     <td>{{ customer.description }}</td>
     <td [class]="getCustomerTypeEnum(customer.type)">{{ customerType }}</td>
     <td>{{ customer.phone }}</td>
+    <td [ngStyle]="{'background-color': customer.isDeleted? '#E64848' : ''}"[class]="getIsDeletedEnum(customer.isDeleted)">{{ isDelete }}</td>
     <td>
       <button type="button" (click)="setCurrentCustomer(customer)" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateCustomerModal">
         Edit
       </button>
     </td>
     <td>
-      <button type="button" (click)="setCurrentCustomer(customer)" class="btn btn-outline-danger" (click)="deleteCustomer(currentCustomer)">
+      <button type="button" (click)="setCurrentCustomer(customer)" class="btn btn-outline-danger" (click)="deleteCustomer(currentCustomer, currentCustomer.id)">
         Delete
       </button>
     </td>

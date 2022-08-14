@@ -27,6 +27,7 @@
           <th>Fee Paid</th>
           <th>Description</th>
           <th>Payment Date</th>
+          <th>Is Deleted?</th>
           <th></th>
         </tr>
       </thead>
@@ -36,8 +37,10 @@
         <td [class]="setCurrencyType(invoice.projectName)">{{ invoice.feePaid }} {{getCurrencyTypeEnum(currencyType)}}</td>
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.createdAt | date }}</td>
+        <td [ngStyle]="{'background-color': invoice.isDeleted? '#E64848' : ''}"[class]="getIsDeletedEnum(invoice.isDeleted)">{{ isDelete }}</td>
         <td>
-          <button class="btn btn-outline-danger" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice.id, currentInvoice.projectName, currentInvoice.feePaid)">
+          <!-- currentInvoice.id, currentInvoice.projectName, currentInvoice.feePaid -->
+          <button class="btn btn-outline-danger" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice, currentInvoice.id)">
             Delete
           </button>
         </td>
