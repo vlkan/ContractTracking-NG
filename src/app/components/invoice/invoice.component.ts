@@ -45,8 +45,8 @@ export class InvoiceComponent implements OnInit {
     this.getProjects()
     this.createInvoiceAddForm()
     this.activatedRoute.params.subscribe((params) => {
-      if (params['employeeId']) {
-        this.getInvoicesByEmployee(params['employeeId']);
+      if (params['start'] && params['end']) {
+        this.getInvoiceDateRange(params['start'], params['end']);
       } else {
         this.getInvoices()
       }
@@ -66,6 +66,12 @@ export class InvoiceComponent implements OnInit {
         this.invoices = response.data;
         this.dataLoaded = true;
       });
+  }
+  getInvoiceDateRange(start: Date, end: Date){
+    this.invoiceService.getInvoiceDateRange(start, end).subscribe((response) => {
+      this.invoicedetails = response.data;
+      this.dataLoaded = true;
+    })
   }
   getProjects(){
     this.projectService.getProjects().subscribe((response) => {

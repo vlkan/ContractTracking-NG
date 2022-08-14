@@ -25,6 +25,10 @@ export class InvoiceService {
     let newPath = this.apiUrl + "/invoicing/getdetails"
     return this.httpClient.get<ListResponseModel<InvoiceDTO>>(newPath);
   }
+  getInvoiceDateRange(start: Date, end: Date): Observable<ListResponseModel<InvoiceDTO>>{
+    let newPath = this.apiUrl + "/invoicing/search?start=" + start + "&end=" + end
+    return this.httpClient.get<ListResponseModel<InvoiceDTO>>(newPath);
+  }
   deleteInvoice(invoice: Invoice):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/invoicing/delete"
     return this.httpClient.post<ResponseModel>(newApi, invoice)

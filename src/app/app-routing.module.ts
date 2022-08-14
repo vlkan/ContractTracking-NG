@@ -18,7 +18,7 @@ const routes: Routes = [
   // {path: "payments", component: PaymentComponent },
   // {path: "payments/employee/:employeeId", component:PaymentComponent},
   {path: "invoices", component: InvoiceComponent },
-  {path: "invoices/employee/:employeeId", component:InvoiceComponent},
+  {path: "invoices/search/:start/:end", component:InvoiceComponent},
   {path: "worklists", component: WorklistCalendarComponent },
   {path: "employees", component: EmployeeComponent },
   {path: "notifications", component: NotificationComponent },

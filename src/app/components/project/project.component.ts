@@ -59,7 +59,6 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['customerId']) {
-        this.whichCustomer = <number>params['customerId']
         this.getProjectDetailsByCustomerId(params['customerId']);
         console.log(this.whichCustomer)
       } else {
