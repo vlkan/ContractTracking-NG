@@ -3,6 +3,7 @@ export interface Invoice{
   projectId:number,
   feePaid:number,
   description:string,
+  transactionDate:Date,
   isDeleted:EnumIsDeleted,
   createdAt:Date,
   modifiedAt:Date,

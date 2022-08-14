@@ -11,8 +11,20 @@
     <div class="d-flex" role="search">
       <label for="filterText" class="form-label"></label>
       <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Start Date:</label>
+        <input type="date" id="birthday" name="birthday" [ngModel]="startVal" (ngModelChange)="startVal = $event">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">End Date:</label>
+        <input type="date" id="birthday" name="birthday" [ngModel]="endVal" (ngModelChange)="endVal = $event">
+      </div>
+      <button type="button" class="btn btn-dark btn-sm" routerLink="/invoices/search/{{ startVal }}/{{ endVal }}">
+        Search
+      </button>
       <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addInvoiceModal">Add
-        Invoice</button>
+        Invoice
+      </button>
     </div>
 
     <div *ngIf="filterText" class="alert alert-primary">
@@ -26,7 +38,8 @@
           <th>Project</th>
           <th>Fee Paid</th>
           <th>Description</th>
-          <th>Payment Date</th>
+          <th>Transaction Date</th>
+          <th>Created Date</th>
           <th>Is Deleted?</th>
           <th></th>
         </tr>
@@ -36,6 +49,7 @@
         <td>{{ invoice.projectName }}</td>
         <td [class]="setCurrencyType(invoice.projectName)">{{ invoice.feePaid }} {{getCurrencyTypeEnum(currencyType)}}</td>
         <td>{{ invoice.description }}</td>
+        <td>{{ invoice.transactionDate | date }}</td>
         <td>{{ invoice.createdAt | date }}</td>
         <td [ngStyle]="{'background-color': invoice.isDeleted? '#E64848' : ''}"[class]="getIsDeletedEnum(invoice.isDeleted)">{{ isDelete }}</td>
         <td>
@@ -72,6 +86,10 @@
           <div class="mb-3">
             <label for="validationCustom03" class="form-label">Description</label>
             <textarea class="form-control" id="validationCustom03" rows="3" formControlName="description" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Transaction Date:</label>
+            <input type="date" id="birthday" name="birthday" formControlName="transactionDate">
           </div>
         </form>
       </div>

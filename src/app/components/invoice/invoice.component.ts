@@ -18,13 +18,16 @@ declare var $ : any;
 export class InvoiceComponent implements OnInit {
   invoices: Invoice[] = []
   invoicedetails: InvoiceDTO[] = []
-  invoicedelete: Invoice = {id:0, projectId:0, feePaid:0, description:"", isDeleted:0, createdAt:new Date, modifiedAt:new Date}
+  //invoicedelete: Invoice = {id:0, projectId:0, feePaid:0, description:"", isDeleted:0, createdAt:new Date, modifiedAt:new Date}
   projects: Project[] = []
   currentInvoice: InvoiceDTO;
   dataLoaded = false;
   filterText = '';
   tempprojects: Project[] = []
   isDelete: string;
+
+  startVal: Date;
+  endVal: Date;
 
   currencyType: number
   currencyTypeNew: string
@@ -160,6 +163,7 @@ export class InvoiceComponent implements OnInit {
       projectId:[,Validators.required],
       feePaid:[,Validators.required],
       description:[,Validators.required],
+      transactionDate:[,Validators.required],
       isDeleted:[0],
       createdAt:[new Date,],
       modifiedAt:[new Date,]
