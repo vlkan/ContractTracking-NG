@@ -41,7 +41,7 @@ export class InvoiceComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getInvoices()
+    //this.getInvoices()
     this.getProjects()
     this.createInvoiceAddForm()
     this.activatedRoute.params.subscribe((params) => {
