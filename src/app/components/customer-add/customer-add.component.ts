@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
+
+declare var $ : any;
 
 @Component({
   selector: 'app-customer-add',
@@ -16,10 +19,14 @@ export class CustomerAddComponent implements OnInit {
   isDelete: string;
   customerAddForm: FormGroup
 
-  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder) { }
+  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder, private activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     this.createCustomerAddForm();
+  }
+
+  closeModal() {
+    this.activeModal.close('Modal Closed');
   }
 
   addCustomer() {

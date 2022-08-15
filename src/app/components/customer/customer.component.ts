@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CustomerAddComponent } from '../customer-add/customer-add.component';
 
 declare var $ : any;
 
@@ -20,11 +22,22 @@ export class CustomerComponent implements OnInit {
   customerAddForm: FormGroup
   customerUpdateForm: FormGroup
 
-  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder) {}
+
+  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder, public modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.getCustomers();
     this.createCustomerAddForm();
+  }
+
+  openModal() {
+    //ModalComponent is component name where modal is declare
+    const modalRef = this.modalService.open(CustomerAddComponent);
+    modalRef.result.then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   getCustomers() {
@@ -128,3 +141,4 @@ enum EnumIsDeleted {
   'No' = 0,
   'Yes' = 1,
 }
+
