@@ -15,6 +15,7 @@ import { WorklistCalendarComponent } from './components/worklist-calendar/workli
 const routes: Routes = [
   {path: "", pathMatch:"full", component:ProjectComponent},
   {path: "projects", component:ProjectComponent},
+  {path: "projects/search/:text", component:ProjectComponent},
   {path: "projects/customer/:customerId", component:ProjectComponent},
   // {path: "payments", component: PaymentComponent },
   // {path: "payments/employee/:employeeId", component:PaymentComponent},
@@ -22,8 +23,10 @@ const routes: Routes = [
   {path: "invoices/search/:start/:end", component:InvoiceComponent},
   {path: "worklists", component: WorklistCalendarComponent },
   {path: "employees", component: EmployeeComponent },
+  {path: "employees/search/:name", component: EmployeeComponent },
   {path: "notifications", component: NotificationComponent },
   {path: "customers", component: CustomerDetailComponent },
+  {path: "customers/search/:name", component: CustomerDetailComponent },
   //{path: "customer-add", component: CustomerAddComponent },
   {path: "budgets", component: BudgetComponent },
 ];
