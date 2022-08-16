@@ -29,6 +29,10 @@ export class ProjectService {
     let newPath = this.apiUrl + "/projects/getbycustomer?customerId=" + customerId
     return this.httpClient.get<ListResponseModel<Project>>(newPath);
   }
+  getProjectsName(name: string): Observable<ListResponseModel<ProjectDTO>>{
+    let newApi = this.apiUrl + "/projects/search/search?name=" + name
+    return this.httpClient.get<ListResponseModel<ProjectDTO>>(newApi);
+  }
   deleteProject(project: Project):Observable<ResponseModel>{
     let newApi = this.apiUrl + "/projects/delete"
     return this.httpClient.post<ResponseModel>(newApi, project)
