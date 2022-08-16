@@ -2,7 +2,10 @@
 
 <div class="d-flex" role="search">
   <label for="filterText" class="form-label"></label>
-  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+  <input type="text" [ngModel]="searchName" (ngModelChange)="searchName = $event" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+  <button type="button" class="btn btn-dark btn-sm" routerLink="/employees/search/{{ searchName }}">
+    Search
+  </button>
 </div>
 
 <div *ngIf="filterText" class="alert alert-primary">
@@ -20,7 +23,7 @@
       <th></th>
     </tr>
   </thead>
-  <tr *ngFor="let employee of employees | employee: filterText " (click)="setCurrentEmployee(employee)">
+  <tr *ngFor="let employee of employees" (click)="setCurrentEmployee(employee)">
     <td>{{employee.name}} {{employee.surname}}</td>
     <td>{{employee.email}}</td>
     <td>{{employee.jobTitle}}</td>

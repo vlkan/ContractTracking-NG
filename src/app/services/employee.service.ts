@@ -17,7 +17,7 @@ export class EmployeeService {
     return this.httpClient.get<ListResponseModel<Employee>>(newApi);
   }
   getEmployeesName(name: string): Observable<ListResponseModel<Employee>>{
-    let newApi = this.apiUrl + "/employees/search/search?name=" + name
+    let newApi = this.apiUrl + "/employees/search?name=" + name
     return this.httpClient.get<ListResponseModel<Employee>>(newApi);
   }
   deleteEmployee(employee: Employee):Observable<ResponseModel>{

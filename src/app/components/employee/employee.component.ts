@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/models/employee';
 import { Project } from 'src/app/models/project';
@@ -19,18 +20,38 @@ export class EmployeeComponent implements OnInit {
   currentEmployee: Employee
   filterText = '';
   isDelete: string;
+  searchName: string;
 
   employeeAddForm: FormGroup
   employeeUpdateForm: FormGroup
-  constructor(private employeeService: EmployeeService, private toastrService: ToastrService, private formBuilder:FormBuilder, private projectService: ProjectService) { }
+  constructor(private employeeService: EmployeeService,
+     private toastrService: ToastrService,
+      private formBuilder:FormBuilder,
+       private projectService: ProjectService,
+       private activatedRoute: ActivatedRoute
+       ) { }
 
   ngOnInit(): void {
-    this.getEmployees()
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['searchName']) {
+        this.getEmployeesByName(params['searchName']);
+      } else {
+        this.getEmployees()
+      }
+    });
+
     this.createEmployeeAddForm()
   }
 
   getEmployees() {
     this.employeeService.getEmployees().subscribe((response) => {
+      this.employees = response.data;
+      console.log(response);
+    });
+  }
+
+  getEmployeesByName(name: string) {
+    this.employeeService.getEmployeesName(name).subscribe((response) => {
       this.employees = response.data;
       console.log(response);
     });

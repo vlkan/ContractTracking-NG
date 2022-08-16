@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -17,18 +18,34 @@ export class CustomerDetailComponent implements OnInit {
   customerType: string;
   filterText = '';
   isDelete: string;
+  searchName: string;
 
   customerAddForm: FormGroup
   customerUpdateForm: FormGroup
 
-  constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder) { }
+  constructor(private customerService: CustomerService,
+     private toastrService: ToastrService,
+      private formBuilder:FormBuilder,
+       private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getCustomers();
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['searchName']) {
+        this.getCustomersByName(params['searchName']);
+      } else {
+        this.getCustomers()
+      }
+    });
     this.createCustomerAddForm();
   }
   getCustomers() {
     this.customerService.getCustomers().subscribe((response) => {
+      this.customers = response.data;
+      console.log(response);
+    });
+  }
+  getCustomersByName(name: string){
+    this.customerService.getCustomersByName(name).subscribe((response) => {
       this.customers = response.data;
       console.log(response);
     });

@@ -2,7 +2,10 @@
 
 <div class="d-flex" role="search">
   <label for="filterText" class="form-label"></label>
-  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+  <input type="text" [ngModel]="searchName" (ngModelChange)="searchName = $event" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+  <button type="button" class="btn btn-dark btn-sm" routerLink="/customers/search/{{ searchName }}">
+    Search
+  </button>
   <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add
     Customer</button>
 </div>
@@ -24,7 +27,7 @@
       <th></th>
     </tr>
   </thead>
-  <tr *ngFor="let customer of customers | filterCustomer: filterText" (click)="setCurrentCustomer(customer)">
+  <tr *ngFor="let customer of customers" (click)="setCurrentCustomer(customer)">
     <td>{{ customer.name }}</td>
     <td>{{ customer.email }}</td>
     <td>{{ customer.description }}</td>

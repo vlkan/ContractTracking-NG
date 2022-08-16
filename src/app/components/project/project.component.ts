@@ -35,6 +35,7 @@ export class ProjectComponent implements OnInit {
   remainingDays:number;
   endDate:number
   isDelete: string;
+  searchText: string;
 
   remainingContractBudgetval: number;
   remainingWorkerHourval: number;
@@ -61,6 +62,8 @@ export class ProjectComponent implements OnInit {
       if (params['customerId']) {
         this.getProjectDetailsByCustomerId(params['customerId']);
         console.log(this.whichCustomer)
+      }else if (params['searchText']) {
+        this.getProjectsName(params['searchText'])
       } else {
         this.getProjectDetails()
       }
@@ -75,6 +78,14 @@ export class ProjectComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
+
+  getProjectsName(text: string) {
+    this.projectService.getProjectsName(text).subscribe((response) => {
+      this.projectDetailed = response.data;
+      this.dataLoaded = true;
+    });
+  }
+
   getEmployees() {
     this.employeeService.getEmployees().subscribe((response) => {
       this.employees = response.data;
