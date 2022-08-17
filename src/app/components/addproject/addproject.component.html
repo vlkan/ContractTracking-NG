@@ -1,1 +1,72 @@
-<p>addproject works!</p>
+<form [formGroup]="projectAddForm">
+  <div class="form-group">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Project Name</label>
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name" />
+    </div>
+    <div class="mb-3"> Project Type
+      <select class="form-select" aria-label="Default select example" id="type" formControlName="type">
+        <option selected [ngValue]=1>System</option>
+        <option [ngValue]=2>Software</option>
+        <option [ngValue]=3>System and Software</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Sub Type</label>
+      <input type="email" class="form-control" id="email" formControlName="subType" placeholder="Sub Type" />
+    </div>
+    <div class="mb-3"> Employee Owner
+      <select class="form-select" aria-label="Default select example" id="type"
+        formControlName="employeeOwnerId">
+        <option selected *ngFor="let employee of employees" [ngValue]=employee.id>{{employee.name}}
+          {{employee.surname}}</option>
+      </select>
+    </div>
+    <div class="mb-3"> Customer Owner
+      <select class="form-select" aria-label="Default select example" id="type"
+        formControlName="customerOwnerId">
+        <option selected *ngFor="let customer of customers" [ngValue]=customer.id>{{customer.name}}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+      <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Contract Budget</label>
+      <input type="text" class="form-control" id="name" formControlName="contractBudget" placeholder="Budget" [ngModel]="remainingContractBudgetval" (ngModelChange)="remainingContractBudgetval = $event"/>
+      <input type="hidden" class="form-control" id="custId" name="custId" formControlName="remainingContractBudget" [ngModel]="remainingContractBudgetval"/>
+    </div>
+    <div class="mb-3"> Currency Type
+      <select class="form-select" aria-label="Default select example" id="type" formControlName="currencyType">
+        <option selected [ngValue]=1>₺</option>
+        <option [ngValue]=2>$</option>
+        <option [ngValue]=3>€</option>
+        <option [ngValue]=4>£</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Contract Term</label>
+      <input type="text" class="form-control" id="name" formControlName="contractTerm" placeholder="" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Constract Start Date:</label>
+      <input type="date" id="birthday" name="birthday" formControlName="contractStartDate">
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Worker/Day</label>
+      <input type="text" class="form-control" id="name" formControlName="workerDay" placeholder="" [ngModel]="remainingWorkerHourval" (ngModelChange)="remainingWorkerHourval = $event" />
+      <input type="hidden" class="form-control" id="custId" name="custId" formControlName="remainingWorkerHour" [ngModel]="remainingWorkerHourval"/>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Worker/Hour</label>
+      <input type="text" class="form-control" id="name" formControlName="workerHour" placeholder="" />
+    </div>
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-success btn-sm" type="button" (click)="addProject()">
+        Add Project
+      </button>
+    </div>
+  </div>
+</form>

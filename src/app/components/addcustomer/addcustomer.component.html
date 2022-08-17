@@ -1,1 +1,31 @@
-<p>addcustomer works!</p>
+<form [formGroup]="customerAddForm">
+  <div class="form-group">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Customer Email Address</label>
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Customer Phone Number</label>
+      <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="0312" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+      <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+    </div>
+    <div class="mb-3"> Customer Type
+      <select class="form-select" aria-label="Default select example" id="type" formControlName="type">
+        <option selected [ngValue]=1>Individual</option>
+        <option [ngValue]=2>Corporate</option>
+      </select>
+    </div>
+    <div class="d-grid gap-2">
+      <button class="btn btn-success btn-sm" type="button" (click)="addCustomer()">
+        Add Customer
+      </button>
+    </div>
+  </div>
+</form>
