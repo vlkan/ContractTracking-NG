@@ -8,10 +8,8 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { ProjectComponent } from './components/project/project.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { PaymentComponent } from './components/payment/payment.component';
 import { NaviComponent } from './components/navi/navi.component';
 import { WorklistCalendarComponent } from './components/worklist-calendar/worklist-calendar.component';
-import { WorklistListComponent } from './components/worklist-list/worklist-list.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { VatAddedPipe } from './pipes/vat-added.pipe';
@@ -42,7 +40,6 @@ import { BudgetComponent } from './components/budget/budget.component';
 import { BudgetPipe } from './pipes/budget.pipe';
 import { ProjectPipe } from './pipes/project.pipe';
 import { EmployeePipe } from './pipes/employee.pipe';
-import { CustomerAddComponent } from './components/customer-add/customer-add.component';
 import { AddcpComponent } from './components/addcp/addcp.component';
 import { AddcustomerComponent } from './components/addcustomer/addcustomer.component';
 import { AddprojectComponent } from './components/addproject/addproject.component';
@@ -61,13 +58,11 @@ FullCalendarModule.registerPlugins([
     EmployeeComponent,
     ProjectComponent,
     NotificationComponent,
-    PaymentComponent,
     NaviComponent,
     VatAddedPipe,
     FilterPipePipe,
     FilterPaymentPipe,
     WorklistCalendarComponent,
-    WorklistListComponent,
     InvoiceComponent,
     FilterInvoicePipe,
     CustomerDetailComponent,
@@ -76,7 +71,6 @@ FullCalendarModule.registerPlugins([
     BudgetPipe,
     ProjectPipe,
     EmployeePipe,
-    CustomerAddComponent,
     AddcpComponent,
     AddcustomerComponent,
     AddprojectComponent,

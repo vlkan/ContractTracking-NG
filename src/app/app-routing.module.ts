@@ -4,13 +4,11 @@ import { AddcpComponent } from './components/addcp/addcp.component';
 import { AddcustomerComponent } from './components/addcustomer/addcustomer.component';
 import { AddprojectComponent } from './components/addproject/addproject.component';
 import { BudgetComponent } from './components/budget/budget.component';
-import { CustomerAddComponent } from './components/customer-add/customer-add.component';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { PaymentComponent } from './components/payment/payment.component';
 import { ProjectComponent } from './components/project/project.component';
 import { WorklistCalendarComponent } from './components/worklist-calendar/worklist-calendar.component';
 
