@@ -35,12 +35,12 @@
     <td>{{ customer.phone }}</td>
     <td [ngStyle]="{'background-color': customer.isDeleted? '#E64848' : ''}" [class]="getIsDeletedEnum(customer.isDeleted)">{{ isDelete }}</td>
     <td>
-      <button type="button" (click)="setCurrentCustomer(customer)" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateCustomerModal">
+      <button [disabled]="customer.isDeleted? '#disabled' : '' " type="button" (click)="setCurrentCustomer(customer)" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateCustomerModal">
         Edit
       </button>
     </td>
     <td>
-      <button type="button" (click)="setCurrentCustomer(customer)" class="btn btn-outline-danger" (click)="deleteCustomer(currentCustomer, currentCustomer.id)">
+      <button [disabled]="customer.isDeleted? '#disabled' : '' " type="button" (click)="setCurrentCustomer(customer)" class="btn btn-outline-danger" (click)="deleteCustomer(currentCustomer, currentCustomer.id)">
         Delete
       </button>
     </td>

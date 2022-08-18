@@ -44,7 +44,7 @@
         <td>{{ project.remainingWorkerHour}}</td>
         <!-- <td [class]="calculateRemainingDays(project.contractStartDate, project.contractTerm)">{{ remainingDays }} days</td> -->
         <td>
-          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateProjectModal">
+          <button [disabled]="project.isDeleted? '#disabled' : '' " type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateProjectModal">
             Edit
           </button>
         </td>
@@ -119,7 +119,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="deleteProject(currentProject.id)">
+          <button *ngIf="currentProject" [disabled]="currentProject.isDeleted? '#disabled' : '' " type="button" class="btn btn-danger" (click)="deleteProject(currentProject.id)">
             Delete
           </button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

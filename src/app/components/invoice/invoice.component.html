@@ -54,7 +54,7 @@
         <td [ngStyle]="{'background-color': invoice.isDeleted? '#E64848' : ''}"[class]="getIsDeletedEnum(invoice.isDeleted)">{{ isDelete }}</td>
         <td>
           <!-- currentInvoice.id, currentInvoice.projectName, currentInvoice.feePaid -->
-          <button class="btn btn-outline-danger" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice, currentInvoice.id)">
+          <button [disabled]="invoice.isDeleted? '#disabled' : '' " class="btn btn-outline-danger" (click)="setCurrentInvoice(invoice)" (click)="deleteInvoice(currentInvoice, currentInvoice.id)">
             Delete
           </button>
         </td>
