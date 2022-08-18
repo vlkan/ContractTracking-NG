@@ -59,7 +59,6 @@ export class InvoiceComponent implements OnInit {
     this.invoiceService.getInvoiceDetails().subscribe((response) => {
       this.invoicedetails = response.data;
       this.dataLoaded = true;
-      console.log(response)
     });
   }
   getInvoicesByEmployee(employeeId: number) {
@@ -84,8 +83,6 @@ export class InvoiceComponent implements OnInit {
   }
   setCurrentInvoice(invoice: InvoiceDTO) {
     this.currentInvoice = invoice;
-    console.log(invoice);
-    //this.createProjectUpdateForm();
   }
   getCurrencyTypeEnum(type: number) {
     this.currencyTypeNew = CurrencyTypeE[type];
@@ -124,11 +121,9 @@ export class InvoiceComponent implements OnInit {
   updateRemainingBudget(projectId: number, feePaid: number){
     for (let i = 0; i < this.projects.length; i++) {
       if (this.projects[i]["id"] == projectId) {
-        console.log(this.projects[i]["remainingContractBudget"])
         this.tempprojects.push(this.projects[i])
       }
     }
-
     this.tempprojects[0].remainingContractBudget = (this.tempprojects[0].remainingContractBudget) - feePaid
     this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
       this.toastrService.success(response.message)
@@ -138,7 +133,6 @@ export class InvoiceComponent implements OnInit {
   updateRemainingBudgetBack(projectName: string, feePaid: number){
     for (let i = 0; i < this.projects.length; i++) {
       if (this.projects[i]["name"] == projectName) {
-        console.log(this.projects[i]["remainingContractBudget"])
         this.tempprojects.push(this.projects[i])
       }
     }

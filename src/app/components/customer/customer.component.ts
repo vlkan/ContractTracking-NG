@@ -21,7 +21,6 @@ export class CustomerComponent implements OnInit {
   customerAddForm: FormGroup
   customerUpdateForm: FormGroup
 
-
   constructor(private customerService: CustomerService, private toastrService: ToastrService, private formBuilder:FormBuilder, public modalService: NgbModal) {}
 
   ngOnInit(): void {
@@ -32,11 +31,9 @@ export class CustomerComponent implements OnInit {
   getCustomers() {
     this.customerService.getCustomers().subscribe((response) => {
       this.customers = response.data;
-      console.log(response);
     });
   }
   addCustomer() {
-    console.log(this.customerAddForm.value)
     if(this.customerAddForm.valid){
       let customerModel = Object.assign({}, this.customerAddForm.value)
       this.customerService.addCustomer(customerModel).subscribe(response => {
@@ -49,7 +46,6 @@ export class CustomerComponent implements OnInit {
     }
   }
   updateCustomer(){
-    console.log(this.customerUpdateForm.value)
     if(this.customerUpdateForm.valid){
       let customerModel = Object.assign({}, this.customerUpdateForm.value)
       this.customerService.updateCustomer(customerModel).subscribe(response => {

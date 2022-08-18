@@ -100,7 +100,6 @@ export class BudgetComponent implements OnInit {
     });
   }
   addProject() {
-    console.log(this.projectAddForm.value)
     if(this.projectAddForm.valid){
       let projectModel = Object.assign({}, this.projectAddForm.value)
       this.projectService.addProject(projectModel).subscribe(response => {
@@ -113,7 +112,6 @@ export class BudgetComponent implements OnInit {
     }
   }
   updateProject() {
-    console.log(this.projectUpdateForm.value)
     if(this.projectUpdateForm.valid){
       let projectModel = Object.assign({}, this.projectUpdateForm.value)
       this.projectService.updateProject(projectModel).subscribe(response => {
@@ -138,7 +136,6 @@ export class BudgetComponent implements OnInit {
   }
   setCurrentProject(project: ProjectDTO) {
     this.currentProject = project;
-    console.log(project);
     // this.createProjectUpdateForm();
     // this.createProjectDeleteForm();
   }

@@ -61,7 +61,6 @@ export class ProjectComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       if (params['customerId']) {
         this.getProjectDetailsByCustomerId(params['customerId']);
-        console.log(this.whichCustomer)
       }else if (params['searchText']) {
         this.getProjectsName(params['searchText'])
       } else {
@@ -110,7 +109,6 @@ export class ProjectComponent implements OnInit {
     .subscribe((response) => {
       this.projectDetailed = response.data;
       this.dataLoaded = true;
-      console.log(response)
     });
   }
   addProject() {
@@ -127,7 +125,6 @@ export class ProjectComponent implements OnInit {
     }
   }
   updateProject() {
-    console.log(this.projectUpdateForm.value)
     if(this.projectUpdateForm.valid){
       let projectModel = Object.assign({}, this.projectUpdateForm.value)
       this.projectService.updateProject(projectModel).subscribe(response => {
@@ -150,7 +147,6 @@ export class ProjectComponent implements OnInit {
   }
   setCurrentProject(project: ProjectDTO) {
     this.currentProject = project;
-    console.log(project);
     this.createProjectUpdateForm();
   }
   calculateRemainingDays(start:Date, term:number){

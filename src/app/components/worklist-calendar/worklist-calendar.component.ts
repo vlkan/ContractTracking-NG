@@ -63,7 +63,6 @@ export class WorklistCalendarComponent implements OnInit {
     this.getUpdateProjects()
     // console.log(typeof(INITIAL_EVENTS)==typeof(convList))
     // console.log(INITIAL_EVENTS === convList)
-    console.log(this.Events)
     setTimeout(() => {
       this.calendarOptions = {
         events: this.Events,
@@ -117,20 +116,11 @@ export class WorklistCalendarComponent implements OnInit {
   getWorkLists() {
     this.workListService.getWorkLists().subscribe((response) => {
       this.worklists = response.data;
-      //console.log(response);
-      // this.worklists.forEach(element => {
-      //   this.Events.push({
-      //     id: String(element.id),
-      //     title: element.employeeId,
-      //     start: new Date(element.workingDate)
-      //   })
-      // })
     });
   }
   getWorkListDetails() {
     this.workListService.getWorkListDetails().subscribe((response) => {
       this.worklistsDetailed = response.data;
-      console.log(response);
       this.worklistsDetailed.forEach(element => {
         this.Events.push({
           id: String(element.id),
@@ -146,13 +136,11 @@ export class WorklistCalendarComponent implements OnInit {
   getEmployees() {
     this.employeeService.getEmployees().subscribe((response) => {
       this.employees = response.data;
-      console.log(response);
     });
   }
   getProjects() {
     this.projectService.getProjects().subscribe((response) => {
       this.projects = response.data;
-      console.log(response);
     });
   }
   setCurrentWorkList(){
@@ -163,7 +151,6 @@ export class WorklistCalendarComponent implements OnInit {
       let workListModel = Object.assign({}, this.workAddForm.value)
       this.workListService.addWorkList(workListModel).subscribe(response => {
         this.toastrService.success(response.message, "Success")
-        console.log(workListModel.projectId)
         this.updateRemainingHours(workListModel.projectId, workListModel.workingHours)
         this.ngOnInit()
       })
@@ -175,17 +162,14 @@ export class WorklistCalendarComponent implements OnInit {
   getUpdateProjects() {
     this.projectService.getProjects().subscribe((response) => {
       this.updateprojects = response.data;
-      console.log(response);
     });
   }
   updateRemainingHours(project: number, workinghours: number) {
     for (let i = 0; i < this.updateprojects.length; i++) {
       if (this.updateprojects[i]["id"] == project) {
-        console.log(this.updateprojects[i]["name"])
         this.tempprojects.push(this.updateprojects[i])
       }
     }
-
     this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingWorkerHour) - (workinghours/8)
     this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
       this.toastrService.success(response.message)
@@ -195,11 +179,9 @@ export class WorklistCalendarComponent implements OnInit {
   updateRemainingHoursBack(project: string, workinghours: number) {
     for (let i = 0; i < this.updateprojects.length; i++) {
       if (this.updateprojects[i]["name"] == project) {
-        console.log(this.updateprojects[i]["name"])
         this.tempprojects.push(this.updateprojects[i])
       }
     }
-
     this.tempprojects[0].remainingWorkerHour = (this.tempprojects[0].remainingWorkerHour) + (workinghours/8)
     this.projectService.updateProject(this.tempprojects[0]).subscribe((response) => {
       this.toastrService.success(response.message)
@@ -209,7 +191,6 @@ export class WorklistCalendarComponent implements OnInit {
   deleteWorkList(worklist: number, project: string, feepaid: number) {
     if(confirm("Are you sure to delete?")) {
       this.worklistdelete.id=worklist
-      console.log(this.worklistdelete.id)
       this.workListService.deleteWorkList(this.worklistdelete).subscribe(response => {
         this.toastrService.success(response.message)
         this.updateRemainingHoursBack(project, feepaid)
@@ -256,27 +237,15 @@ export class WorklistCalendarComponent implements OnInit {
     const date = new Date(selectInfo.start);
     date.setDate(date.getDate() + 1);
     const calendarApi = selectInfo.view.calendar;
-    console.log(selectInfo.start)
 
     this.createWorkAddForm(date)
-
-
-    calendarApi.unselect(); // clear date selection
-    // if (title) {
-    //   calendarApi.addEvent({
-    //     id: createEventId(),
-    //     title,
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     allDay: selectInfo.allDay
-    //   });
-    // }
+    calendarApi.unselect();
   }
+
   handleEventClick(clickInfo: EventClickArg) {
     this.tempworklistsDetailed.pop()
     for (let i = 0; i < this.worklistsDetailed.length; i++) {
       if (this.worklistsDetailed[i]["id"] == (clickInfo.event.id)as unknown) {
-        console.log(this.worklistsDetailed[i]["id"])
         this.tempworklistsDetailed.push(this.worklistsDetailed[i])
       }
     }
@@ -285,7 +254,6 @@ export class WorklistCalendarComponent implements OnInit {
     this.workingHours = this.tempworklistsDetailed[0]["workingHours"]
     this.workingProject = this.tempworklistsDetailed[0]["projectName"]
     this.setCurrentWorkList
-    console.log(this.workerName)
     $('#detailsWork').modal('show');
 
   }

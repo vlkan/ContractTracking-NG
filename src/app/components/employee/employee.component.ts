@@ -46,14 +46,12 @@ export class EmployeeComponent implements OnInit {
   getEmployees() {
     this.employeeService.getEmployees().subscribe((response) => {
       this.employees = response.data;
-      console.log(response);
     });
   }
 
   getEmployeesByName(name: string) {
     this.employeeService.getEmployeesName(name).subscribe((response) => {
       this.employees = response.data;
-      console.log(response);
     });
   }
 
@@ -78,7 +76,6 @@ export class EmployeeComponent implements OnInit {
     }
   }
   updateEmployee(){
-    console.log(this.employeeUpdateForm.value)
     if(this.employeeUpdateForm.valid){
       let employeeModel = Object.assign({}, this.employeeUpdateForm.value)
       this.employeeService.updateEmployee(employeeModel).subscribe(response => {

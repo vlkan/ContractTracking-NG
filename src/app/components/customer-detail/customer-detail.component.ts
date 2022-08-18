@@ -41,17 +41,14 @@ export class CustomerDetailComponent implements OnInit {
   getCustomers() {
     this.customerService.getCustomers().subscribe((response) => {
       this.customers = response.data;
-      console.log(response);
     });
   }
   getCustomersByName(name: string){
     this.customerService.getCustomersByName(name).subscribe((response) => {
       this.customers = response.data;
-      console.log(response);
     });
   }
   addCustomer() {
-    console.log(this.customerAddForm.value)
     if(this.customerAddForm.valid){
       let customerModel = Object.assign({}, this.customerAddForm.value)
       this.customerService.addCustomer(customerModel).subscribe(response => {
@@ -64,7 +61,6 @@ export class CustomerDetailComponent implements OnInit {
     }
   }
   updateCustomer(){
-    console.log(this.customerUpdateForm.value)
     if(this.customerUpdateForm.valid){
       let customerModel = Object.assign({}, this.customerUpdateForm.value)
       this.customerService.updateCustomer(customerModel).subscribe(response => {
