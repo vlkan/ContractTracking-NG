@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { trim } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/models/customer';
 import { Employee } from 'src/app/models/employee';
@@ -31,6 +32,8 @@ export class BudgetComponent implements OnInit {
   remainingDays:number;
   endDate:number
 
+  searchText: string
+
   remainingContractBudgetval: number;
   remainingWorkerHourval: number;
 
@@ -46,13 +49,25 @@ export class BudgetComponent implements OnInit {
     private toastrService:ToastrService) { }
 
   ngOnInit(): void {
-    this.getProjectDetails()
-    // this.createProjectAddForm();
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['searchText']) {{
+          this.getProjectsName(params['searchText'])
+        }
+      } else {
+        this.getProjectDetails()
+      }
+    });
     this.getCustomers();
     this.getEmployees()
   }
   getProjects() {
     this.projectService.getProjectDetails().subscribe((response) => {
+      this.projectDetailed = response.data;
+      this.dataLoaded = true;
+    });
+  }
+  getProjectsName(text: string) {
+    this.projectService.getProjectsName(text).subscribe((response) => {
       this.projectDetailed = response.data;
       this.dataLoaded = true;
     });

@@ -2,7 +2,10 @@
 
 <div class="d-flex" role="search">
   <label for="filterText" class="form-label"></label>
-  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+  <input type="text" [ngModel]="searchText" (ngModelChange)="searchText = $event" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Search" />
+  <button type="button" class="btn btn-dark btn-sm" routerLink="/budgets/search/{{ searchText }}">
+    Search
+  </button>
 </div>
 
 <div *ngIf="filterText" class="alert alert-primary">
@@ -18,7 +21,7 @@
       <th>Remaining Budget</th>
     </tr>
   </thead>
-  <tr *ngFor="let project of projectDetailed | budget: filterText" (click)="setCurrentProject(project)">
+  <tr *ngFor="let project of projectDetailed" (click)="setCurrentProject(project)">
     <td>{{ project.customerOwnerName }}</td>
     <td>{{ project.name }}</td>
     <td [class]="getCurrencyTypeEnum(project.type)">{{ project.contractBudget | currency: ' ' }} {{currencyType}}</td>
